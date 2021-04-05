@@ -18,6 +18,7 @@
 
             <div class="col-md-4 pr-0 d-none d-md-block" id="side-1">
                 <div class="card">
+
                     <div class="card-header">
                         <div class="row">
                             <div class="col-1 col-sm-1 col-md-1 d-md-none">
@@ -91,7 +92,9 @@
                             </div>
                         </div>
                     </div>
+
                     <ul class="list-group list-group-flush" id="lstChat"></ul>
+
                 </div>
             </div>
 
@@ -123,12 +126,39 @@
                                             <input type="file" id="imageFile" onchange="SendImage(this);" accept="image/*" style="display:none;" />
                                         </a>
                                         <a href="#" class="dropdown-item">Document</a>
-                                        <a href="#" class="dropdown-item">Camera</a>
-                                        <a href="#" class="dropdown-item">Video</a>
                                     </div>
                                 </span>
 
-                                <i class="fas fa-ellipsis-v ml-4"></i>
+                                <span class="dropdown">
+                                    <span class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v ml-4"></i>
+                                    </span>
+                                    <div class="dropdown-menu">
+                                        <li class='member-menu'>
+                                            <a href="#" class="dropdown-item">
+                                                Theme    
+                                            </a>
+                                            <ul class="list-themen">
+                                                <li class="member-themen red" id="red"  onclick="clickThemenColor('red')"></li>
+                                                <li class="member-themen blue" id="blue" onclick="clickThemenColor('blue')"></li>
+                                                <li class="member-themen green" id="green" onclick="clickThemenColor('green')"></li>
+                                                <li class="member-themen gray" id="gray" onclick="clickThemenColor('gray')"></li>
+                                                <li class="member-themen white" id="white" onclick="clickThemenColor('white')"></li>
+                                                <li class="member-themen black" id="black" onclick="clickThemenColor('black')"></li>
+                                                <li class="member-themen violet" id="violet" onclick="clickThemenColor('violet')"></li>
+                                                <li class="member-themen purple" id="purple" onclick="clickThemenColor('purple')"></li>
+                                                <li class="member-themen yellow" id="yellow" onclick="clickThemenColor('yellow')"></li>
+                                                <li class="member-themen brown" id="brown" onclick="clickThemenColor('brown')"></li>
+                                    
+                                            </ul>
+
+                                        </li>
+                                        
+                                        <li><a href="#" class="dropdown-item">Document</a> </li>   
+                                    </div>
+                                </span>
+
+                                
                             </div>
                         </div>
                     </div>

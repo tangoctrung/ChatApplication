@@ -119,7 +119,7 @@ body {
     } */
 .emoji{
     position: absolute;
-    top: 410px;
+    top: calc(100% - 490px);
     left: 20px;
     box-shadow: 5px 5px 5px rgb(104, 100, 100);
 }
@@ -142,3 +142,81 @@ body {
     font-weight: bold;
     margin-left: -12%;
 }
+
+.member-menu{
+    position: relative;
+}
+.list-themen{
+    display:none;
+    position: absolute;
+    top: 0;
+    width: 150px;
+    max-width: 200px;
+    background-color: rgb(255, 254, 254);
+    box-shadow: -5px 5px 5px rgb(104, 100, 100);
+    border-radius: 5px;
+    list-style: none;
+    right: calc(100%);
+}
+
+
+.member-themen{
+    padding: 0;
+    width: 150px;
+    margin-left: -40px;
+    font-size: 20px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    border: 2px solid rgb(8, 188, 201);
+    height: 50px;
+    text-align: center;
+}
+
+.member-themen:hover{
+    opacity: 0.9;
+}
+
+.dropdown-menu li:hover .list-themen {
+ display: block;
+}
+
+.red{
+  background-color: red;
+}
+
+.blue{
+  background-color: blue;
+}
+
+.green{
+  background-color: green;
+}
+
+.gray{
+  background-color: gray;
+}
+
+.white{
+  background-color: white;
+}
+
+.black{
+  background-color: black;
+}
+
+.violet{
+  background-color: violet;
+}
+
+.purple{
+  background-color: purple;
+}
+
+.yellow{
+  background-color: yellow;
+}
+
+.brown{
+  background-color: brown;
+}
+

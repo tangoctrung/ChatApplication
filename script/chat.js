@@ -632,6 +632,14 @@ function callback(error) {
     }
 }
 
+
+////////////////////////////////////////////////////////////////
+// clickColorThemen
+function clickThemenColor(s) {
+    // document.getElementById('messages').setAttribute('style', 'background-color: red;');
+    document.getElementById('messages').setAttribute('style', `background-color: ${s};`);
+}
+
 /////////
 // Call auth State changed
 
