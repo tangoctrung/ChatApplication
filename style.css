@@ -106,7 +106,7 @@ body {
     display: none !important;
 }
 
-#emoji {
+/* #emoji {
     position: absolute;
     top: -30vh;
     background-color: white;
@@ -116,7 +116,14 @@ body {
 
     #emoji #myTabContent {
         height: 20vh;
-    }
+    } */
+.emoji{
+    position: absolute;
+    top: 410px;
+    left: 20px;
+    box-shadow: 5px 5px 5px rgb(104, 100, 100);
+}
+
 
 #myTabContent a {
     text-decoration: none;

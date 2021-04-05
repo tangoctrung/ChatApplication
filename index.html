@@ -96,8 +96,9 @@
             </div>
 
 
-            <div class="col-md-8 pl-0" id="side-2">
+            <div class="col-md-8 pl-0" id="side-2" style="position: relative">
                 <div id="chatPanel" class="card" style="display:none;">
+
                     <div class="card-header">
                         <div class="row">
                             <div class="col-1 col-sm-1 col-md-1 col-lg-1 d-md-none">
@@ -131,13 +132,15 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="card-body" id="messages">
-
+                       
                     </div>
-
+              
                     <div class="card-footer">
-                        <div class="row" style="position:relative;">
-                            <div class="col-md-12" id="emoji" style="display:none;">
+                        <div class="row width-emoji" style="position:relative;">
+                            <!-- EMOJI -->
+                            <!-- <div class="col-md-12" id="emoji" style="display:none;">
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#smiley" role="tab" aria-controls="home" aria-selected="true">Smiley</a>
@@ -156,7 +159,8 @@
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
                                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
                                 </div>
-                            </div>
+                            </div> -->
+                            
                         </div>
                         <div class="row">
                             <div class="col-2 col-md-1" style="cursor:pointer;">
@@ -171,6 +175,14 @@
                             </div>
                         </div>
                     </div>
+
+                </div>
+
+                <div class="emoji" >
+                    <emoji-picker 
+                    id="emoji" style="display: none;" class="dark"
+                    
+                    ></emoji-picker>
                 </div>
 
                 <div id="divStart" class="text-center">
@@ -194,5 +206,6 @@
     <script src="./js/firebase-messaging.js"></script>
     <script src='./script/firebase.init.js'></script>
     <script src='./script/chat.js'></script> 
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 </body>
 </html>

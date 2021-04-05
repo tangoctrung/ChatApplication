@@ -82,16 +82,16 @@ function record(control) {
 
 /////////////////////////////////////////////////////////////////
 // Emoji
-loadAllEmoji();
+// loadAllEmoji();
 
-function loadAllEmoji() {
-    var emoji = '';
-    for (var i = 128512; i <= 128566; i++) {
-        emoji += `<a href="#" style="font-size: 22px;" onclick="getEmoji(this)">&#${i};</a>`;
-    }
+// function loadAllEmoji() {
+//     var emoji = '';
+//     for (var i = 128512; i <= 128580; i++) {
+//         emoji += `<a href="#" style="font-size: 22px;" onclick="getEmoji(this)">&#${i};</a>`;
+//     }
 
-    document.getElementById('smiley').innerHTML = emoji;
-}
+//     document.getElementById('smiley').innerHTML = emoji;
+// }
 
 function showEmojiPanel() {
     document.getElementById('emoji').removeAttribute('style');
@@ -101,9 +101,19 @@ function hideEmojiPanel() {
     document.getElementById('emoji').setAttribute('style', 'display:none;');
 }
 
-function getEmoji(control) {
-    document.getElementById('txtMessage').value += control.innerHTML;
+function clickEmoji() {
+    document.querySelector('emoji-picker')
+   .addEventListener('emoji-click', event => {
+        document.getElementById('txtMessage').value += event.detail.unicode
+   });
 }
+clickEmoji();
+
+// function getEmoji(control) {
+//     document.getElementById('txtMessage').value += control.innerHTML;
+// }
+
+
 //////////////////////////////////////////////////////////////////////
 function StartChat(friendKey, friendName, friendPhoto) {
     var friendList = { friendId: friendKey, userId: currentUserKey };
