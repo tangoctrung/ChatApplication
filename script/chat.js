@@ -2,6 +2,7 @@ var currentUserKey = '';
 var chatKey = '';
 var friend_id = '';
 
+
 document.addEventListener('keydown', function (key) {
     if (key.which === 13) {
         SendMessage();
@@ -45,17 +46,21 @@ function record(control) {
                             userId: currentUserKey,
                             msg: reader.result,
                             msgType: 'audio',
-                            dateTime: new Date().toLocaleString()
+                            dateTime: new Date().toLocaleString(),
+                            messageId: ''
                         };
 
-                        firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
+                        var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
                             if (error) alert(error);
                             else {
 
                                 document.getElementById('txtMessage').value = '';
                                 document.getElementById('txtMessage').focus();
                             }
-                        });
+                        }).getKey();
+                        firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({ 
+                            messageId: messageKey1
+                        })
                     }, false);
 
                     reader.readAsDataURL(blob);
@@ -165,10 +170,13 @@ function StartChat(friendKey, friendName, friendPhoto) {
 
 function LoadChatMessages(chatKey, friendPhoto) {
     var db = firebase.database().ref('chatMessages').child(chatKey);
+    
     db.on('value', function (chats) {
         var messageDisplay = '';
+        var deleteAllMessages = '';
         chats.forEach(function (data) {
             var chat = data.val();
+            var messageKey = data.val().messageId;
             var dateTime = chat.dateTime.split(",");
             var msg = '';
             if (chat.msgType === 'image') {
@@ -188,17 +196,26 @@ function LoadChatMessages(chatKey, friendPhoto) {
                                         <img src="${friendPhoto}" class="chat-pic rounded-circle" />
                                     </div>
                                     <div class="col-6 col-sm-7 col-md-7">
-                                        <p class="receive">
+                                        <p class="receive">                                           
                                             ${msg}
                                             <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
                                         </p>
                                     </div>
                                 </div>`;
+                deleteAllMessages = `<a href="#" class="dropdown-item"
+                onclick="DeleteMessages('${chatKey}')"              
+                >Delete Messages</a>`; 
             }
             else {
+                
                 messageDisplay += `<div class="row justify-content-end">
                             <div class="col-6 col-sm-7 col-md-7">
-                                <p class="sent float-right">
+                                <p class="sent float-right messageDelete">                                  
+                                    <i class="fa fa-window-close"
+                                    id="DeleteMessageButton"                                  
+                                    style="display: none;"
+                                    onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
+                                    ></i>
                                     ${msg}
                                     <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
                                 </p>
@@ -207,13 +224,37 @@ function LoadChatMessages(chatKey, friendPhoto) {
                                 <img src="${firebase.auth().currentUser.photoURL}" class="chat-pic rounded-circle" />
                             </div>
                         </div>`;
+                deleteAllMessages = `<a href="#" class="dropdown-item"
+                onclick="DeleteMessages('${chatKey}')"              
+                >Delete Messages</a>`; 
             }
         });
 
         document.getElementById('messages').innerHTML = messageDisplay;
         document.getElementById('messages').scrollTo(0, document.getElementById('messages').scrollHeight);
+        document.getElementById('deleteMessages').innerHTML = deleteAllMessages;
     });
 }
+
+
+////////////////////////////////////////////////////////////////
+// DeleteMessageButton: delete a message
+
+function DeleteMessageButton(chatKey, messageKey) {
+    // console.log(123);
+    console.log('chatMessages/' + chatKey + '/' + messageKey);
+    firebase.database().ref('chatMessages/').child(chatKey).child(messageKey).remove();
+}
+
+// Delete Messages : xoa mot cuoc hoi thoai
+
+function DeleteMessages(chatKey) {
+    // console.log('chatMessages/'+ chatKey);
+    document.getElementById('deleteMessages').onclick = function() {
+        firebase.database().ref('chatMessages/').child(chatKey).remove();
+    }
+}
+
 
 function showChatList() {
     document.getElementById('side-1').classList.remove('d-none', 'd-md-block');
@@ -231,10 +272,11 @@ function SendMessage() {
         userId: currentUserKey,
         msg: document.getElementById('txtMessage').value,
         msgType: 'normal',
-        dateTime: new Date().toLocaleString()
+        dateTime: new Date().toLocaleString(),
+        messageId: ''
     };
 
-    firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
+     var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
         if (error) alert(error);
         else {
             firebase.database().ref('fcmTokens').child(friend_id).once('value').then(function (data) {
@@ -247,6 +289,7 @@ function SendMessage() {
                     },
                     data: JSON.stringify({
                         'to': data.val().token_id, 'data': { 'message': chatMessage.msg.substring(0, 30) + '...', 'icon': firebase.auth().currentUser.photoURL }
+                        
                     }),
                     success: function (response) {
                         console.log(response);
@@ -256,10 +299,16 @@ function SendMessage() {
                     }
                 });
             });
+
             document.getElementById('txtMessage').value = '';
             document.getElementById('txtMessage').focus();
         }
-    });
+    }).getKey();
+    // console.log(messageKey1);
+
+    firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({ 
+        messageId: messageKey1
+    })
 }
 
 ///////////////////////////////////////////////////////////////
@@ -282,6 +331,52 @@ function SendImage(event) {
                 userId: currentUserKey,
                 msg: reader.result,
                 msgType: 'image',
+                dateTime: new Date().toLocaleString(),
+                messageId: ''
+            };
+
+            var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
+                if (error) alert(error);
+                else {
+
+                    document.getElementById('txtMessage').value = '';
+                    document.getElementById('txtMessage').focus();
+                }
+            }).getKey();
+
+            firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({ 
+                messageId: messageKey1
+            })
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+}
+
+
+///////////////////////////////////////////////////////////////////
+// Send file 
+function ChooseFile() {
+    document.getElementById('file').click();
+}
+
+function SendFile(event) {
+    var file = event.files[0];
+
+     
+    if (!file.type.match("file.*")) {
+        alert("Please select file only.");
+    }
+    else {
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            var chatMessage = {
+                userId: currentUserKey,
+                msg: reader.result,
+                msgType: 'file',
                 dateTime: new Date().toLocaleString()
             };
 
@@ -300,6 +395,7 @@ function SendImage(event) {
         }
     }
 }
+
 ///////////////////////////////////////////////////////////////////////
 /////////////
 

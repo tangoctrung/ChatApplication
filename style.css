@@ -77,6 +77,14 @@ body {
     display: inline-block;
 }
 
+#send{
+    cursor: pointer;
+}
+
+#audio{
+    cursor: pointer;
+}
+
 .time {
     font-size: 10px;
     color: #9CA1A3;
@@ -219,4 +227,20 @@ body {
 .brown{
   background-color: brown;
 }
+
+
+#DeleteMessageButton{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#DeleteMessageButton:hover{
+    color: red;
+}
+
+.messageDelete:hover #DeleteMessageButton {
+    display: inline-block !important;
+}
+
 

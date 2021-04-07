@@ -125,7 +125,10 @@
                                             Image
                                             <input type="file" id="imageFile" onchange="SendImage(this);" accept="image/*" style="display:none;" />
                                         </a>
-                                        <a href="#" class="dropdown-item">Document</a>
+                                        <a href="#" class="dropdown-item" onclick="ChooseFile()">
+                                            Document
+                                            <input type="file" id="file" onchange="SendFile(this);" accept="image/*" style="display:none;" />
+                                        </a>
                                     </div>
                                 </span>
 
@@ -154,7 +157,7 @@
 
                                         </li>
                                         
-                                        <li><a href="#" class="dropdown-item">Document</a> </li>   
+                                        <li id='deleteMessages'></li>   
                                     </div>
                                 </span>
 
@@ -201,7 +204,9 @@
                             </div>
                             <div class="col-2 col-md-1">
                                 <i style="cursor:pointer;" id="audio" onclick="record(this)" class="fas fa-microphone fa-2x"></i>
-                                <i id="send" class="fa fa-paper-plane fa-2x" style="display:none"></i>
+                                <i id="send" class="fa fa-paper-plane fa-2x" style="display:none;" 
+                                onclick="SendMessage()"
+                                ></i>
                             </div>
                         </div>
                     </div>
