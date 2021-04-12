@@ -1,0 +1,286 @@
+/* Login */
+
+body, html {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Segoe UI', Helvetica Nenu, Helvetica, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-image: linear-gradient(180deg, #dddbd1, #d2dbdc);
+}
+
+:root{
+    --time-Ani: 3;
+}
+
+.login{
+    background-image: linear-gradient(to bottom right, rgba(7, 223, 72, 0.9) , rgba(37, 37, 197, 0.9));
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    
+}
+
+.loginForm{
+    background-color: #fff;
+    width: 350px;
+    height: 600px;
+    border-radius: 40px;
+	background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 17px #333;
+    position: absolute;
+    z-index: 6;
+    
+}
+
+.aniShowLoginForm{
+    animation: opacityShow 5s ease;
+    z-index: 6;
+}
+@keyframes opacityShow{
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+       
+    }
+}
+
+.aniHideLoginForm{
+    animation: opacityHide 5s ease;
+    z-index: 5;
+}
+@keyframes opacityHide{
+    from {
+        opacity: 1;
+    } to {
+        opacity: 0;
+        
+    }
+}
+
+.loginForm .header{
+    text-align: center;
+    /* margin-top: 10px; */
+    
+}
+
+.loginForm .header h3{
+    font-weight: 700;
+    color:rgb(73, 8, 253);
+    font-size: 30px;
+}
+
+.loginForm .header p{
+    font-style: italic;
+    opacity: 0.8;
+    font-size: 15px;
+}
+
+
+.username{
+    
+    position: relative;
+    left: 10%;
+    width: 80%;
+    height: 50px;
+    background-color: #333;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+
+
+.InputUsername{
+    width : 100%;
+    height : 100%;
+    color: #000000;
+    padding-top: 20px;
+    border: none;
+    border-bottom: 2px solid black;
+    /* background-image: linear-gradient(to bottom right, rgba(7, 223, 72, 0.9) , rgba(37, 37, 197, 0.9)); */
+    outline: none;
+    
+}
+
+.LabelUsername{
+    font-size: 15px;
+    position: absolute;
+    bottom: -5px;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    
+}
+
+.content-username{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+
+.username .InputUsername:focus + .LabelUsername .content-username, 
+.username .InputUsername:valid + .LabelUsername .content-username{
+    transform: translateY(-110%);
+    font-size: 15px;
+    color: #8d0b66;
+}
+
+.password{
+    
+    position: relative;
+    left: 10%;
+    width: 80%;
+    height: 50px;
+    background-color: #333;
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+.InputPassword{
+    width : 100%;
+    height : 100%;
+    color: #000000;
+    padding-top: 20px;
+    border: none;
+    border-bottom: 2px solid black;
+    /* background-image: linear-gradient(to bottom right, rgba(7, 223, 72, 0.9) , rgba(37, 37, 197, 0.9)); */
+    outline: none;
+}
+
+.LabelPassword{
+    font-size: 15px;
+    position: absolute;
+    bottom: -5px;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    
+}
+
+.content-password{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+
+.password .InputPassword:focus + .LabelPassword .content-password, 
+.password .InputPassword:valid + .LabelPassword .content-password{
+    transform: translateY(-110%);
+    font-size: 15px;
+    color: #8d0b66;
+}
+
+.iconShowHide{
+    position: relative;
+    
+}
+
+#eyeShow{
+    cursor: pointer;
+    position: absolute;
+    top: calc(0% - 4px);
+    left: 5px;
+}
+
+#eyeHide{
+    cursor: pointer;
+    position: absolute;
+    top: calc(0% - 4px);
+    left: 5px;
+}
+
+.button{
+    text-align: center;
+    margin-top: 70px;
+}
+.ButtonLogin{
+    font-size: 20px;
+    font-weight:500;
+    
+   text-align: center; 
+   padding: 15px 80px;
+   border: none;
+   outline: none;
+   border-radius: 30px;
+   background-image: linear-gradient(to bottom right, rgba(7, 223, 72, 0.9) , rgba(37, 37, 197, 0.9));
+}
+.ButtonLogin:hover{
+    color: #fff;
+}
+
+.LoginWithSocial{
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.LoginWithSocial p{
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.LoginWithSocial .iconFacebook{
+    cursor: pointer;
+    padding: 15px 70px;
+    background-color: rgb(24, 24, 185);
+    color: #fff;
+    margin-right: 15px;
+    border-radius: 10px;
+}
+
+.LoginWithSocial .iconGoogle{
+    cursor: pointer;
+    padding: 15px 70px;
+    background-color: rgb(153, 149, 149);
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+}
+
+.signupForm .footer{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.signupForm .footer span{
+    font-weight: 500;
+}
+
+.signupForm .footer p{
+    cursor: pointer;
+    color: blue;
+    font-weight: 600;
+}
+.signupForm .footer p:hover{
+    color: rgb(206, 19, 206);
+}
+
+.loginForm .footer {
+    
+    text-align: center;
+}
+.loginForm .footer span{
+    font-weight: 500;
+}
+
+.loginForm .footer p{
+    cursor: pointer;
+    color: blue;
+    font-weight: 600;
+}
+.loginForm .footer p:hover{
+    color: rgb(206, 19, 206);
+}

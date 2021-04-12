@@ -1,8 +1,8 @@
 var currentUserKey = '';
 var chatKey = '';
 var friend_id = '';
-
-
+var arrChatKey = [];
+var countChatKey = 0;
 document.addEventListener('keydown', function (key) {
     if (key.which === 13) {
         SendMessage();
@@ -58,7 +58,7 @@ function record(control) {
                                 document.getElementById('txtMessage').focus();
                             }
                         }).getKey();
-                        firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({ 
+                        firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({
                             messageId: messageKey1
                         })
                     }, false);
@@ -108,9 +108,9 @@ function hideEmojiPanel() {
 
 function clickEmoji() {
     document.querySelector('emoji-picker')
-   .addEventListener('emoji-click', event => {
-        document.getElementById('txtMessage').value += event.detail.unicode
-   });
+        .addEventListener('emoji-click', event => {
+            document.getElementById('txtMessage').value += event.detail.unicode
+        });
 }
 clickEmoji();
 
@@ -129,8 +129,8 @@ function StartChat(friendKey, friendName, friendPhoto) {
     db.on('value', function (friends) {
         friends.forEach(function (data) {
             var user = data.val();
-            if ((user.friendId === friendList.friendId && user.userId === friendList.userId) 
-            || ((user.friendId === friendList.userId && user.userId === friendList.friendId))) {
+            if ((user.friendId === friendList.friendId && user.userId === friendList.userId)
+                || ((user.friendId === friendList.userId && user.userId === friendList.friendId))) {
                 flag = true;
                 chatKey = data.key;
             }
@@ -163,14 +163,17 @@ function StartChat(friendKey, friendName, friendPhoto) {
         ////////////////////////////
         // Display The chat messages
         LoadChatMessages(chatKey, friendPhoto);
+
+
     });
 }
 
 //////////////////////////////////////
 
 function LoadChatMessages(chatKey, friendPhoto) {
+
     var db = firebase.database().ref('chatMessages').child(chatKey);
-    
+
     db.on('value', function (chats) {
         var messageDisplay = '';
         var deleteAllMessages = '';
@@ -204,10 +207,10 @@ function LoadChatMessages(chatKey, friendPhoto) {
                                 </div>`;
                 deleteAllMessages = `<a href="#" class="dropdown-item"
                 onclick="DeleteMessages('${chatKey}')"              
-                >Delete Messages</a>`; 
+                >Delete Messages</a>`;
             }
             else {
-                
+
                 messageDisplay += `<div class="row justify-content-end">
                             <div class="col-6 col-sm-7 col-md-7">
                                 <p class="sent float-right messageDelete">                                  
@@ -226,7 +229,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
                         </div>`;
                 deleteAllMessages = `<a href="#" class="dropdown-item"
                 onclick="DeleteMessages('${chatKey}')"              
-                >Delete Messages</a>`; 
+                >Delete Messages</a>`;
             }
         });
 
@@ -241,7 +244,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
 // DeleteMessageButton: delete a message
 
 function DeleteMessageButton(chatKey, messageKey) {
-    // console.log(123);
+    console.log(arrChatKey);
     console.log('chatMessages/' + chatKey + '/' + messageKey);
     firebase.database().ref('chatMessages/').child(chatKey).child(messageKey).remove();
 }
@@ -250,7 +253,7 @@ function DeleteMessageButton(chatKey, messageKey) {
 
 function DeleteMessages(chatKey) {
     // console.log('chatMessages/'+ chatKey);
-    document.getElementById('deleteMessages').onclick = function() {
+    document.getElementById('deleteMessages').onclick = function () {
         firebase.database().ref('chatMessages/').child(chatKey).remove();
     }
 }
@@ -276,7 +279,7 @@ function SendMessage() {
         messageId: ''
     };
 
-     var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
+    var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
         if (error) alert(error);
         else {
             firebase.database().ref('fcmTokens').child(friend_id).once('value').then(function (data) {
@@ -285,11 +288,11 @@ function SendMessage() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'key=AIzaSyBXkd3HN8IO3Xa4AFTvqFpo5LXZQ9-Rj7s'
+                        'Authorization': 'key=AIzaSyAtswYIJZhDhDz_urYWm6H8UkhxTpQ5c70'
                     },
                     data: JSON.stringify({
                         'to': data.val().token_id, 'data': { 'message': chatMessage.msg.substring(0, 30) + '...', 'icon': firebase.auth().currentUser.photoURL }
-                        
+
                     }),
                     success: function (response) {
                         console.log(response);
@@ -306,7 +309,7 @@ function SendMessage() {
     }).getKey();
     // console.log(messageKey1);
 
-    firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({ 
+    firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({
         messageId: messageKey1
     })
 }
@@ -344,7 +347,7 @@ function SendImage(event) {
                 }
             }).getKey();
 
-            firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({ 
+            firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({
                 messageId: messageKey1
             })
         }, false);
@@ -365,7 +368,7 @@ function ChooseFile() {
 function SendFile(event) {
     var file = event.files[0];
 
-     
+
     if (!file.type.match("file.*")) {
         alert("Please select file only.");
     }
@@ -400,10 +403,14 @@ function SendFile(event) {
 /////////////
 
 function LoadChatList() {
+
+    console.log(arrChatKey);
     var db = firebase.database().ref('friend_list');
     db.on('value', function (lists) {
         document.getElementById('lstChat').innerHTML = `<li class="list-group-item" style="background-color:#f8f8f8;">
-                            <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
+                            <input type="text" placeholder="Search or new chat" class="form-control form-rounded" 
+                            onfocus="getChatKey()"
+                            />
                         </li>`;
         lists.forEach(function (data) {
             var lst = data.val();
@@ -434,6 +441,10 @@ function LoadChatList() {
         });
     });
 }
+
+
+
+
 
 function PopulateUserList() {
     document.getElementById('lstUsers').innerHTML = `<div class="text-center">
@@ -642,12 +653,31 @@ function PopulateFriendList() {
 }
 
 function signIn() {
+
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
+    firebase.auth().signInWithPopup(provider).then((user) => {
+        console.log(user);
+        document.getElementById('pagelogin').setAttribute('style', 'display:none;');
+    });
+    return false;
 }
 
 function signOut() {
-    firebase.auth().signOut();
+    setTimeout(() => {
+        firebase.auth().signOut();
+        document.getElementById('pagelogin').removeAttribute('style');
+    }, 500);
+
+
+}
+
+function ClickButtonLogin() {
+    var username = document.getElementById('inputUsernameId').value;
+    var password = document.getElementById('inputPasswordId').value;
+
+    if (username === '12345678' && password === '12345678') {
+        document.getElementById('pagelogin').setAttribute('style', 'display:none;');
+    }
 }
 
 function onFirebaseStateChanged() {
@@ -685,8 +715,6 @@ function onStateChanged(user) {
                 document.getElementById('lnkSignOut').style = '';
             }
 
-            const messaging = firebase.messaging();
-
             navigator.serviceWorker.register('./firebase-messaging-sw.js')
                 .then((registration) => {
                     messaging.useServiceWorker(registration);
@@ -699,13 +727,15 @@ function onStateChanged(user) {
                     })
                 });
 
+
+
             document.getElementById('lnkNewChat').classList.remove('disabled');
             LoadChatList();
             NotificationCount();
         });
     }
     else {
-        document.getElementById('imgProfile').src = 'images/pp.png';
+        document.getElementById('imgProfile').src = './img/pp.png';
         document.getElementById('imgProfile').title = '';
 
         document.getElementById('lnkSignIn').style = '';
@@ -727,7 +757,6 @@ function callback(error) {
         document.getElementById('lnkSignOut').style = '';
     }
 }
-
 
 ////////////////////////////////////////////////////////////////
 // clickColorThemen
