@@ -1,135 +1,78 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
 
     <title>ChatApp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.6.3/css/all.css'/>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' />
     <link rel="stylesheet" href="./css/bootstrap-4.3.1.min.css">
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./login.css">
-    <link rel="stylesheet" href="./signup.css">
+    <!-- <link rel="stylesheet" href="./login.css"> -->
+    <!-- <link rel="stylesheet" href="./signup.css"> -->
     <link rel="stylesheet" href="./font/themify-icons-font/themify-icons/themify-icons.css">
 </head>
-<body>
-    <div class='login' id='pagelogin'>
 
-        <form class='loginForm' id='loginFormId'>
-            <div class="header">
-                <h3>ChatApp</h3>
-                <p>Login here...</p>
-            </div>
-            <div class="body">
-                <div class="username"> 
-                    <input class='InputUsername' id='inputUsernameId' type="text" name='nameInput' required/>
-                    <label class='LabelUsername' for='nameInput'>
-                        <span class="content-username">Username</span>
-                    </label>
+<body>
+
+    <div id="page-login" class="page-login">
+        <div class="container">
+            <header>Login Form</header>
+            <form>
+                <div class="input-field">
+                    <input id="input-name-acc" type="text" required>
+                    <label>Email</label>
                 </div>
-                <div class="password">
-                    <input class='InputPassword' id='inputPasswordId' type="password" name='nameInput' required/>
-                    <label class='LabelPassword' for='nameInput'>
-                        <span class="content-password">Password</span>
-                    </label>
-                    <span class="iconShowHide">
-                        <i class="fa fa-eye" aria-hidden="true" id='eyeShow'
-                        onclick=""
-                        ></i>
-                        <i class="fa fa-eye-slash" aria-hidden="true" id='eyeHide'
-                        style='display:none;'
-                        onclick=""
-                        ></i>
-                    </span>                
+                <div class="input-field">
+                    <input class="pswrd" id="pswrd" type="password" required>
+                    <span class="show">SHOW</span>
+                    <label>Password</label>
                 </div>
                 <div class="button">
-                    <Button class='ButtonLogin'
-                    >Login</Button>
+                    <div class="inner">
+                    </div>
+                    <button id="loginByAccount" type="submit">LOGIN</button>
                 </div>
-                
-
-                <div class="LoginWithSocial">
-                    <p>or Login with</p>
-                    <i class="ti-facebook iconFacebook"></i>    
-                    <i class="ti-google iconGoogle"
-                    onclick="signIn()"
-                    ></i>                               
+            </form>
+            <div class="auth">
+                Or login with</div>
+            <div class="links">
+                <div class="facebook" onclick="signInFacebook()">
+                    <i class="fab fa-facebook-square"><span>Facebook</span></i>
                 </div>
-                
-            </div>
-            <div class="footer">
-                <span>Do not have an account?</span>
-                <p onclick='LoginToSignup()'>Click here</p>
-            </div>
-        </form>   
-
-        <form class="signupForm" id='signupFormId'>
-
-            <div class="header">
-                <h3>ChatApp</h3>
-                <p>SignUp here...</p>
-            </div>
-
-            <div class="body">
-                <div class="usernameSignup"> 
-                    <input class='InputUsernameSignup' id='inputUsernameIdSignup' type="text" name='nameInput' required/>
-                    <label class='LabelUsernameSignup' for='nameInput'>
-                        <span class="content-usernameSignup">Username</span>
-                    </label>
-                </div>
-                <div class="EmailSignup"> 
-                    <input class='InputEmailSignup' id='inputEmailIdSignup' type="text" name='nameInput' required/>
-                    <label class='LabelEmailSignup' for='nameInput'>
-                        <span class="content-EmailSignup">Email</span>
-                    </label>
-                </div>
-                <div class="PasswordSignup">
-                    <input class='InputPasswordSignup' id='inputPasswordIdSignup' type="password" name='nameInput' required/>
-                    <label class='LabelPasswordSignup' for='nameInput'>
-                        <span class="content-PasswordSignup">Password</span>
-                    </label>
-                    <span class="iconShowHideSignup">
-                        <i class="fa fa-eye" aria-hidden="true" id='eyeShowSignup'
-                        onclick=""
-                        ></i>
-                        <i class="fa fa-eye-slash" aria-hidden="true" id='eyeHideSignup'
-                        style='display:none;'
-                        onclick=""
-                        ></i>
-                    </span>                
-                </div>
-                <div class="ConfirmPasswordSignup">
-                    <input class='InputConfirmPasswordSignup' id='inputConfirmPasswordIdSignup' type="password" name='nameInput' required/>
-                    <label class='LabelConfirmPasswordSignup' for='nameInput'>
-                        <span class="content-ConfirmPasswordSignup">ConfirmPassword</span>
-                    </label>
-                    <span class="iconShowHideSignup">
-                        <i class="fa fa-eye" aria-hidden="true" id='eyeShowSignup'
-                        onclick=""
-                        ></i>
-                        <i class="fa fa-eye-slash" aria-hidden="true" id='eyeHideSignup'
-                        style='display:none;'
-                        onclick=""
-                        ></i>
-                    </span>                
-                </div>
-                <div class="buttonSignup">
-                    <Button class='ButtonSignup1' type='submit'
-                    >Sign Up</Button>
+                <div class="google" onclick="signIn()">
+                    <i class="fab fa-google-plus-square"><span>Google</span></i>
                 </div>
             </div>
-
-            <div class="footer">
-                <span>You have a account?</span>
-                <p onclick='SignupToLogin()'>Login</p>
+            <div class="signup1">
+                Not a member? <a href="/signUp.html">Signup now</a>
             </div>
+        </div>
+        <script>
+            var input = document.querySelector('.pswrd');
+            var show = document.querySelector('.show');
+            show.addEventListener('click', active);
+            function active() {
+                if (input.type === "password") {
+                    input.type = "text";
+                    show.style.color = "#1DA1F2";
+                    show.textContent = "HIDE";
+                } else {
+                    input.type = "password";
+                    show.textContent = "SHOW";
+                    show.style.color = "#111";
+                }
+            }
 
-        </form> 
 
+
+        </script>
     </div>
 
-    
-    
+    <!-- <div id='main-chat' class="main-chat" style="display: none;">  -->
+    <span class="top"></span>
+
     <div class="container-fluid bg-white chatbox shadow-lg rounded">
         <div class="row h-100">
 
@@ -143,7 +86,7 @@
                                 <i class="fas fa-arrow-left d-md-none" style="font-size:20px;cursor:pointer;" onclick="hideChatList()"></i>
                             </div>
                             <div class="col-7 col-sm-7 col-md-7">
-                                <img id="imgProfile" src="./img/pp.png" class="rounded-circle profile-pic" />
+                                <img id="imgProfile" src="images/pp.png" class="rounded-circle profile-pic" />
                             </div>
                             <div class="col-2 col-sm-2 col-md-2">
                                 <a href="#" style="float:right;" data-toggle="modal" data-target="#modalNotificationList" onclick="PopulateNotifications()">
@@ -226,35 +169,34 @@
                                 <i class="fas fa-list mt-2" style="cursor:pointer" onclick="showChatList()"></i>
                             </div>
                             <div class="col-2 col-sm-2 col-md-2 col-lg-1">
-                                <img src="img/pp.png" id="imgChat" class="rounded-circle profile-pic" />
+                                <img src="images/pp.png" id="imgChat" class="rounded-circle profile-pic" />
                             </div>
                             <div class="col-5 col-sm-5 col-md-5 col-lg-7">
                                 <div class="name" id="divChatName">Any Name</div>
                                 <div class="under-name" id="divChatSeen">Last seen 9/8/2019</div>
                             </div>
-                            <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon">
-                                <i class="fas fa-search"></i>
-                                <span class="dropdown">
-                                    <span class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fas fa-paperclip ml-4"></i>
-                                    </span>
-                                    <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item" onclick="ChooseImage()">
+                            <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon header-icon">
+                                <div class="icon-member1">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                
+                                <div class="icon-member2">
+                                    <i class="fas fa-paperclip" onclick="displayIcon_file()"></i>
+                                    <div class="icon-file" style="display: none;">
+                                        <a href="#" class="icon-file-member" onclick="ChooseImage()">
                                             Image
                                             <input type="file" id="imageFile" onchange="SendImage(this);" accept="image/*" style="display:none;" />
                                         </a>
-                                        <a href="#" class="dropdown-item" onclick="ChooseFile()">
-                                            Document
-                                            <input type="file" id="file" onchange="SendFile(this);" accept="image/*" style="display:none;" />
+                                        <a href="#" class="" onclick="ChooseFile()">
+                                            File
+                                            <input type="file" id="file" onchange="SendFile(this);" style="display:none;" />
                                         </a>
                                     </div>
-                                </span>
+                                </div>
 
-                                <span class="dropdown">
-                                    <span class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fas fa-ellipsis-v ml-4"></i>
-                                    </span>
-                                    <div class="dropdown-menu">
+                                <div class="icon-member3">
+                                    <i class="fas fa-ellipsis-v" onclick="displayIcon_themen()"></i>
+                                    <div class="icon-themen" style="display: none;">
                                         <li class='member-menu'>
                                             <a href="#" class="dropdown-item">
                                                 Theme    
@@ -277,7 +219,9 @@
                                         
                                         <li id='deleteMessages'></li>   
                                     </div>
-                                </span>
+                                </div>
+                                              
+                            
 
                                 
                             </div>
@@ -290,28 +234,7 @@
               
                     <div class="card-footer">
                         <div class="row width-emoji" style="position:relative;">
-                            <!-- EMOJI -->
-                            <!-- <div class="col-md-12" id="emoji" style="display:none;">
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#smiley" role="tab" aria-controls="home" aria-selected="true">Smiley</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Shape</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="smiley" role="tabpanel" aria-labelledby="home-tab">
 
-                                    </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-                                </div>
-                            </div> -->
-                            
                         </div>
                         <div class="row">
                             <div class="col-2 col-md-1" style="cursor:pointer;">
@@ -341,7 +264,7 @@
                 <div id="divStart" class="text-center">
                     <i class="fas fa-comments mt-5" style="font-size:250px;"></i>
                     <h2 class="mt-3">Select your friend from the list and start chating.</h2>
-                    <a href="#" onclick="showChatList()" class="d-md-none">New Chat</a>
+                    <a href="#" onclick="showChatList()" class="d-md-none">New Chat</a>                  
                     <button onclick="signOut()" class="btn btn-primary">Sign Out</button>
                 </div>
             </div>
@@ -349,16 +272,17 @@
 
         </div>
     </div>
-    
+
     <script src='./js/jquery-3.4.1.min.js'></script>
     <script src='./js/popper-1.14.7.min.js'></script>
     <script src='./js/bootstrap-4.3.1.min.js'></script>
-        
+
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase.js"></script>
     <script src="./js/firebase-messaging-sw.js"></script>
     <script src='./script/firebase.init.js'></script>
-    <script src='./script/chat.js'></script> 
+    <script src='./script/chat.js'></script>
     <script src='./script/login.js'></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 </body>
+
 </html>

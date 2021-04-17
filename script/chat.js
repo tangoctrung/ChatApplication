@@ -20,6 +20,30 @@ function ChangeSendIcon(control) {
         document.getElementById('send').setAttribute('style', 'display:none');
     }
 }
+var count_Iconfile = 0;
+function displayIcon_file(){
+    if (count_Iconfile === 1) {
+        document.querySelector(".icon-file").setAttribute('style', 'display:none');      
+        count_Iconfile = 0;
+    } else {
+        document.querySelector(".icon-file").removeAttribute('style');
+        count_Iconfile = 1;
+        document.querySelector(".icon-themen").setAttribute('style', 'display:none');      
+        count_Iconthemen = 0;
+    }
+}
+var count_Iconthemen = 0;
+function displayIcon_themen(){
+    if (count_Iconthemen === 1) {
+        document.querySelector(".icon-themen").setAttribute('style', 'display:none');      
+        count_Iconthemen = 0;
+    } else {
+        document.querySelector(".icon-themen").removeAttribute('style');
+        count_Iconthemen = 1;
+        document.querySelector(".icon-file").setAttribute('style', 'display:none');      
+        count_Iconfile = 0;
+    }
+}
 
 /////////////////////////////////////////////
 // Audio record
@@ -190,6 +214,9 @@ function LoadChatMessages(chatKey, friendPhoto) {
                         <source src="${chat.msg}" type="video/webm" />
                     </audio>`;
             }
+            else if (chat.msgType === 'file') {
+                msg = `<a href="${chat.dataUrl}" class="sendMessageFile" style="text-decoration: underline; cursor: pointer;">${chat.msg}</a>`;
+            }
             else {
                 msg = chat.msg;
             }
@@ -288,11 +315,10 @@ function SendMessage() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'key=AIzaSyAtswYIJZhDhDz_urYWm6H8UkhxTpQ5c70'
+                        'Authorization': 'key=AIzaSyBXkd3HN8IO3Xa4AFTvqFpo5LXZQ9-Rj7s'
                     },
                     data: JSON.stringify({
                         'to': data.val().token_id, 'data': { 'message': chatMessage.msg.substring(0, 30) + '...', 'icon': firebase.auth().currentUser.photoURL }
-
                     }),
                     success: function (response) {
                         console.log(response);
@@ -369,28 +395,33 @@ function SendFile(event) {
     var file = event.files[0];
 
 
-    if (!file.type.match("file.*")) {
+    if (!file.type === "application/pdf") {
         alert("Please select file only.");
     }
     else {
         var reader = new FileReader();
 
-        reader.addEventListener("load", function () {
+        reader.addEventListener("load", function (e) {
+            console.log(e.target.result);
             var chatMessage = {
                 userId: currentUserKey,
-                msg: reader.result,
+                msg: file.name,
                 msgType: 'file',
+                dataUrl: e.target.result,
                 dateTime: new Date().toLocaleString()
             };
 
-            firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
+            var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
                 if (error) alert(error);
                 else {
 
                     document.getElementById('txtMessage').value = '';
                     document.getElementById('txtMessage').focus();
                 }
-            });
+            }).getKey();
+            firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({
+                messageId: messageKey1
+            })
         }, false);
 
         if (file) {
@@ -399,18 +430,20 @@ function SendFile(event) {
     }
 }
 
+function downloadFile(dataUrl){
+    console.log(dataUrl);
+    window.open("https://google.com", '_blank');
+}
+
 ///////////////////////////////////////////////////////////////////////
 /////////////
 
 function LoadChatList() {
 
-    console.log(arrChatKey);
     var db = firebase.database().ref('friend_list');
     db.on('value', function (lists) {
         document.getElementById('lstChat').innerHTML = `<li class="list-group-item" style="background-color:#f8f8f8;">
-                            <input type="text" placeholder="Search or new chat" class="form-control form-rounded" 
-                            onfocus="getChatKey()"
-                            />
+                            <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
                         </li>`;
         lists.forEach(function (data) {
             var lst = data.val();
@@ -662,11 +695,28 @@ function signIn() {
     return false;
 }
 
+function signInFacebook(){
+    var provider = new firebase.auth.FacebookAuthProvider();
+    firebase
+  .auth()
+  .signInWithPopup(provider)
+  .then((result) => {
+    console.log(result);
+  })
+  
+}
+
 function signOut() {
-    setTimeout(() => {
-        firebase.auth().signOut();
-        document.getElementById('pagelogin').removeAttribute('style');
-    }, 500);
+
+
+    reload = true;
+    setTimeout(function () {
+        
+        location.reload();
+        reload = false;
+    }, 200);
+    firebase.auth().signOut();
+    document.getElementById('pagelogin').removeAttribute('style');
 
 
 }
@@ -685,14 +735,16 @@ function onFirebaseStateChanged() {
 }
 
 function onStateChanged(user) {
-    if (user) {
-        //alert(firebase.auth().currentUser.email + '\n' + firebase.auth().currentUser.displayName);
+    if (user) {       
+        // document.getElementById('pagelogin').setAttribute('style', 'display:none;');
+
+        document.getElementById('page-login').style = 'display:none';
 
         var userProfile = { email: '', name: '', photoURL: '' };
         userProfile.email = firebase.auth().currentUser.email;
         userProfile.name = firebase.auth().currentUser.displayName;
         userProfile.photoURL = firebase.auth().currentUser.photoURL;
-
+        console.log(userProfile);
         var db = firebase.database().ref('users');
         var flag = false;
         db.on('value', function (users) {
@@ -715,6 +767,7 @@ function onStateChanged(user) {
                 document.getElementById('lnkSignOut').style = '';
             }
 
+            const messaging = firebase.messaging();
             navigator.serviceWorker.register('./firebase-messaging-sw.js')
                 .then((registration) => {
                     messaging.useServiceWorker(registration);
@@ -765,6 +818,30 @@ function clickThemenColor(s) {
     document.getElementById('messages').setAttribute('style', `background-color: ${s};`);
 }
 
+
+const LoginByAccount = document.querySelector('#loginByAccount');
+
+LoginByAccount.addEventListener('click', (e) =>{ 
+
+    e.preventDefault();
+
+   const email = document.getElementById('input-name-acc').value;
+   const password = document.getElementById('pswrd').value;
+   
+   console.log('aaaa');
+ 
+   if(email != '' && password != '' ) {
+
+    firebase.auth().signInWithEmailAndPassword(email,password).then( (userCredential) => {
+
+    }).catch( (error) =>{
+
+        alert("Username or password is wrong");
+    })
+
+   }
+
+});
 /////////
 // Call auth State changed
 
