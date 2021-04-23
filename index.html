@@ -86,7 +86,8 @@
                                 <i class="fas fa-arrow-left d-md-none" style="font-size:20px;cursor:pointer;" onclick="hideChatList()"></i>
                             </div>
                             <div class="col-7 col-sm-7 col-md-7">
-                                <img id="imgProfile" src="images/pp.png" class="rounded-circle profile-pic" />
+                                <img id="imgProfile" src="images/pp.png" onclick="ChangeAvatar()" class="rounded-circle profile-pic" />                              
+                                <input type="file" style="display:none;" class="ChangeAvatar" accept="image/*"/>                                                               
                             </div>
                             <div class="col-2 col-sm-2 col-md-2">
                                 <a href="#" style="float:right;" data-toggle="modal" data-target="#modalNotificationList" onclick="PopulateNotifications()">
@@ -153,7 +154,12 @@
                             </div>
                         </div>
                     </div>
-
+                    <li class="list-group-item" style="background-color:#f8f8f8;">
+                        <input type="text" onkeyup = "ChangeInputSearch();" placeholder="Search or new chat" class="form-control form-rounded input_search" />
+                    </li>
+                    <ul class="list-group list-group-flush" id="listSearchFriend"
+                    style="display:none;"
+                    ></ul>
                     <ul class="list-group list-group-flush" id="lstChat"></ul>
 
                 </div>
@@ -241,7 +247,7 @@
                                 <i class="far fa-grin fa-2x" onclick="showEmojiPanel()"></i>
                             </div>
                             <div class="col-8 col-md-10">
-                                <input id="txtMessage" onkeyup="ChangeSendIcon(this)" type="text" onfocus="hideEmojiPanel()" placeholder="Type here" class="form-control form-rounded" />
+                                <input id="txtMessage" onkeyup="ChangeSendIcon(this)" type="text" onfocus="hideEmojiPanel()" placeholder="Type here" class="form-control form-rounded"/>
                             </div>
                             <div class="col-2 col-md-1">
                                 <i style="cursor:pointer;" id="audio" onclick="record(this)" class="fas fa-microphone fa-2x"></i>

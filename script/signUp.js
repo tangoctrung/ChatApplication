@@ -8,8 +8,21 @@ fileImage.addEventListener('change', handleFiles, false);
 function handleFiles() {
   avatar.src = URL.createObjectURL(this.files[0]);
   
-  console.log(fileImage.value);
-  urlavatar = fileImage.value;
+  var imageAvatar = this.files[0];
+  var imageName = imageAvatar.name;
+  var storageRef = firebase.storage().ref("images/" + imageName);
+  var upLoadTask = storageRef.put(imageAvatar);
+  upLoadTask.on('state_changed', function(snapshot) {
+    var progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+    console.log("upload is" + progress + "done");
+  }, function(error){
+    console.log(error.message);
+  }, function(){
+    upLoadTask.snapshot.ref.getDownloadURL().then(function(downloadUrl){
+      console.log(downloadUrl);
+      urlavatar = downloadUrl;
+    });
+  });
 }
 
 
@@ -42,13 +55,13 @@ signup.addEventListener('submit', (e) =>{
       .then((userCredential) => {
       
           var userU = userCredential.user;
-          console.log(userU);
+          
 
           var user = firebase.auth().currentUser;
-
+          if (urlavatar === "") urlavatar = "/img/pp.png";
           user.updateProfile({
             displayName: name,
-            photoURL: "/img/pp.png"
+            photoURL: urlavatar
           }).then(function() {
 
             document.getElementById('success-register').style = '';

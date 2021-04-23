@@ -3,6 +3,9 @@ var chatKey = '';
 var friend_id = '';
 var arrChatKey = [];
 var countChatKey = 0;
+var ObjectMessageLast = [];
+var ArrSearchFriends = [];
+
 document.addEventListener('keydown', function (key) {
     if (key.which === 13) {
         SendMessage();
@@ -21,30 +24,60 @@ function ChangeSendIcon(control) {
     }
 }
 var count_Iconfile = 0;
-function displayIcon_file(){
+function displayIcon_file() {
     if (count_Iconfile === 1) {
-        document.querySelector(".icon-file").setAttribute('style', 'display:none');      
+        document.querySelector(".icon-file").setAttribute('style', 'display:none');
         count_Iconfile = 0;
     } else {
         document.querySelector(".icon-file").removeAttribute('style');
         count_Iconfile = 1;
-        document.querySelector(".icon-themen").setAttribute('style', 'display:none');      
+        document.querySelector(".icon-themen").setAttribute('style', 'display:none');
         count_Iconthemen = 0;
     }
 }
 var count_Iconthemen = 0;
-function displayIcon_themen(){
+function displayIcon_themen() {
     if (count_Iconthemen === 1) {
-        document.querySelector(".icon-themen").setAttribute('style', 'display:none');      
+        document.querySelector(".icon-themen").setAttribute('style', 'display:none');
         count_Iconthemen = 0;
     } else {
         document.querySelector(".icon-themen").removeAttribute('style');
         count_Iconthemen = 1;
-        document.querySelector(".icon-file").setAttribute('style', 'display:none');      
+        document.querySelector(".icon-file").setAttribute('style', 'display:none');
         count_Iconfile = 0;
     }
 }
 
+// Change Avatar
+
+function ChangeAvatar() {
+    document.querySelector('.ChangeAvatar').click();
+}
+
+const fileImage = document.querySelector(".ChangeAvatar");
+const avatar = document.querySelector(".card .card-header #imgProfile");
+fileImage.addEventListener('change', handleFiles, false);
+function handleFiles() {
+    avatar.src = URL.createObjectURL(this.files[0]);
+    console.log(currentUserKey);
+    var imageAvatar = this.files[0];
+    var imageName = imageAvatar.name;
+    var storageRef = firebase.storage().ref("images/" + imageName);
+    var upLoadTask = storageRef.put(imageAvatar);
+    upLoadTask.on('state_changed', function (snapshot) {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("upload is" + progress + "done");
+    }, function (error) {
+        console.log(error.message);
+    }, function () {
+        upLoadTask.snapshot.ref.getDownloadURL().then(function (downloadUrl) {
+            console.log(downloadUrl);
+            firebase.database().ref('users/' + currentUserKey).update({
+                photoURL: downloadUrl
+            })
+        });
+    });
+}
 /////////////////////////////////////////////
 // Audio record
 
@@ -73,7 +106,17 @@ function record(control) {
                             dateTime: new Date().toLocaleString(),
                             messageId: ''
                         };
+                        document.querySelector(`.${chatKey}`).innerHTML = `You: Audio ${chatMessage.dateTime.split(',')[1]}`;
+                        document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
+                        ObjectMessageLast.forEach(element => {
+                            if (element.chatKey === chatKey) {
+                                element.message = "File";
+                                element.messageTime0 = chatMessage.dateTime.split(',')[0];
+                                element.messageTime1 = chatMessage.dateTime.split(',')[1];
+                                element.PersonSendId = chatMessage.userId;
+                            }
 
+                        });
                         var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
                             if (error) alert(error);
                             else {
@@ -110,17 +153,6 @@ function record(control) {
 }
 
 /////////////////////////////////////////////////////////////////
-// Emoji
-// loadAllEmoji();
-
-// function loadAllEmoji() {
-//     var emoji = '';
-//     for (var i = 128512; i <= 128580; i++) {
-//         emoji += `<a href="#" style="font-size: 22px;" onclick="getEmoji(this)">&#${i};</a>`;
-//     }
-
-//     document.getElementById('smiley').innerHTML = emoji;
-// }
 
 function showEmojiPanel() {
     document.getElementById('emoji').removeAttribute('style');
@@ -138,14 +170,10 @@ function clickEmoji() {
 }
 clickEmoji();
 
-// function getEmoji(control) {
-//     document.getElementById('txtMessage').value += control.innerHTML;
-// }
-
 
 //////////////////////////////////////////////////////////////////////
 function StartChat(friendKey, friendName, friendPhoto) {
-    var friendList = { friendId: friendKey, userId: currentUserKey };
+    var friendList = { friendId: friendKey, userId: currentUserKey, chatKey: '12345' };
     friend_id = friendKey;
 
     var db = firebase.database().ref('friend_list');
@@ -169,6 +197,10 @@ function StartChat(friendKey, friendName, friendPhoto) {
                     hideChatList();
                 }
             }).getKey();
+            firebase.database().ref('friend_list/' + chatKey).update({
+                chatKey: chatKey
+            })
+
         }
         else {
             document.getElementById('chatPanel').removeAttribute('style');
@@ -192,10 +224,41 @@ function StartChat(friendKey, friendName, friendPhoto) {
     });
 }
 
+
+function LoadChatKey() {
+
+    firebase.database().ref("messageLast").on("child_added", function (chatKey) {
+        var user = chatKey.val();
+
+        var obj = {
+            chatKey: user.chatKey,
+            message: user.message,
+            messageTime0: user.messageTime0,
+            messageTime1: user.messageTime1,
+            PersonSendId: user.PersonSendId
+        };
+        if (ObjectMessageLast.indexOf(obj) === -1) {
+            ObjectMessageLast.push({
+                chatKey: user.chatKey,
+                message: user.message,
+                messageTime0: user.messageTime0,
+                messageTime1: user.messageTime1,
+                PersonSendId: user.PersonSendId
+            });
+        }
+
+    });
+
+}
+LoadChatKey();
 //////////////////////////////////////
 
 function LoadChatMessages(chatKey, friendPhoto) {
-
+    var urlImageUser = "";
+    firebase.database().ref('users').child(currentUserKey).on("value", function (data) {
+        user = data.val();
+        urlImageUser = user.photoURL;
+    })
     var db = firebase.database().ref('chatMessages').child(chatKey);
 
     db.on('value', function (chats) {
@@ -206,64 +269,100 @@ function LoadChatMessages(chatKey, friendPhoto) {
             var messageKey = data.val().messageId;
             var dateTime = chat.dateTime.split(",");
             var msg = '';
+            var messageLast = '';
             if (chat.msgType === 'image') {
                 msg = `<img src='${chat.msg}' class="img-fluid" />`;
+                messageLast = "Image";
             }
             else if (chat.msgType === 'audio') {
                 msg = `<audio controls>
                         <source src="${chat.msg}" type="video/webm" />
                     </audio>`;
+                messageLast = "Audio";
             }
             else if (chat.msgType === 'file') {
                 msg = `<a href="${chat.dataUrl}" class="sendMessageFile" style="text-decoration: underline; cursor: pointer;">${chat.msg}</a>`;
+                messageLast = `${chat.msg}`;
             }
             else {
                 msg = chat.msg;
+                messageLast = chat.msg;
             }
             if (chat.userId !== currentUserKey) {
                 messageDisplay += `<div class="row">
                                     <div class="col-2 col-sm-1 col-md-1">
                                         <img src="${friendPhoto}" class="chat-pic rounded-circle" />
                                     </div>
-                                    <div class="col-6 col-sm-7 col-md-7">
-                                        <p class="receive">                                           
-                                            ${msg}
+                                    <div class="col-6 col-sm-7 col-md-7 LineMessage1">
+                                        <p class="receive">                                                                                   
+                                            ${msg}                                           
                                             <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
                                         </p>
+                                        <ul class="list-icon-extend1">                                                                                     
+                                            </li>
+                                            <li class="member-icon-extend1">
+                                            <i class="fa fa-reply"
+                                            id="ReplyMessageButton"                                  
+                                            title="Reply"
+                                            onclick="ReplyMessageButton('${messageLast}')"
+                                            ></i>                                          
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>`;
                 deleteAllMessages = `<a href="#" class="dropdown-item"
                 onclick="DeleteMessages('${chatKey}')"              
                 >Delete Messages</a>`;
+
             }
             else {
 
                 messageDisplay += `<div class="row justify-content-end">
-                            <div class="col-6 col-sm-7 col-md-7">
+                            <div class="col-6 col-sm-7 col-md-7 LineMessage">
+                                <ul class="list-icon-extend"> 
+                                    <li class="member-icon-extend">
+                                        <i class="fa fa-window-close"
+                                        id="DeleteMessageButton"                                  
+                                        title="Delete"
+                                        onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
+                                        ></i>                                   
+                                    </li>
+
+                                    <li class="member-icon-extend">
+                                        <i class="fa fa-reply"
+                                        id="ReplyMessageButton"                                  
+                                        title="Reply"
+                                        onclick="ReplyMessageButton('${messageLast}')"
+                                        ></i>                                
+                                    </li>
+                                </ul>
                                 <p class="sent float-right messageDelete">                                  
-                                    <i class="fa fa-window-close"
-                                    id="DeleteMessageButton"                                  
-                                    style="display: none;"
-                                    onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
-                                    ></i>
+                                    
                                     ${msg}
                                     <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
                                 </p>
+                                
+                                  
                             </div>
                             <div class="col-2 col-sm-1 col-md-1">
-                                <img src="${firebase.auth().currentUser.photoURL}" class="chat-pic rounded-circle" />
+                                <img src="${urlImageUser}" class="chat-pic rounded-circle" />
                             </div>
                         </div>`;
                 deleteAllMessages = `<a href="#" class="dropdown-item"
                 onclick="DeleteMessages('${chatKey}')"              
                 >Delete Messages</a>`;
             }
+
+
         });
 
         document.getElementById('messages').innerHTML = messageDisplay;
         document.getElementById('messages').scrollTo(0, document.getElementById('messages').scrollHeight);
         document.getElementById('deleteMessages').innerHTML = deleteAllMessages;
+
     });
+
+
 }
 
 
@@ -271,11 +370,18 @@ function LoadChatMessages(chatKey, friendPhoto) {
 // DeleteMessageButton: delete a message
 
 function DeleteMessageButton(chatKey, messageKey) {
-    console.log(arrChatKey);
-    console.log('chatMessages/' + chatKey + '/' + messageKey);
     firebase.database().ref('chatMessages/').child(chatKey).child(messageKey).remove();
 }
 
+function ReplyMessageButton(message){
+    console.log("Reply message");
+    var input = document.getElementById('txtMessage');
+    
+    document.getElementById('txtMessage').value = "Reply: " + message + " :     ";
+    document.getElementById('txtMessage').focus();
+    // document.getElementById('txtMessage').setAttribute("style", "font-size: 15px");
+
+}
 // Delete Messages : xoa mot cuoc hoi thoai
 
 function DeleteMessages(chatKey) {
@@ -305,6 +411,20 @@ function SendMessage() {
         dateTime: new Date().toLocaleString(),
         messageId: ''
     };
+
+    document.getElementById('audio').removeAttribute('style');
+    document.getElementById('send').setAttribute('style', 'display:none');
+
+    document.querySelector(`.${chatKey}`).innerHTML = `You: ${chatMessage.msg} ${chatMessage.dateTime.split(',')[1]}`;
+    document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
+
+    firebase.database().ref("messageLast").child(chatKey).update({
+        chatKey: chatKey,
+        message: chatMessage.msg,
+        messageTime0: chatMessage.dateTime.split(',')[0],
+        messageTime1: chatMessage.dateTime.split(',')[1],
+        PersonSendId: chatMessage.userId
+    });
 
     var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
         if (error) alert(error);
@@ -358,12 +478,24 @@ function SendImage(event) {
         reader.addEventListener("load", function () {
             var chatMessage = {
                 userId: currentUserKey,
+                // msgDisplay: reader.result,
                 msg: reader.result,
                 msgType: 'image',
                 dateTime: new Date().toLocaleString(),
                 messageId: ''
             };
 
+            document.querySelector(`.${chatKey}`).innerHTML = `You: Image ${chatMessage.dateTime.split(',')[1]}`;
+            document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
+      
+            firebase.database().ref("messageLast").child(chatKey).update({
+                chatKey: chatKey,
+                message: "Image",
+                messageTime0: chatMessage.dateTime.split(',')[0],
+                messageTime1: chatMessage.dateTime.split(',')[1],
+                PersonSendId: chatMessage.userId
+            });
+            // console.log(ObjectMessageLast);
             var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
                 if (error) alert(error);
                 else {
@@ -411,6 +543,25 @@ function SendFile(event) {
                 dateTime: new Date().toLocaleString()
             };
 
+            document.querySelector(`.${chatKey}`).innerHTML = `You: File ${chatMessage.dateTime.split(',')[1]}`;
+            document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
+            // ObjectMessageLast.forEach(element => {
+            //     if (element.chatKey === chatKey) {
+            //         element.message = "File";
+            //         element.messageTime0 = chatMessage.dateTime.split(',')[0];
+            //         element.messageTime1 = chatMessage.dateTime.split(',')[1];
+            //         element.PersonSendId = chatMessage.userId;
+            //     }
+
+            // });
+            // console.log(ObjectMessageLast);
+            firebase.database().ref("messageLast").child(chatKey).update({
+                chatKey: chatKey,
+                message: "File",
+                messageTime0: chatMessage.dateTime.split(',')[0],
+                messageTime1: chatMessage.dateTime.split(',')[1],
+                PersonSendId: chatMessage.userId
+            });
             var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
                 if (error) alert(error);
                 else {
@@ -430,10 +581,6 @@ function SendFile(event) {
     }
 }
 
-function downloadFile(dataUrl){
-    console.log(dataUrl);
-    window.open("https://google.com", '_blank');
-}
 
 ///////////////////////////////////////////////////////////////////////
 /////////////
@@ -442,22 +589,43 @@ function LoadChatList() {
 
     var db = firebase.database().ref('friend_list');
     db.on('value', function (lists) {
-        document.getElementById('lstChat').innerHTML = `<li class="list-group-item" style="background-color:#f8f8f8;">
-                            <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
-                        </li>`;
         lists.forEach(function (data) {
             var lst = data.val();
+
             var friendKey = '';
+            var textFisrt = '';
+            var timeText0 = '';
+            var timeText1 = '';
+            var PersonSendId = '';
             if (lst.friendId === currentUserKey) {
                 friendKey = lst.userId;
             }
             else if (lst.userId === currentUserKey) {
                 friendKey = lst.friendId;
             }
+            for (let i = 0; i < ObjectMessageLast.length; i++) {
+                if (lst.chatKey === ObjectMessageLast[i].chatKey) {
+                    textFisrt = ObjectMessageLast[i].message;
+                    timeText0 = ObjectMessageLast[i].messageTime0;
+                    timeText1 = ObjectMessageLast[i].messageTime1;
+                    PersonSendId = ObjectMessageLast[i].PersonSendId;
+                }
+            }
 
+            var TextPerson = '';
+            if (PersonSendId === currentUserKey) {
+                TextPerson = "You: ";
+            } else {
+                TextPerson = "";
+            }
             if (friendKey !== "") {
                 firebase.database().ref('users').child(friendKey).on('value', function (data) {
                     var user = data.val();
+                    ArrSearchFriends.push({
+                        friendKey: data.key,
+                        friendName: user.name,
+                        friendPhoto: user.photoURL
+                    });
                     document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
                             <div class="row">
                                 <div class="col-md-2">
@@ -465,7 +633,7 @@ function LoadChatList() {
                                 </div>
                                 <div class="col-md-10" style="cursor:pointer;">
                                     <div class="name">${user.name}</div>
-                                    <div class="under-name">This is some message text...</div>
+                                    <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}</div>
                                 </div>
                             </div>
                         </li>`;
@@ -473,10 +641,37 @@ function LoadChatList() {
             }
         });
     });
+
 }
 
+function ChangeInputSearch() {
+    document.getElementById("listSearchFriend").removeAttribute('style');
+    document.getElementById("lstChat").setAttribute('style', 'display:none');
+    var valueInputSearch = document.querySelector(".input_search").value.toLowerCase();
+    if (valueInputSearch === "") {
+        document.getElementById("listSearchFriend").setAttribute('style', 'display:none');
+        document.getElementById("lstChat").removeAttribute('style');
+    }
+    document.getElementById("listSearchFriend").innerHTML = "";
+    ArrSearchFriends.forEach(function (element) {
 
+        if (element.friendName.search(valueInputSearch.toLowerCase()) !== -1
+            || element.friendName.search(valueInputSearch.toUpperCase()) !== -1) {
 
+            document.getElementById("listSearchFriend").innerHTML += `<li class="list-group-item list-group-item-action" onclick="StartChat('${element.friendKey}', '${element.friendName}', '${element.friendPhoto}')">
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="${element.friendPhoto}" class="friend-pic rounded-circle" />
+                </div>
+                <div class="col-md-10" style="cursor:pointer;">
+                    <div class="name">${element.friendName}</div>                   
+                </div>
+            </div>
+        </li>`;
+        }
+    });
+
+}
 
 
 function PopulateUserList() {
@@ -640,13 +835,16 @@ function Accept(key) {
             else {
                 // do something
                 PopulateNotifications();
-                var friendList = { friendId: obj.sendFrom, userId: obj.sendTo };
-                firebase.database().ref('friend_list').push(friendList, function (error) {
+                var friendList = { friendId: obj.sendFrom, userId: obj.sendTo, chatKey: '' };
+                var chatKey = firebase.database().ref('friend_list').push(friendList, function (error) {
                     if (error) alert(error);
                     else {
                         //do Something
                     }
-                });
+                }).getKey();
+                firebase.database().ref('friend_list/' + chatKey).update({
+                    chatKey: chatKey
+                })
             }
         });
     });
@@ -689,21 +887,20 @@ function signIn() {
 
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then((user) => {
-        console.log(user);
         document.getElementById('pagelogin').setAttribute('style', 'display:none;');
     });
     return false;
 }
 
-function signInFacebook(){
+function signInFacebook() {
     var provider = new firebase.auth.FacebookAuthProvider();
     firebase
-  .auth()
-  .signInWithPopup(provider)
-  .then((result) => {
-    console.log(result);
-  })
-  
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+            console.log(result);
+        })
+
 }
 
 function signOut() {
@@ -711,7 +908,7 @@ function signOut() {
 
     reload = true;
     setTimeout(function () {
-        
+
         location.reload();
         reload = false;
     }, 200);
@@ -735,7 +932,7 @@ function onFirebaseStateChanged() {
 }
 
 function onStateChanged(user) {
-    if (user) {       
+    if (user) {
         // document.getElementById('pagelogin').setAttribute('style', 'display:none;');
 
         document.getElementById('page-login').style = 'display:none';
@@ -744,7 +941,6 @@ function onStateChanged(user) {
         userProfile.email = firebase.auth().currentUser.email;
         userProfile.name = firebase.auth().currentUser.displayName;
         userProfile.photoURL = firebase.auth().currentUser.photoURL;
-        console.log(userProfile);
         var db = firebase.database().ref('users');
         var flag = false;
         db.on('value', function (users) {
@@ -760,25 +956,30 @@ function onStateChanged(user) {
                 firebase.database().ref('users').push(userProfile, callback);
             }
             else {
-                document.getElementById('imgProfile').src = firebase.auth().currentUser.photoURL;
+                var urlImageUser = "";
+                firebase.database().ref('users').child(currentUserKey).on("value", function (data) {
+                    user = data.val();
+                    urlImageUser = user.photoURL;
+                })
+                document.getElementById('imgProfile').src = urlImageUser;
                 document.getElementById('imgProfile').title = firebase.auth().currentUser.displayName;
 
                 document.getElementById('lnkSignIn').style = 'display:none';
                 document.getElementById('lnkSignOut').style = '';
             }
 
-            const messaging = firebase.messaging();
-            navigator.serviceWorker.register('./firebase-messaging-sw.js')
-                .then((registration) => {
-                    messaging.useServiceWorker(registration);
+            // const messaging = firebase.messaging();
+            // navigator.serviceWorker.register('./firebase-messaging-sw.js')
+            //     .then((registration) => {
+            //         messaging.useServiceWorker(registration);
 
-                    // Request permission and get token.....
-                    messaging.requestPermission().then(function () {
-                        return messaging.getToken();
-                    }).then(function (token) {
-                        firebase.database().ref('fcmTokens').child(currentUserKey).set({ token_id: token });
-                    })
-                });
+            //         // Request permission and get token.....
+            //         messaging.requestPermission().then(function () {
+            //             return messaging.getToken();
+            //         }).then(function (token) {
+            //             firebase.database().ref('fcmTokens').child(currentUserKey).set({ token_id: token });
+            //         })
+            //     });
 
 
 
@@ -821,25 +1022,25 @@ function clickThemenColor(s) {
 
 const LoginByAccount = document.querySelector('#loginByAccount');
 
-LoginByAccount.addEventListener('click', (e) =>{ 
+LoginByAccount.addEventListener('click', (e) => {
 
     e.preventDefault();
 
-   const email = document.getElementById('input-name-acc').value;
-   const password = document.getElementById('pswrd').value;
-   
-   console.log('aaaa');
- 
-   if(email != '' && password != '' ) {
+    const email = document.getElementById('input-name-acc').value;
+    const password = document.getElementById('pswrd').value;
 
-    firebase.auth().signInWithEmailAndPassword(email,password).then( (userCredential) => {
+    console.log('aaaa');
 
-    }).catch( (error) =>{
+    if (email != '' && password != '') {
 
-        alert("Username or password is wrong");
-    })
+        firebase.auth().signInWithEmailAndPassword(email, password).then((userCredential) => {
 
-   }
+        }).catch((error) => {
+
+            alert("Username or password is wrong");
+        })
+
+    }
 
 });
 /////////

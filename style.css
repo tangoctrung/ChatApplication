@@ -127,7 +127,7 @@ body {
 }
 
 .sent {
-  background-color: whitesmoke;
+  background-color: rgb(197, 194, 194);
   border-radius: 1rem;
   padding: 10px 15px;
   display: inline-block;
@@ -161,6 +161,10 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
 }
+#listSearchFriend{
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 
 .dropdown-toggle::before {
   display: none !important;
@@ -170,17 +174,7 @@ body {
   display: none !important;
 }
 
-/* #emoji {
-  position: absolute;
-  top: -30vh;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0,0,0,0.23) 0px 3px 6px;
-}
 
-  #emoji #myTabContent {
-      height: 20vh;
-  } */
 .emoji{
   position: absolute;
   top: calc(100% - 490px);
@@ -285,19 +279,58 @@ background-color: brown;
 }
 
 
-#DeleteMessageButton{
-  outline: none;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-#DeleteMessageButton:hover{
-  color: red;
+.LineMessage:hover .list-icon-extend{
+  display: flex !important; 
 }
 
-.messageDelete:hover #DeleteMessageButton {
-  display: inline-block !important;
+.LineMessage{
+  display: flex;
+  justify-content: flex-end;
+  
 }
+.LineMessage1{
+  display: flex;
+  justify-content: flex-start;
+}
+.list-icon-extend{
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+}
+.member-icon-extend{
+  margin-right: 7px;
+  font-size: 12px;
+
+}
+#DeleteMessageButton:hover{
+  cursor: pointer;
+  color: red;
+}
+#ReplyMessageButton:hover{
+  cursor: pointer;
+  color: blue;
+}
+.list-icon-extend1{
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px;
+  display: none;
+}
+.member-icon-extend1{
+  margin-left: 7px;
+  font-size: 12px;
+}
+.LineMessage1:hover .list-icon-extend1{
+  display: flex !important; 
+}
+
+
+
+
 .sendMessageFile:hover{
   color: purple;
 }
