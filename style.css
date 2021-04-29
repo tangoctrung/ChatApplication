@@ -542,11 +542,11 @@ background-color: brown;
   position: fixed;
   z-index: 2000;
   height: 85%;
-  max-width: 500px;
+  max-width: 400px;
   width: 100%;
   left: 0%;
   top: 60px;
-  border-radius: 20px;
+  border-radius: 5px;
   /* text-align: center; */
   overflow-y: scroll;
   overflow-x: hidden;
