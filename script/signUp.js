@@ -75,6 +75,7 @@ signup.addEventListener('submit', (e) =>{
           
           }).catch(function(error) {
             // An error happened.
+            alert(error);
           });
           
         
@@ -84,7 +85,7 @@ signup.addEventListener('submit', (e) =>{
           var errorCode = error.code;
           var errorMessage = error.message;
 
-          alert("The email is not exits");
+          alert(error);
           // ..
         });
     }

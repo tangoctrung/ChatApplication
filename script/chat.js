@@ -400,7 +400,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
             if (chat.userId !== currentUserKey) {
                 messageDisplay += `<div class="row">
                                     <div class="col-2 col-sm-1 col-md-1">
-                                        <img src="${friendPhoto}" class="chat-pic rounded-circle" />
+                                        <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
                                     </div>
                                     <div class="col-6 col-sm-7 col-md-7 LineMessage1">
                                         <p class="receive">                                                                                   
@@ -413,6 +413,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
                                             <i class="fa fa-reply"
                                             id="ReplyMessageButton"                                  
                                             title="Reply"
+                                            style="opacity: 0.2;"
                                             onclick="ReplyMessageButton('${messageLast}')"
                                             ></i>                                          
                                             </li>
@@ -433,6 +434,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
                                         <i class="fa fa-window-close"
                                         id="DeleteMessageButton"                                  
                                         title="Delete"
+                                        style="opacity: 0.2;"
                                         onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
                                         ></i>                                   
                                     </li>
@@ -441,6 +443,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
                                         <i class="fa fa-reply"
                                         id="ReplyMessageButton"                                  
                                         title="Reply"
+                                        style="opacity: 0.2;"
                                         onclick="ReplyMessageButton('${messageLast}')"
                                         ></i>                                
                                     </li>
@@ -454,7 +457,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
                                   
                             </div>
                             <div class="col-2 col-sm-1 col-md-1">
-                                <img src="${urlImageUser}" class="chat-pic rounded-circle" />
+                                <img style="border: 1.5px solid #000;" src="${urlImageUser}" class="chat-pic rounded-circle" />
                             </div>
                         </div>`;
                 deleteAllMessages = `<a href="#" class="dropdown-item"
@@ -822,10 +825,11 @@ function ChangeInputSearch() {
         document.getElementById("lstChat").removeAttribute('style');
     }
     document.getElementById("listSearchFriend").innerHTML = "";
+    console.log(ArrSearchFriends);
     ArrSearchFriends.forEach(function (element) {
-
-        if (element.friendName.search(valueInputSearch.toLowerCase()) !== -1
-            || element.friendName.search(valueInputSearch.toUpperCase()) !== -1) {
+        console.log(element.friendName.toLowerCase() + " " + valueInputSearch.toLowerCase());
+        if (element.friendName.toLowerCase().search(valueInputSearch.toLowerCase()) !== -1
+            || element.friendName.toUpperCase().search(valueInputSearch.toUpperCase()) !== -1) {
 
             document.getElementById("listSearchFriend").innerHTML += `<li class="list-group-item list-group-item-action" >
             <div class="row">
@@ -1219,7 +1223,12 @@ function callback(error) {
 // clickColorThemen
 function clickThemenColor(s) {
     // document.getElementById('messages').setAttribute('style', 'background-color: red;');
-    document.getElementById('messages').setAttribute('style', `background-color: ${s};`);
+    
+
+    firebase.database().ref("chatMessages").on("value", function(data){
+        var brgImage = document.getElementById("messages");
+        brgImage.setAttribute("style", `background-Image: url(${s}); background-size: auto;`);
+    })
 }
 
 
