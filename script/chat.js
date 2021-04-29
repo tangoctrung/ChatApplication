@@ -940,9 +940,6 @@ function ChangeInputSearch() {
 
 
 function PopulateUserList() {
-    document.getElementById('lstUsers').innerHTML = `<div class="text-center">
-                                                         <span class="spinner-border text-primary mt-5" style="width:7rem;height:7rem"></span>
-                                                     </div>`;
     var db = firebase.database().ref('users');
     var dbNoti = firebase.database().ref('notifications');
     var lst = '';
@@ -950,12 +947,13 @@ function PopulateUserList() {
     //     var user = data.val();
     db.on('value', function (users) {
 
-        if (users.hasChildren()) {
-            lst = `<li class="list-group-item" style="background-color:#f8f8f8;">
-                            <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
-                        </li>`;
-            document.getElementById('lstUsers').innerHTML = lst;
-        }
+        // if (users.hasChildren()) {
+        //     lst = `<li class="list-group-item" style="background-color:#f8f8f8;">
+        //                     <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
+        //                 </li>`;
+                       
+        //     document.getElementById('lstUsers').innerHTML = lst;
+        // }
         users.forEach(function (data) {
             var user = data.val();
             console.log(data.key);
@@ -975,6 +973,12 @@ function PopulateUserList() {
                                 </div>
                             </div>
                         </li>`;
+                        ArrSearchAllUsers.push({
+                            NameUser: user.name,
+                            AvatarUser: user.photoURL,
+                            KeyUser: data.key,
+                            StatusUser: "Sent"
+                        });
                         document.getElementById('lstUsers').innerHTML += lst;
                     }
                     else {
@@ -992,7 +996,13 @@ function PopulateUserList() {
                                 </div>
                             </div>
                         </li>`;
-                                document.getElementById('lstUsers').innerHTML += lst;
+                        ArrSearchAllUsers.push({
+                            NameUser: user.name,
+                            AvatarUser: user.photoURL,
+                            KeyUser: data.key,
+                            StatusUser: "Pending"
+                        });
+                        document.getElementById('lstUsers').innerHTML += lst;
                             }
                             else {
                                 lst = `<li class="list-group-item list-group-item-action" >
@@ -1007,8 +1017,13 @@ function PopulateUserList() {
                                 </div>
                             </div>
                         </li>`;
-
-                                document.getElementById('lstUsers').innerHTML += lst;
+                        ArrSearchAllUsers.push({
+                            NameUser: user.name,
+                            AvatarUser: user.photoURL,
+                            KeyUser: data.key,
+                            StatusUser: "Send Request"
+                        });
+                        document.getElementById('lstUsers').innerHTML += lst;
                             }
                         });
                     }
@@ -1016,7 +1031,69 @@ function PopulateUserList() {
             }
         });
     });
+ console.log(ArrSearchAllUsers);
+}
 
+function ChangeInputSearchAllUser(){
+    // lstSearchAllUsers
+    // lstUsers
+    // input_search_AllUser
+    document.getElementById("lstSearchAllUsers").removeAttribute('style');
+    document.getElementById("lstUsers").setAttribute('style', 'display:none');
+    var valueInputSearch = document.querySelector(".input_search_AllUser").value.toLowerCase();
+    if (valueInputSearch === "") {
+        document.getElementById("lstSearchAllUsers").setAttribute('style', 'display:none');
+        document.getElementById("lstUsers").removeAttribute('style');
+    }
+    document.getElementById("lstSearchAllUsers").innerHTML = "";
+    console.log(ArrSearchAllUsers);
+    ArrSearchAllUsers.forEach(function (element) {
+        console.log(element.NameUser.toLowerCase() + " " + valueInputSearch.toLowerCase());
+        if (element.NameUser.toLowerCase().search(valueInputSearch.toLowerCase()) !== -1
+            || element.NameUser.toUpperCase().search(valueInputSearch.toUpperCase()) !== -1) {
+                if (element.StatusUser === "Sent"){
+                    document.getElementById("lstSearchAllUsers").innerHTML += `<li class="list-group-item list-group-item-action">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img onclick="Display_Info_Friend('${element.KeyUser}')" src="${element.AvatarUser}" class="rounded-circle friend-pic" />
+                        </div>
+                        <div class="col-md-10" style="cursor:pointer;">
+                            <div class="name">${element.NameUser}
+                                <button class="btn btn-sm btn-defualt" style="float:right;"><i class="fas fa-user-plus"></i> Sent</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>`;
+                } else if (element.StatusUser === "Pending") {
+                    document.getElementById("lstSearchAllUsers").innerHTML += `<li class="list-group-item list-group-item-action">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img onclick="Display_Info_Friend('${element.KeyUser}')" src="${element.AvatarUser}" class="rounded-circle friend-pic" />
+                        </div>
+                        <div class="col-md-10" style="cursor:pointer;">
+                            <div class="name">${element.NameUser}
+                                <button class="btn btn-sm btn-defualt" style="float:right;"><i class="fas fa-user-plus"></i> Pending</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>`;
+                } else if (element.StatusUser === "Send Request") {
+                    document.getElementById("lstSearchAllUsers").innerHTML += `<li class="list-group-item list-group-item-action" >
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img onclick="Display_Info_Friend('${element.KeyUser}')" src="${element.AvatarUser}" class="rounded-circle friend-pic" />
+                        </div>
+                        <div class="col-md-10" style="cursor:pointer;">
+                            <div class="name">${element.NameUser}
+                                <button onclick="SendRequest('${element.KeyUser}')" class="btn btn-sm btn-primary" style="float:right;"><i class="fas fa-user-plus"></i> Send Request</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>`;
+                }
+            
+        }
+    });
 }
 
 function NotificationCount() {
