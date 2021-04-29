@@ -5,6 +5,7 @@ var arrChatKey = [];
 var countChatKey = 0;
 var ObjectMessageLast = [];
 var ArrSearchFriends = [];
+var ArrSearchAllUsers = [];
 
 document.addEventListener('keydown', function (key) {
     if (key.which === 13) {
@@ -128,7 +129,7 @@ function Save_Info_User() {
     // change avatar
     
 
-    firebase.database().ref("users" + "/" + currentUserKey).update({
+    firebase.database().ref("users").child(currentUserKey).update({
         name: name_User.value,
         email: email_User.textContent,
         check_email: status_email_User.checked,
@@ -355,6 +356,17 @@ function LoadChatMessages(chatKey, friendPhoto) {
         user = data.val();
         urlImageUser = user.photoURL;
     })
+    firebase.database().ref("messageLast").child(chatKey).on("value", function(data){
+        var messageLast = data.val();
+        if (messageLast.PersonSendId !== currentUserKey) {
+            document.querySelector(`.${chatKey}`).innerHTML = `${messageLast.message} ${messageLast.messageTime1}`;
+            document.querySelector(`.${chatKey}`).title = `${messageLast.messageTime0}`;
+        } else {
+            document.querySelector(`.${chatKey}`).innerHTML = `You: ${messageLast.message} ${messageLast.messageTime1}`;
+            document.querySelector(`.${chatKey}`).title = `${messageLast.messageTime0}`;
+        }
+        
+    });
     var db = firebase.database().ref('chatMessages').child(chatKey);
 
     db.on('value', function (chats) {
@@ -410,12 +422,12 @@ function LoadChatMessages(chatKey, friendPhoto) {
                 deleteAllMessages = `<a href="#" class="dropdown-item"
                 onclick="DeleteMessages('${chatKey}')"              
                 >Delete Messages</a>`;
-
+                
             }
             else {
 
                 messageDisplay += `<div class="row justify-content-end">
-                            <div class="col-6 col-sm-7 col-md-7 LineMessage">
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage">
                                 <ul class="list-icon-extend"> 
                                     <li class="member-icon-extend">
                                         <i class="fa fa-window-close"
@@ -474,10 +486,15 @@ function ReplyMessageButton(message) {
     console.log("Reply message");
     var input = document.getElementById('txtMessage');
 
-    document.querySelector('#ReplyMessage').innerHTML = "Reply: " + message;
+    document.querySelector('#ReplyMessage').innerHTML = "Reply: " + message
+    + `<i style="float: right; color: red; cursor: pointer;" onclick="CloseReplyMessage()" class="fa fa-window-close" aria-hidden="true"></i>`;
     document.getElementById('txtMessage').focus();
     // document.getElementById('txtMessage').setAttribute("style", "font-size: 15px");
 
+}
+
+function CloseReplyMessage(){
+    document.getElementById("ReplyMessage").innerHTML = "";
 }
 // Delete Messages : xoa mot cuoc hoi thoai
 
@@ -512,10 +529,7 @@ function SendMessage() {
     document.getElementById("ReplyMessage").innerHTML = "";
     document.getElementById('audio').removeAttribute('style');
     document.getElementById('send').setAttribute('style', 'display:none');
-
-    document.querySelector(`.${chatKey}`).innerHTML = `You: ${chatMessage.msg} ${chatMessage.dateTime.split(',')[1]}`;
-    document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
-
+    
     firebase.database().ref("messageLast").child(chatKey).update({
         chatKey: chatKey,
         message: chatMessage.msg,
@@ -582,9 +596,7 @@ function SendImage(event) {
                 dateTime: new Date().toLocaleString(),
                 messageId: ''
             };
-            document.getElementById("ReplyMessage").innerHTML = "";
-            document.querySelector(`.${chatKey}`).innerHTML = `You: Image ${chatMessage.dateTime.split(',')[1]}`;
-            document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
+            document.getElementById("ReplyMessage").innerHTML = ""; 
 
             firebase.database().ref("messageLast").child(chatKey).update({
                 chatKey: chatKey,
@@ -640,9 +652,7 @@ function SendFile(event) {
                 dataUrl: e.target.result,
                 dateTime: new Date().toLocaleString()
             };
-            document.getElementById("ReplyMessage").innerHTML = "";
-            document.querySelector(`.${chatKey}`).innerHTML = `You: File ${chatMessage.dateTime.split(',')[1]}`;
-            document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
+            document.getElementById("ReplyMessage").innerHTML = "";           
 
             firebase.database().ref("messageLast").child(chatKey).update({
                 chatKey: chatKey,
@@ -710,6 +720,7 @@ function LoadChatList() {
             if (friendKey !== "") {
                 firebase.database().ref('users').child(friendKey).on('value', function (data) {
                     var user = data.val();
+            
                     ArrSearchFriends.push({
                         friendKey: data.key,
                         friendName: user.name,
@@ -839,7 +850,10 @@ function PopulateUserList() {
     var db = firebase.database().ref('users');
     var dbNoti = firebase.database().ref('notifications');
     var lst = '';
+    // firebase.database().ref('users').child(friendKey).on('value', function (data) {
+    //     var user = data.val();
     db.on('value', function (users) {
+        
         if (users.hasChildren()) {
             lst = `<li class="list-group-item" style="background-color:#f8f8f8;">
                             <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
@@ -848,13 +862,15 @@ function PopulateUserList() {
         }
         users.forEach(function (data) {
             var user = data.val();
+            console.log(data.key);
+            console.log(user);
             if (user.email !== firebase.auth().currentUser.email) {
                 dbNoti.orderByChild('sendTo').equalTo(data.key).on('value', function (noti) {
                     if (noti.numChildren() > 0 && Object.values(noti.val())[0].sendFrom === currentUserKey) {
                         lst = `<li class="list-group-item list-group-item-action">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <img src="${user.photoURL}" class="rounded-circle friend-pic" />
+                                    <img onclick="Display_Info_Friend('${data.key}')" src="${user.photoURL}" class="rounded-circle friend-pic" />
                                 </div>
                                 <div class="col-md-10" style="cursor:pointer;">
                                     <div class="name">${user.name}
@@ -871,7 +887,7 @@ function PopulateUserList() {
                                 lst = `<li class="list-group-item list-group-item-action">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <img src="${user.photoURL}" class="rounded-circle friend-pic" />
+                                    <img onclick="Display_Info_Friend('${data.key}')" src="${user.photoURL}" class="rounded-circle friend-pic" />
                                 </div>
                                 <div class="col-md-10" style="cursor:pointer;">
                                     <div class="name">${user.name}
@@ -883,10 +899,10 @@ function PopulateUserList() {
                                 document.getElementById('lstUsers').innerHTML += lst;
                             }
                             else {
-                                lst = `<li class="list-group-item list-group-item-action" data-dismiss="modal">
+                                lst = `<li class="list-group-item list-group-item-action" >
                             <div class="row">
                                 <div class="col-md-2">
-                                    <img src="${user.photoURL}" class="rounded-circle friend-pic" />
+                                    <img onclick="Display_Info_Friend('${data.key}')" src="${user.photoURL}" class="rounded-circle friend-pic" />
                                 </div>
                                 <div class="col-md-10" style="cursor:pointer;">
                                     <div class="name">${user.name}
@@ -917,11 +933,18 @@ function NotificationCount() {
 }
 
 function SendRequest(key) {
+    var nameUser = "";
+    var linkPhotoUser = "";
+    firebase.database().ref("users").child(currentUserKey).on("value", function(data){
+        var user = data.val();
+        nameUser = user.name;
+        linkPhotoUser = user.photoURL;
+    });
     let notification = {
         sendTo: key,
         sendFrom: currentUserKey,
-        name: firebase.auth().currentUser.displayName,
-        photo: firebase.auth().currentUser.photoURL,
+        name: nameUser,
+        photo: linkPhotoUser,
         dateTime: new Date().toLocaleString(),
         status: 'Pending'
     };

@@ -303,7 +303,6 @@ background-color: brown;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  display: none;
 }
 .member-icon-extend{
   margin-right: 7px;
@@ -324,7 +323,7 @@ background-color: brown;
   justify-content: flex-start;
   align-items: center;
   padding: 0px;
-  display: none;
+  
 }
 .member-icon-extend1{
   margin-left: 7px;
@@ -354,8 +353,9 @@ background-color: brown;
   position: fixed;
   z-index: 2000;
   height: 85%;
-  width: 80%;
-  left: calc(100% - 90%);
+  
+  width: 100%;
+  left: 0%;
   border-radius: 20px;
   text-align: center;
   overflow-y: scroll;
@@ -537,8 +537,9 @@ background-color: brown;
   position: fixed;
   z-index: 2000;
   height: 85%;
-  width: 400px;
-  left: calc(100% - 83%);
+  max-width: 500px;
+  width: 100%;
+  left: 0%;
   top: 60px;
   border-radius: 20px;
   /* text-align: center; */
