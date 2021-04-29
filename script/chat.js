@@ -60,8 +60,8 @@ function Display_Info_User() {
 
     }
     firebase.database().ref("users").child(currentUserKey).on("value", function (user) {
-        var data = user.val();      
-        
+        var data = user.val();
+
         document.querySelector(".Modal_Info_User .name input").value = data.name;
         document.querySelector(".Modal_Info_User .date input").value = data.date;
         document.querySelector(".Modal_Info_User .phone input").value = data.phone;
@@ -79,7 +79,7 @@ function Display_Info_User() {
         document.querySelector(".Modal_Info_User .email input").checked = data.check_email;
         document.querySelectorAll(".Modal_Info_User .hometown input")[1].checked = data.check_hometown;
         document.querySelectorAll(".Modal_Info_User .currentresidence input")[1].checked = data.check_currentresidence;
-        
+
         document.querySelector(".Modal_Info_User .checkbox1").checked = data.check_Describe;
         document.querySelector(".Modal_Info_User .gender input").checked = data.check_gender;
         document.querySelector(".Modal_Info_User .status input").checked = data.check_status;
@@ -119,15 +119,15 @@ function Save_Info_User() {
     var status_email_User = document.querySelector(".Modal_Info_User .email input");
     var status_hometown_User = document.querySelectorAll(".Modal_Info_User .hometown input")[1];
     var status_currentresidence_User = document.querySelectorAll(".Modal_Info_User .currentresidence input")[1];
-    
+
     var status_Describe_User = document.querySelector(".Modal_Info_User .checkbox1");
     var status_gender_User = document.querySelector(".Modal_Info_User .gender input");
     var status_status_User = document.querySelector(".Modal_Info_User .status input");
     var status_education_User = document.querySelector(".Modal_Info_User .education input");
-    
+
     console.log(email_User.textContent);
     // change avatar
-    
+
 
     firebase.database().ref("users").child(currentUserKey).update({
         name: name_User.value,
@@ -269,7 +269,7 @@ clickEmoji();
 
 //////////////////////////////////////////////////////////////////////
 function StartChat(friendKey, friendName, friendPhoto) {
-    document.getElementById("ReplyMessage").innerHTML = "";
+    
     var friendList = { friendId: friendKey, userId: currentUserKey, chatKey: '12345' };
     friend_id = friendKey;
 
@@ -306,16 +306,15 @@ function StartChat(friendKey, friendName, friendPhoto) {
         }
         //////////////////////////////////////
         //display friend name and photo
-        document.getElementById('divChatName').innerHTML = friendName;
-        document.getElementById('imgChat').src = friendPhoto;
+    
 
-        document.getElementById('messages').innerHTML = '';
+        // document.getElementById('messages').innerHTML = '';
 
-        document.getElementById('txtMessage').value = '';
-        document.getElementById('txtMessage').focus();
+        // document.getElementById('txtMessage').value = '';
+        // document.getElementById('txtMessage').focus();
         ////////////////////////////
         // Display The chat messages
-        LoadChatMessages(chatKey, friendPhoto);
+        LoadChatMessages(chatKey, friendPhoto, friendName);
 
 
     });
@@ -350,13 +349,106 @@ function LoadChatKey() {
 LoadChatKey();
 //////////////////////////////////////
 
-function LoadChatMessages(chatKey, friendPhoto) {
+function LoadChatMessages(chatKey, friendPhoto, friendName) {
+    document.getElementById("chatPanel").innerHTML = ` <div class="card-header">
+    <div class="row">
+        <div class="col-1 col-sm-1 col-md-1 col-lg-1 d-md-none">
+            <i class="fas fa-list mt-2" style="cursor:pointer" onclick="showChatList()"></i>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-1">
+            <img src="${friendPhoto}" id="imgChat" class="rounded-circle profile-pic" />
+        </div>
+        <div class="col-3 col-sm-5 col-md-5 col-lg-7">
+            <div class="name" id="divChatName">${friendName}</div>
+  
+        </div>
+        <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon header-icon">
+            
+            <div class="icon-member2">
+                <i class="fas fa-paperclip" onclick="displayIcon_file()"></i>
+                <div class="icon-file" style="display: none;">
+                    <a href="#" class="icon-file-member" onclick="ChooseImage()">
+                        Image
+                        <input type="file" id="imageFile" onchange="SendImage(this);" accept="image/*" style="display:none;" />
+                    </a>
+                    <a href="#" class="" onclick="ChooseFile()">
+                        File
+                        <input type="file" id="file" onchange="SendFile(this);" style="display:none;" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="icon-member3">
+                <i class="fas fa-ellipsis-v" onclick="displayIcon_themen()"></i>
+                <div class="icon-themen" style="display: none;">
+                    <li class='member-menu'>
+                        <a href="#" class="dropdown-item">
+                            Theme    
+                        </a>
+                        <ul class="list-themen">
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen1.jpg', '${chatKey}')" src="./img/Themen1.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen2.jpg', '${chatKey}')" src="./img/Themen2.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen3.jpg', '${chatKey}')" src="./img/Themen3.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen4.jpg', '${chatKey}')" src="./img/Themen4.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen5.jpg', '${chatKey}')" src="./img/Themen5.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen6.jpg', '${chatKey}')" src="./img/Themen6.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen7.jpg', '${chatKey}')" src="./img/Themen7.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen8.jpg', '${chatKey}')" src="./img/Themen8.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen9.jpg', '${chatKey}')" src="./img/Themen9.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen10.jpg', '${chatKey}')" src="./img/Themen10.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen11.jpg', '${chatKey}')" src="./img/Themen11.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColor('./img/Themen12.jpg', '${chatKey}')" src="./img/Themen12.jpg"/>                         
+                
+                        </ul>
+
+                    </li>
+                    
+                    <li id='deleteMessages'></li>   
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+<div class="card-body" id="messages">
+   
+</div>
+
+<div class="card-footer">
+    <div id="ReplyMessage">
+        <span class="col-10 col-md-1">
+        
+        </span>
+    </div>
+    <div class="row">
+
+        <div class="col-2 col-md-1" style="cursor:pointer;">
+            <i class="far fa-grin fa-2x" onclick="showEmojiPanel()"></i>
+        </div>
+        <div class="col-8 col-md-10">
+            <input id="txtMessage" onkeyup="ChangeSendIcon(this)" type="text" onfocus="hideEmojiPanel()" placeholder="Type here" class="form-control form-rounded"/>
+        </div>
+        <div class="col-2 col-md-1">
+            <i style="cursor:pointer;" id="audio" onclick="record(this)" class="fas fa-microphone fa-2x"></i>
+            <i id="send" class="fa fa-paper-plane fa-2x" style="display:none;" 
+            onclick="SendMessage()"
+            ></i>
+        </div>
+    </div>
+</div>`;
+
+    firebase.database().ref("BackgroundChatkey").child(chatKey).on("value", function(data){
+        var url = data.val();
+        var brgImage = document.getElementById("messages");
+        brgImage.setAttribute("style", `background-Image: url(${url.bgrURL}); background-size: auto;`);
+    })
     var urlImageUser = "";
     firebase.database().ref('users').child(currentUserKey).on("value", function (data) {
         user = data.val();
         urlImageUser = user.photoURL;
     })
-    firebase.database().ref("messageLast").child(chatKey).on("value", function(data){
+    firebase.database().ref("messageLast").child(chatKey).on("value", function (data) {
         var messageLast = data.val();
         if (messageLast.PersonSendId !== currentUserKey) {
             document.querySelector(`.${chatKey}`).innerHTML = `${messageLast.message} ${messageLast.messageTime1}`;
@@ -365,7 +457,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
             document.querySelector(`.${chatKey}`).innerHTML = `You: ${messageLast.message} ${messageLast.messageTime1}`;
             document.querySelector(`.${chatKey}`).title = `${messageLast.messageTime0}`;
         }
-        
+
     });
     var db = firebase.database().ref('chatMessages').child(chatKey);
 
@@ -423,7 +515,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
                 deleteAllMessages = `<a href="#" class="dropdown-item"
                 onclick="DeleteMessages('${chatKey}')"              
                 >Delete Messages</a>`;
-                
+
             }
             else {
 
@@ -490,13 +582,13 @@ function ReplyMessageButton(message) {
     var input = document.getElementById('txtMessage');
 
     document.querySelector('#ReplyMessage').innerHTML = "Reply: " + message
-    + `<i style="float: right; color: red; cursor: pointer;" onclick="CloseReplyMessage()" class="fa fa-window-close" aria-hidden="true"></i>`;
+        + `<i style="float: right; color: red; cursor: pointer;" onclick="CloseReplyMessage()" class="fa fa-window-close" aria-hidden="true"></i>`;
     document.getElementById('txtMessage').focus();
     // document.getElementById('txtMessage').setAttribute("style", "font-size: 15px");
 
 }
 
-function CloseReplyMessage(){
+function CloseReplyMessage() {
     document.getElementById("ReplyMessage").innerHTML = "";
 }
 // Delete Messages : xoa mot cuoc hoi thoai
@@ -532,7 +624,7 @@ function SendMessage() {
     document.getElementById("ReplyMessage").innerHTML = "";
     document.getElementById('audio').removeAttribute('style');
     document.getElementById('send').setAttribute('style', 'display:none');
-    
+
     firebase.database().ref("messageLast").child(chatKey).update({
         chatKey: chatKey,
         message: chatMessage.msg,
@@ -599,7 +691,7 @@ function SendImage(event) {
                 dateTime: new Date().toLocaleString(),
                 messageId: ''
             };
-            document.getElementById("ReplyMessage").innerHTML = ""; 
+            document.getElementById("ReplyMessage").innerHTML = "";
 
             firebase.database().ref("messageLast").child(chatKey).update({
                 chatKey: chatKey,
@@ -655,7 +747,7 @@ function SendFile(event) {
                 dataUrl: e.target.result,
                 dateTime: new Date().toLocaleString()
             };
-            document.getElementById("ReplyMessage").innerHTML = "";           
+            document.getElementById("ReplyMessage").innerHTML = "";
 
             firebase.database().ref("messageLast").child(chatKey).update({
                 chatKey: chatKey,
@@ -723,7 +815,7 @@ function LoadChatList() {
             if (friendKey !== "") {
                 firebase.database().ref('users').child(friendKey).on('value', function (data) {
                     var user = data.val();
-            
+
                     ArrSearchFriends.push({
                         friendKey: data.key,
                         friendName: user.name,
@@ -758,60 +850,60 @@ function Display_Info_Friend(friendKey) {
 
         // Hien thong tin cua friend
         console.log(friendKey);
-        firebase.database().ref("users").child(friendKey).on("value", function(user){
+        firebase.database().ref("users").child(friendKey).on("value", function (user) {
             var data = user.val();
             console.log(data);
             document.querySelector(".Modal_Info_Friend img").src = data.photoURL
             document.querySelector(".Modal_Info_Friend .Name_Friend").textContent = data.name;
-            if (data.check_date === true){
+            if (data.check_date === true) {
                 document.querySelector(".Modal_Info_Friend .Date_Friend span").textContent = data.date;
             } else {
                 document.querySelector(".Modal_Info_Friend .Date_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
             }
-            if (data.check_gender === true){
+            if (data.check_gender === true) {
                 document.querySelector(".Modal_Info_Friend .Gender_Friend span").textContent = data.gender;
             } else {
                 document.querySelector(".Modal_Info_Friend .Gender_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
             }
-            if (data.check_phone === true){
+            if (data.check_phone === true) {
                 document.querySelector(".Modal_Info_Friend .Phone_Friend span").textContent = data.phone;
             } else {
                 document.querySelector(".Modal_Info_Friend .Phone_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
             }
-            if (data.check_email === true){
+            if (data.check_email === true) {
                 document.querySelector(".Modal_Info_Friend .Email_Friend span").textContent = data.email;
             } else {
                 document.querySelector(".Modal_Info_Friend .Email_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
             }
-            if (data.check_status === true){
+            if (data.check_status === true) {
                 document.querySelector(".Modal_Info_Friend .Status_Friend span").textContent = data.status;
             } else {
                 document.querySelector(".Modal_Info_Friend .Status_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
             }
-            if (data.check_education === true){
+            if (data.check_education === true) {
                 document.querySelector(".Modal_Info_Friend .Education_Friend span").textContent = data.education;
             } else {
                 document.querySelector(".Modal_Info_Friend .Education_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
             }
-            if (data.check_hometown === true){
+            if (data.check_hometown === true) {
                 document.querySelector(".Modal_Info_Friend .Hometown_Friend span").textContent = data.hometown;
             } else {
                 document.querySelector(".Modal_Info_Friend .Hometown_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
             }
-            if (data.check_currentresidence === true){
+            if (data.check_currentresidence === true) {
                 document.querySelector(".Modal_Info_Friend .Currentresidence_Friend span").textContent = data.currentresidence;
             } else {
                 document.querySelector(".Modal_Info_Friend .Currentresidence_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
             }
-            if (data.check_Describe === true){
+            if (data.check_Describe === true) {
                 document.querySelector(".Modal_Info_Friend .Describe_Friend label").textContent = data.Describe;
             } else {
                 document.querySelector(".Modal_Info_Friend .Describe_Friend label").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
-            }          
+            }
         })
     }
 }
-function Hide_Info_Friend(){
+function Hide_Info_Friend() {
     document.querySelector(".Modal_Info_Friend").setAttribute('style', 'display:none');
     count_Info_Friend = 0;
 }
@@ -857,7 +949,7 @@ function PopulateUserList() {
     // firebase.database().ref('users').child(friendKey).on('value', function (data) {
     //     var user = data.val();
     db.on('value', function (users) {
-        
+
         if (users.hasChildren()) {
             lst = `<li class="list-group-item" style="background-color:#f8f8f8;">
                             <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
@@ -939,7 +1031,7 @@ function NotificationCount() {
 function SendRequest(key) {
     var nameUser = "";
     var linkPhotoUser = "";
-    firebase.database().ref("users").child(currentUserKey).on("value", function(data){
+    firebase.database().ref("users").child(currentUserKey).on("value", function (data) {
         var user = data.val();
         nameUser = user.name;
         linkPhotoUser = user.photoURL;
@@ -1133,7 +1225,7 @@ function onStateChanged(user) {
             Describe: '',
             gender: '',
             status: '',
-            education: '',          
+            education: '',
             check_email: false,
             check_phone: false,
             check_date: false,
@@ -1221,14 +1313,14 @@ function callback(error) {
 
 ////////////////////////////////////////////////////////////////
 // clickColorThemen
-function clickThemenColor(s) {
-    // document.getElementById('messages').setAttribute('style', 'background-color: red;');
-    
+function clickThemenColor(s, chatKey) {
+   console.log(chatKey);
+    firebase.database().ref("BackgroundChatkey").child(chatKey).update({
+        bgrURL: s
+    });
+    var brgImage = document.getElementById("messages");
+    brgImage.setAttribute("style", `background-Image: url(${s}); background-size: auto;`);
 
-    firebase.database().ref("chatMessages").on("value", function(data){
-        var brgImage = document.getElementById("messages");
-        brgImage.setAttribute("style", `background-Image: url(${s}); background-size: auto;`);
-    })
 }
 
 
