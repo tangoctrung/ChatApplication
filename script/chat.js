@@ -48,35 +48,127 @@ function displayIcon_themen() {
     }
 }
 
+var count_Info_User = 0;
+function Display_Info_User() {
+    if (count_Info_User === 1) {
+        document.querySelector(".Modal_Info_User").setAttribute('style', 'display:none');
+        count_Info_User = 0;
+    } else {
+        document.querySelector(".Modal_Info_User").removeAttribute('style');
+        count_Info_User = 1;
+
+    }
+    firebase.database().ref("users").child(currentUserKey).on("value", function (user) {
+        var data = user.val();      
+        
+        document.querySelector(".Modal_Info_User .name input").value = data.name;
+        document.querySelector(".Modal_Info_User .date input").value = data.date;
+        document.querySelector(".Modal_Info_User .phone input").value = data.phone;
+        document.querySelector(".Modal_Info_User .email .email_user").textContent = data.email;
+        document.querySelector(".Modal_Info_User .hometown input").value = data.hometown;
+        document.querySelector(".Modal_Info_User .currentresidence input").value = data.currentresidence;
+        document.querySelector(".Modal_Info_User textarea").value = data.Describe;
+        document.querySelector(".Modal_Info_User .gender select").value = data.gender;
+        document.querySelector(".Modal_Info_User .status select").value = data.status;
+        document.querySelector(".Modal_Info_User .education select").value = data.education;
+        document.querySelector(".Modal_Info_User .ChangeAvatar1 img").src = data.photoURL;
+
+        document.querySelectorAll(".Modal_Info_User .date input")[1].checked = data.check_date;
+        document.querySelectorAll(".Modal_Info_User .phone input")[1].checked = data.check_phone;
+        document.querySelector(".Modal_Info_User .email input").checked = data.check_email;
+        document.querySelectorAll(".Modal_Info_User .hometown input")[1].checked = data.check_hometown;
+        document.querySelectorAll(".Modal_Info_User .currentresidence input")[1].checked = data.check_currentresidence;
+        
+        document.querySelector(".Modal_Info_User .checkbox1").checked = data.check_Describe;
+        document.querySelector(".Modal_Info_User .gender input").checked = data.check_gender;
+        document.querySelector(".Modal_Info_User .status input").checked = data.check_status;
+        document.querySelector(".Modal_Info_User .education input").checked = data.check_education;
+    });
+}
 // Change Avatar
 
 function ChangeAvatar() {
-    document.querySelector('.ChangeAvatar').click();
+    document.querySelector('.Modal_Info_User .ChangeAvatar1 .ChangeAvatar2').click();
 }
 
-const fileImage = document.querySelector(".ChangeAvatar");
-const avatar = document.querySelector(".card .card-header #imgProfile");
+const fileImage = document.querySelector(".Modal_Info_User .ChangeAvatar1 .ChangeAvatar2");
+const avatar = document.querySelector("#Info_User_imgProfile");
+var imageAvatar;
 fileImage.addEventListener('change', handleFiles, false);
 function handleFiles() {
     avatar.src = URL.createObjectURL(this.files[0]);
     console.log(currentUserKey);
-    var imageAvatar = this.files[0];
-    var imageName = imageAvatar.name;
-    var storageRef = firebase.storage().ref("images/" + imageName);
-    var upLoadTask = storageRef.put(imageAvatar);
-    upLoadTask.on('state_changed', function (snapshot) {
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("upload is" + progress + "done");
-    }, function (error) {
-        console.log(error.message);
-    }, function () {
-        upLoadTask.snapshot.ref.getDownloadURL().then(function (downloadUrl) {
-            console.log(downloadUrl);
-            firebase.database().ref('users/' + currentUserKey).update({
-                photoURL: downloadUrl
-            })
-        });
+    imageAvatar = this.files[0];
+}
+
+function Save_Info_User() {
+    var name_User = document.querySelector(".Modal_Info_User .name input");
+    var date_User = document.querySelector(".Modal_Info_User .date input");
+    var phone_User = document.querySelector(".Modal_Info_User .phone input");
+    var email_User = document.querySelector(".Modal_Info_User .email span");
+    var hometown_User = document.querySelector(".Modal_Info_User .hometown input");
+    var currentresidence_User = document.querySelector(".Modal_Info_User .currentresidence input");
+    var Describe_User = document.querySelector(".Modal_Info_User textarea");
+    var gender_User = document.querySelector(".Modal_Info_User .gender select");
+    var status_User = document.querySelector(".Modal_Info_User .status select");
+    var education_User = document.querySelector(".Modal_Info_User .education select");
+
+    var status_date_User = document.querySelectorAll(".Modal_Info_User .date input")[1];
+    var status_phone_User = document.querySelectorAll(".Modal_Info_User .phone input")[1];
+    var status_email_User = document.querySelector(".Modal_Info_User .email input");
+    var status_hometown_User = document.querySelectorAll(".Modal_Info_User .hometown input")[1];
+    var status_currentresidence_User = document.querySelectorAll(".Modal_Info_User .currentresidence input")[1];
+    
+    var status_Describe_User = document.querySelector(".Modal_Info_User .checkbox1");
+    var status_gender_User = document.querySelector(".Modal_Info_User .gender input");
+    var status_status_User = document.querySelector(".Modal_Info_User .status input");
+    var status_education_User = document.querySelector(".Modal_Info_User .education input");
+    
+    console.log(email_User.textContent);
+    // change avatar
+    
+
+    firebase.database().ref("users" + "/" + currentUserKey).update({
+        name: name_User.value,
+        email: email_User.textContent,
+        check_email: status_email_User.checked,
+        phone: phone_User.value,
+        check_phone: status_phone_User.checked,
+        date: date_User.value,
+        check_date: status_date_User.checked,
+        hometown: hometown_User.value,
+        check_hometown: status_hometown_User.checked,
+        currentresidence: currentresidence_User.value,
+        check_currentresidence: status_currentresidence_User.checked,
+        Describe: Describe_User.value,
+        check_Describe: status_Describe_User.checked,
+        gender: gender_User.value,
+        check_gender: status_gender_User.checked,
+        status: status_User.value,
+        check_status: status_status_User.checked,
+        education: education_User.value,
+        check_education: status_education_User.checked,
     });
+
+    if (imageAvatar !== null) {
+        var imageName = imageAvatar.name;
+        var storageRef = firebase.storage().ref("images/" + imageName);
+        var upLoadTask = storageRef.put(imageAvatar);
+        upLoadTask.on('state_changed', function (snapshot) {
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("upload is" + progress + "done");
+        }, function (error) {
+            console.log(error.message);
+        }, function () {
+            upLoadTask.snapshot.ref.getDownloadURL().then(function (downloadUrl) {
+                console.log(downloadUrl);
+                firebase.database().ref('users/' + currentUserKey).update({
+                    photoURL: downloadUrl
+                })
+            });
+        });
+    }
+
 }
 /////////////////////////////////////////////
 // Audio record
@@ -106,6 +198,7 @@ function record(control) {
                             dateTime: new Date().toLocaleString(),
                             messageId: ''
                         };
+                        document.getElementById("ReplyMessage").innerHTML = "";
                         document.querySelector(`.${chatKey}`).innerHTML = `You: Audio ${chatMessage.dateTime.split(',')[1]}`;
                         document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
                         ObjectMessageLast.forEach(element => {
@@ -165,6 +258,8 @@ function hideEmojiPanel() {
 function clickEmoji() {
     document.querySelector('emoji-picker')
         .addEventListener('emoji-click', event => {
+            document.getElementById('send').removeAttribute('style');
+            document.getElementById('audio').setAttribute('style', 'display:none');
             document.getElementById('txtMessage').value += event.detail.unicode
         });
 }
@@ -173,6 +268,7 @@ clickEmoji();
 
 //////////////////////////////////////////////////////////////////////
 function StartChat(friendKey, friendName, friendPhoto) {
+    document.getElementById("ReplyMessage").innerHTML = "";
     var friendList = { friendId: friendKey, userId: currentUserKey, chatKey: '12345' };
     friend_id = friendKey;
 
@@ -281,6 +377,7 @@ function LoadChatMessages(chatKey, friendPhoto) {
                 messageLast = "Audio";
             }
             else if (chat.msgType === 'file') {
+                // msg = `<video class="sendMessageFile">{${chat.msg}}</video>`
                 msg = `<a href="${chat.dataUrl}" class="sendMessageFile" style="text-decoration: underline; cursor: pointer;">${chat.msg}</a>`;
                 messageLast = `${chat.msg}`;
             }
@@ -373,11 +470,11 @@ function DeleteMessageButton(chatKey, messageKey) {
     firebase.database().ref('chatMessages/').child(chatKey).child(messageKey).remove();
 }
 
-function ReplyMessageButton(message){
+function ReplyMessageButton(message) {
     console.log("Reply message");
     var input = document.getElementById('txtMessage');
-    
-    document.getElementById('txtMessage').value = "Reply: " + message + " :     ";
+
+    document.querySelector('#ReplyMessage').innerHTML = "Reply: " + message;
     document.getElementById('txtMessage').focus();
     // document.getElementById('txtMessage').setAttribute("style", "font-size: 15px");
 
@@ -404,6 +501,7 @@ function hideChatList() {
 
 
 function SendMessage() {
+
     var chatMessage = {
         userId: currentUserKey,
         msg: document.getElementById('txtMessage').value,
@@ -411,7 +509,7 @@ function SendMessage() {
         dateTime: new Date().toLocaleString(),
         messageId: ''
     };
-
+    document.getElementById("ReplyMessage").innerHTML = "";
     document.getElementById('audio').removeAttribute('style');
     document.getElementById('send').setAttribute('style', 'display:none');
 
@@ -484,10 +582,10 @@ function SendImage(event) {
                 dateTime: new Date().toLocaleString(),
                 messageId: ''
             };
-
+            document.getElementById("ReplyMessage").innerHTML = "";
             document.querySelector(`.${chatKey}`).innerHTML = `You: Image ${chatMessage.dateTime.split(',')[1]}`;
             document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
-      
+
             firebase.database().ref("messageLast").child(chatKey).update({
                 chatKey: chatKey,
                 message: "Image",
@@ -542,19 +640,10 @@ function SendFile(event) {
                 dataUrl: e.target.result,
                 dateTime: new Date().toLocaleString()
             };
-
+            document.getElementById("ReplyMessage").innerHTML = "";
             document.querySelector(`.${chatKey}`).innerHTML = `You: File ${chatMessage.dateTime.split(',')[1]}`;
             document.querySelector(`.${chatKey}`).title = `${chatMessage.dateTime.split(',')[0]}`;
-            // ObjectMessageLast.forEach(element => {
-            //     if (element.chatKey === chatKey) {
-            //         element.message = "File";
-            //         element.messageTime0 = chatMessage.dateTime.split(',')[0];
-            //         element.messageTime1 = chatMessage.dateTime.split(',')[1];
-            //         element.PersonSendId = chatMessage.userId;
-            //     }
 
-            // });
-            // console.log(ObjectMessageLast);
             firebase.database().ref("messageLast").child(chatKey).update({
                 chatKey: chatKey,
                 message: "File",
@@ -626,12 +715,12 @@ function LoadChatList() {
                         friendName: user.name,
                         friendPhoto: user.photoURL
                     });
-                    document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                    document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" >
                             <div class="row">
                                 <div class="col-md-2">
-                                    <img src="${user.photoURL}" class="friend-pic rounded-circle" />
+                                    <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
                                 </div>
-                                <div class="col-md-10" style="cursor:pointer;">
+                                <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
                                     <div class="name">${user.name}</div>
                                     <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}</div>
                                 </div>
@@ -642,6 +731,75 @@ function LoadChatList() {
         });
     });
 
+}
+
+var count_Info_Friend = 0;
+function Display_Info_Friend(friendKey) {
+    if (count_Info_Friend === 1) {
+        document.querySelector(".Modal_Info_Friend").setAttribute('style', 'display:none');
+        count_Info_Friend = 0;
+    } else {
+        document.querySelector(".Modal_Info_Friend").removeAttribute('style');
+        count_Info_Friend = 1;
+
+        // Hien thong tin cua friend
+        console.log(friendKey);
+        firebase.database().ref("users").child(friendKey).on("value", function(user){
+            var data = user.val();
+            console.log(data);
+            document.querySelector(".Modal_Info_Friend img").src = data.photoURL
+            document.querySelector(".Modal_Info_Friend .Name_Friend").textContent = data.name;
+            if (data.check_date === true){
+                document.querySelector(".Modal_Info_Friend .Date_Friend span").textContent = data.date;
+            } else {
+                document.querySelector(".Modal_Info_Friend .Date_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
+            }
+            if (data.check_gender === true){
+                document.querySelector(".Modal_Info_Friend .Gender_Friend span").textContent = data.gender;
+            } else {
+                document.querySelector(".Modal_Info_Friend .Gender_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
+            }
+            if (data.check_phone === true){
+                document.querySelector(".Modal_Info_Friend .Phone_Friend span").textContent = data.phone;
+            } else {
+                document.querySelector(".Modal_Info_Friend .Phone_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
+            }
+            if (data.check_email === true){
+                document.querySelector(".Modal_Info_Friend .Email_Friend span").textContent = data.email;
+            } else {
+                document.querySelector(".Modal_Info_Friend .Email_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
+            }
+            if (data.check_status === true){
+                document.querySelector(".Modal_Info_Friend .Status_Friend span").textContent = data.status;
+            } else {
+                document.querySelector(".Modal_Info_Friend .Status_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
+            }
+            if (data.check_education === true){
+                document.querySelector(".Modal_Info_Friend .Education_Friend span").textContent = data.education;
+            } else {
+                document.querySelector(".Modal_Info_Friend .Education_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
+            }
+            if (data.check_hometown === true){
+                document.querySelector(".Modal_Info_Friend .Hometown_Friend span").textContent = data.hometown;
+            } else {
+                document.querySelector(".Modal_Info_Friend .Hometown_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
+            }
+            if (data.check_currentresidence === true){
+                document.querySelector(".Modal_Info_Friend .Currentresidence_Friend span").textContent = data.currentresidence;
+            } else {
+                document.querySelector(".Modal_Info_Friend .Currentresidence_Friend span").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
+            }
+            if (data.check_Describe === true){
+                document.querySelector(".Modal_Info_Friend .Describe_Friend label").textContent = data.Describe;
+            } else {
+                document.querySelector(".Modal_Info_Friend .Describe_Friend label").innerHTML = `<i title="This user has not updated their information or they are kept private" class="fa fa-lock" aria-hidden="true"></i>`;
+            }          
+        })
+    }
+}
+function Hide_Info_Friend(){
+    document.querySelector(".Modal_Info_Friend").setAttribute('style', 'display:none');
+    count_Info_Friend = 0;
 }
 
 function ChangeInputSearch() {
@@ -658,12 +816,12 @@ function ChangeInputSearch() {
         if (element.friendName.search(valueInputSearch.toLowerCase()) !== -1
             || element.friendName.search(valueInputSearch.toUpperCase()) !== -1) {
 
-            document.getElementById("listSearchFriend").innerHTML += `<li class="list-group-item list-group-item-action" onclick="StartChat('${element.friendKey}', '${element.friendName}', '${element.friendPhoto}')">
+            document.getElementById("listSearchFriend").innerHTML += `<li class="list-group-item list-group-item-action" >
             <div class="row">
                 <div class="col-md-2">
-                    <img src="${element.friendPhoto}" class="friend-pic rounded-circle" />
+                    <img src="${element.friendPhoto}" onclick="Display_Info_Friend('${element.friendKey}')" class="friend-pic rounded-circle" />
                 </div>
-                <div class="col-md-10" style="cursor:pointer;">
+                <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${element.friendKey}', '${element.friendName}', '${element.friendPhoto}')">
                     <div class="name">${element.friendName}</div>                   
                 </div>
             </div>
@@ -937,7 +1095,28 @@ function onStateChanged(user) {
 
         document.getElementById('page-login').style = 'display:none';
 
-        var userProfile = { email: '', name: '', photoURL: '' };
+        var userProfile = {
+            email: '',
+            name: '',
+            photoURL: '',
+            phone: '',
+            date: '',
+            hometown: '',
+            currentresidence: '',
+            Describe: '',
+            gender: '',
+            status: '',
+            education: '',          
+            check_email: false,
+            check_phone: false,
+            check_date: false,
+            check_hometown: false,
+            check_currentresidence: false,
+            check_Describe: false,
+            check_gender: false,
+            check_status: false,
+            check_education: false,
+        };
         userProfile.email = firebase.auth().currentUser.email;
         userProfile.name = firebase.auth().currentUser.displayName;
         userProfile.photoURL = firebase.auth().currentUser.photoURL;
@@ -962,7 +1141,7 @@ function onStateChanged(user) {
                     urlImageUser = user.photoURL;
                 })
                 document.getElementById('imgProfile').src = urlImageUser;
-                document.getElementById('imgProfile').title = firebase.auth().currentUser.displayName;
+                document.getElementById('imgProfile').title = user.name;
 
                 document.getElementById('lnkSignIn').style = 'display:none';
                 document.getElementById('lnkSignOut').style = '';
@@ -987,6 +1166,7 @@ function onStateChanged(user) {
             LoadChatList();
             NotificationCount();
         });
+
     }
     else {
         document.getElementById('imgProfile').src = './img/pp.png';
@@ -1029,8 +1209,6 @@ LoginByAccount.addEventListener('click', (e) => {
     const email = document.getElementById('input-name-acc').value;
     const password = document.getElementById('pswrd').value;
 
-    console.log('aaaa');
-
     if (email != '' && password != '') {
 
         firebase.auth().signInWithEmailAndPassword(email, password).then((userCredential) => {
@@ -1043,6 +1221,9 @@ LoginByAccount.addEventListener('click', (e) => {
     }
 
 });
+
+
+
 /////////
 // Call auth State changed
 

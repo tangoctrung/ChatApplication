@@ -3,7 +3,13 @@ console.log(fileImage);
 const avatar = document.querySelector(".container .form .chooseImage img");
 let urlavatar = '';
 
-
+{/* <div class="form-group chooseImage">
+        <label for="file-upload" class="custom-file-upload">
+          <i class="ti-cloud-up"> </i>Avatar
+        </label>
+        <input id="file-upload"   type="file" />
+        <img class="AvatarDemo rounded-circle" src="./img/avatar.png" style="width:80px;margin-left: 20px;"/>
+      </div> */}
 fileImage.addEventListener('change', handleFiles, false);
 function handleFiles() {
   avatar.src = URL.createObjectURL(this.files[0]);
