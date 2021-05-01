@@ -71,7 +71,7 @@
     </div>
 
     <!-- <div id='main-chat' class="main-chat" style="display: none;">  -->
-    <!-- <span class="top"></span> -->
+    <span class="top"></span>
 
     <div class="container-fluid bg-white chatbox shadow-lg rounded">
         <div class="row">
@@ -83,65 +83,70 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-1 col-sm-1 col-md-1 d-md-none">
-                                <i class="fas fa-arrow-left d-md-none" style="font-size:20px;cursor:pointer;" onclick="hideChatList()"></i>
+                                <i class="fas fa-arrow-left d-md-none" style="font-size:20px;cursor:pointer;"
+                                    onclick="hideChatList()"></i>
                             </div>
                             <div class="col-7 col-sm-7 col-md-7">
-                                <img id="imgProfile" style="cursor: pointer;" src="images/pp.png" onclick="Display_Info_User()" class="rounded-circle profile-pic" /> 
-                                    
+                                <img id="imgProfile" style="cursor: pointer;" src="images/pp.png"
+                                    onclick="Display_Info_User()" class="rounded-circle profile-pic" />
+
                                 <!-- Thong tin cua nguoi dung -->
                                 <div class="Modal_Info_User" style="display: none;">
-                                    <span>Personal Information</span> <br/>
+                                    <span>Personal Information</span> <br />
                                     <div class="Display_Info">
-                                        <label class="name ">Name: 
-                                            <input type="text" /> <br/>
-                                            
-                                            
+                                        <label class="name ">Name:
+                                            <input type="text" /> <br />
+
+
                                         </label>
-                                        <label class="date ">Date: 
-                                            <input type="date" /> <br/>
+                                        <label class="date ">Date:
+                                            <input type="date" /> <br />
                                             <input type="checkbox">Public
                                         </label>
                                     </div>
-                                     <br/>
-                                    
+                                    <br />
+
                                     <div class="Display_Info">
-                                        <label class="phone">Phone: 
+                                        <label class="phone">Phone:
                                             <input type="text" />
-                                            <br/>
+                                            <br />
                                             <input type="checkbox">Public
                                         </label>
-                                        <label class="gender">Gender: 
+                                        <label class="gender">Gender:
                                             <select>
                                                 <option></option>
                                                 <option>Male</option>
                                                 <option>Female</option>
                                                 <option>Other</option>
-                                            </select> <br/>
+                                            </select> <br />
                                             <input type="checkbox">Public
                                         </label>
                                     </div>
 
-                                     <br/>
-
-                                     <div class="Display_Info">
-                                        <label class="email">
-                                            Email: 
-                                            <span class="email_user">Email</span> <br/>                                          
-                                            <input type="checkbox">Public
-                                        </label> 
-                                        
-                                        <label class="ChangeAvatar1">
-                                            ChangeAvatar: 
-                                            <span class="containerAvatar">
-                                              <img id="Info_User_imgProfile" style="cursor: pointer; height: 100px; width: 100px; background-position: center; border: 2px solid #000;" src="img/pp.png" onclick="ChangeAvatar()" class="rounded-circle" /> 
-                                            </span>
-                                            <input type="file" style="display:none;" class="ChangeAvatar2" accept="image/*"/>
-                                        </label>
-                                     </div>                                                                      
-                                    <br/>
+                                    <br />
 
                                     <div class="Display_Info">
-                                        <label class="status">Status: 
+                                        <label class="email">
+                                            Email:
+                                            <span class="email_user">Email</span> <br />
+                                            <input type="checkbox">Public
+                                        </label>
+
+                                        <label class="ChangeAvatar1">
+                                            ChangeAvatar:
+                                            <span class="containerAvatar">
+                                                <img id="Info_User_imgProfile"
+                                                    style="cursor: pointer; height: 100px; width: 100px; background-position: center; border: 2px solid #000;"
+                                                    src="img/pp.png" onclick="ChangeAvatar()" class="rounded-circle" />
+                                            </span>
+                                            <input type="file" style="display:none;" class="ChangeAvatar2"
+                                                accept="image/*" />
+                                        </label>
+                                    </div>
+                                    <br />
+
+                                    <div class="Display_Info">
+                                        <label class="status">Status:
                                             <select>
                                                 <option></option>
                                                 <option>Married</option>
@@ -150,10 +155,10 @@
                                                 <option>Research</option>
                                                 <option>Complicated relationship</option>
                                                 <option>Other</option>
-                                            </select> <br/>
+                                            </select> <br />
                                             <input type="checkbox">Public
                                         </label>
-                                        <label class="education ">Education: 
+                                        <label class="education ">Education:
                                             <select name="">
                                                 <option></option>
                                                 <option>Primary school</option>
@@ -164,34 +169,35 @@
                                                 <option>Master</option>
                                                 <option>Doctor</option>
                                                 <option>Other</option>
-                                            </select> <br/>
+                                            </select> <br />
                                             <input type="checkbox">Public
                                         </label>
                                     </div>
-                                     <br/>
+                                    <br />
 
                                     <div class="Display_Info">
-                                        <label class="hometown">Home town: 
-                                            <input type="text" /> <br/>
+                                        <label class="hometown">Home town:
+                                            <input type="text" /> <br />
                                             <input type="checkbox">Public
-                                            
+
                                         </label>
-                                        <label class="currentresidence">Current residence: 
-                                            <input type="text" /> <br/>
+                                        <label class="currentresidence">Current residence:
+                                            <input type="text" /> <br />
                                             <input type="checkbox">Public
                                         </label>
                                     </div>
-                                                                                                      
+
                                     <textarea class="Describe" placeholder="Describe more about yourself"></textarea>
                                     <input class="checkbox1" type="checkbox">Public
-                                        <br/>
-                                    
+                                    <br />
+
                                     <button onclick="Save_Info_User()">Save</button>
-                                    
+
                                 </div>
                             </div>
                             <div class="col-2 col-sm-2 col-md-2">
-                                <a href="#" style="float:right;" data-toggle="modal" data-target="#modalNotificationList" onclick="PopulateNotifications()">
+                                <a href="#" style="float:right;" data-toggle="modal"
+                                    data-target="#modalNotificationList" onclick="PopulateNotifications()">
                                     <i class="fas fa-bell icon">
                                     </i>
                                     <span id="notification">0</span>
@@ -203,7 +209,8 @@
                                             <div class="card">
                                                 <div class="card-header">
                                                     All Users Requests
-                                                    <span class="close" data-dismiss="modal" style="cursor:pointer;">&times;</span>
+                                                    <span class="close" data-dismiss="modal"
+                                                        style="cursor:pointer;">&times;</span>
                                                 </div>
                                                 <ul class="list-group list-group-flush" id="lstNotification"></ul>
                                             </div>
@@ -217,10 +224,13 @@
                                         <i class="fas fa-ellipsis-v icon" style="cursor:pointer;"></i>
                                     </span>
                                     <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item" id="lnk" onclick="PopulateUserList()" data-toggle="modal" data-target="#modalUserList">All Users</a>
-                                        <a href="#" class="dropdown-item" id="lnkNewChat" onclick="PopulateFriendList()" data-toggle="modal" data-target="#modalFriendList">New Chat</a>
+                                        <a href="#" class="dropdown-item" id="lnk" onclick="PopulateUserList()"
+                                            data-toggle="modal" data-target="#modalUserList">All Users</a>
+                                        <a href="#" class="dropdown-item" id="lnkNewChat" onclick="PopulateFriendList()"
+                                            data-toggle="modal" data-target="#modalFriendList">New Chat</a>
                                         <a href="#" id="lnkSignIn" onclick="signIn()" class="dropdown-item">Sign In</a>
-                                        <a href="#" id="lnkSignOut" onclick="signOut()" class="dropdown-item" style="display:none;">Sign Out</a>
+                                        <a href="#" id="lnkSignOut" onclick="signOut()" class="dropdown-item"
+                                            style="display:none;">Sign Out</a>
 
                                     </div>
 
@@ -230,7 +240,8 @@
                                                 <div class="card">
                                                     <div class="card-header">
                                                         Friend List
-                                                        <span class="close" data-dismiss="modal" style="cursor:pointer;">&times;</span>
+                                                        <span class="close" data-dismiss="modal"
+                                                            style="cursor:pointer;">&times;</span>
                                                     </div>
                                                     <ul class="list-group list-group-flush" id="lstFriend"></ul>
                                                 </div>
@@ -244,14 +255,19 @@
                                                 <div class="card">
                                                     <div class="card-header">
                                                         All Users list
-                                                        <span class="close" data-dismiss="modal" style="cursor:pointer;">&times;</span>
+                                                        <span class="close" data-dismiss="modal"
+                                                            style="cursor:pointer;">&times;</span>
                                                     </div>
-                                                    <input onkeyup = "ChangeInputSearchAllUser();" style="margin-bottom: 20px; margin-top: 20px;" type="text" placeholder="Search or new chat" class="form-control form-rounded input_search_AllUser" />
-                                                    
-                                                    <ul style="display:none;" class="list-group list-group-flush" id="lstSearchAllUsers">                                                                                                                                                   
+                                                    <input onkeyup="ChangeInputSearchAllUser();"
+                                                        style="margin-bottom: 20px; margin-top: 20px;" type="text"
+                                                        placeholder="Search or new chat"
+                                                        class="form-control form-rounded input_search_AllUser" />
+
+                                                    <ul style="display:none;" class="list-group list-group-flush"
+                                                        id="lstSearchAllUsers">
                                                     </ul>
 
-                                                    <ul class="list-group list-group-flush" id="lstUsers">                                                                                                                                                   
+                                                    <ul class="list-group list-group-flush" id="lstUsers">
                                                     </ul>
 
                                                 </div>
@@ -263,21 +279,51 @@
                         </div>
                     </div>
                     <li class="list-group-item" style="background-color:#f8f8f8;">
-                        <i title="Create a group" style="font-size: 25px; margin-bottom: 10px; cursor: pointer; margin-left: calc(100% - 60%);" class="fa fa-users" aria-hidden="true"></i>
-                        <input type="text" onkeyup = "ChangeInputSearch();" placeholder="Search or new chat" class="form-control form-rounded input_search" />
+                        <i title="Create a group" onclick="ShowContainerCreateGroup()"
+                            style="font-size: 25px; margin-bottom: 10px; cursor: pointer; margin-left: calc(100% - 60%);"
+                            class="fa fa-users" aria-hidden="true">
+                        </i>
+                        <div style="display: none;" class="containerCreateGroup">
+                            <span style="margin-left: 5px; cursor: pointer; font-weight: 500;">Xong</span>
+
+                            <i onclick="CloseContainerCreateGroup()" style="float: right; cursor: pointer;"
+                                class="fa fa-window-close" aria-hidden="true"></i> <br />
+                            <span class="CreateAGroup">Create a group</span> <br />
+                            <input class="NameGroup" placeholder="Name group" /> <br />
+                            <span class="AddMember">Add member</span> <br />
+                            <input class="SearchMember" placeholder="Sreach a member" />
+                            <ul class="list-group list-group-flush" id="listMemberGroup">
+
+                                <div class="list-group-item" style="margin-left: 20px;">
+                                    <img src="./img/pp.png" style="height: 50px; width: 50px;" class="rounded-circle" />
+                                    <label style="margin-top: 10px; font-size: 20px;" class="ml-4">Ta ngoc trung
+                                    </label>
+                                    <input
+                                        style="float: right; margin-right: 30px; transform: scale(1.4); margin-top: 20px;"
+                                        type="checkbox" />
+                                </div>
+
+                            </ul>
+
+                        </div>
+                        <input type="text" onkeyup="ChangeInputSearch();" placeholder="Search or new chat"
+                            class="form-control form-rounded input_search" />
                     </li>
-                    <ul class="list-group list-group-flush" id="listSearchFriend"
-                    style="display:none;"
-                    ></ul>
+                    <ul class="list-group list-group-flush" id="listSearchFriend" style="display:none;"></ul>
                     <ul class="list-group list-group-flush" id="lstChat"></ul>
                     <!-- Thong tin cua ban be nguoi dung -->
                     <div class="Modal_Info_Friend" style="display: none;">
-                        <i onclick="Hide_Info_Friend()" class="fa fa-window-close" style="cursor: pointer; float: right; font-size: 25px; color: #f8f8f8;" aria-hidden="true"></i>
-                        <br/>
-                        <img src="./img/pp.png" style="position: relative; margin-bottom: 20px; height: 150px; width: 150px; left: 120px; border: 1.5px solid #000;" class="AvatarFriend rounded-circle"/>
-                        <p class="Name_Friend" style="text-align: center; margin-bottom: 50px; font-size: 25px; color: #f8f8f8; font-weight: 500;"
-                        >Hoang Le</p>
-                        
+                        <i onclick="Hide_Info_Friend()" class="fa fa-window-close"
+                            style="cursor: pointer; float: right; font-size: 25px; color: #f8f8f8;"
+                            aria-hidden="true"></i>
+                        <br />
+                        <img src="./img/pp.png"
+                            style="position: relative; margin-bottom: 20px; height: 150px; width: 150px; left: 120px; border: 1.5px solid #000;"
+                            class="AvatarFriend rounded-circle" />
+                        <p class="Name_Friend"
+                            style="text-align: center; margin-bottom: 50px; font-size: 25px; color: #f8f8f8; font-weight: 500;">
+                            Hoang Le</p>
+
                         <p class="Date_Friend" style="  margin-left: 15px; color: blanchedalmond;">
                             Date: <span style="position: relative;left: 80px;">23/07/2001</span>
                         </p>
@@ -303,12 +349,13 @@
                             Currentresidence: <span style="position: relative;left: 50px;">Cau Giay, Ha Noi</span>
                         </p>
                         <p class="Describe_Friend" style=" margin-left: 15px; color: blanchedalmond;">
-                            Describe more about yourself: <br/>
-                            <Label class="Descript_Friend" style="text-align: center; margin-left: 5px; margin-right: 15px; color: aquamarine; font-style: italic;">
-                                Khong co gi ca  Khong co gi ca
+                            Describe more about yourself: <br />
+                            <Label class="Descript_Friend"
+                                style="text-align: center; margin-left: 5px; margin-right: 15px; color: aquamarine; font-style: italic;">
+                                Khong co gi ca Khong co gi ca
                                 Khong co gi ca Khong co gi ca
                             </label>
-                        </p>                                        
+                        </p>
                     </div>
 
                 </div>
@@ -320,17 +367,14 @@
 
                 </div>
 
-                <div class="emoji" >
-                    <emoji-picker 
-                    id="emoji" style="display: none;" class="dark"
-                    
-                    ></emoji-picker>
+                <div class="emoji">
+                    <emoji-picker id="emoji" style="display: none;" class="dark"></emoji-picker>
                 </div>
 
                 <div id="divStart" class="text-center">
                     <i class="fas fa-comments mt-5" style="font-size:250px;"></i>
                     <h2 class="mt-3">Select your friend from the list and start chating.</h2>
-                    <a href="#" onclick="showChatList()" class="d-md-none">New Chat</a>                  
+                    <a href="#" onclick="showChatList()" class="d-md-none">New Chat</a>
                     <button onclick="signOut()" class="btn btn-primary">Sign Out</button>
                 </div>
             </div>

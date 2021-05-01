@@ -170,6 +170,9 @@ function Save_Info_User() {
         });
     }
 
+    var lst = '';
+    document.getElementById('lstUsers').innerHTML = lst;
+
 }
 /////////////////////////////////////////////
 // Audio record
@@ -269,7 +272,7 @@ clickEmoji();
 
 //////////////////////////////////////////////////////////////////////
 function StartChat(friendKey, friendName, friendPhoto) {
-    
+
     var friendList = { friendId: friendKey, userId: currentUserKey, chatKey: '12345' };
     friend_id = friendKey;
 
@@ -306,7 +309,7 @@ function StartChat(friendKey, friendName, friendPhoto) {
         }
         //////////////////////////////////////
         //display friend name and photo
-    
+
 
         // document.getElementById('messages').innerHTML = '';
 
@@ -342,6 +345,14 @@ function LoadChatKey() {
                 PersonSendId: user.PersonSendId
             });
         }
+        // <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}</div>
+        // if (user.PersonSendId === currentUserKey) {
+        //     document.querySelector(`.${user.chatKey}`).innerHTML = `You ${user.message} ${user.messageTime1}`
+        //     document.querySelector(`.${user.chatKey}`).title = `${user.messageTime0}`;
+        // } else {
+        //     document.querySelector(`.${user.chatKey}`).innerHTML = `${user.message} ${user.messageTime1}`
+        //     document.querySelector(`.${user.chatKey}`).title = `${user.messageTime0}`;
+        // }
 
     });
 
@@ -438,7 +449,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName) {
     </div>
 </div>`;
 
-    firebase.database().ref("BackgroundChatkey").child(chatKey).on("value", function(data){
+    firebase.database().ref("BackgroundChatkey").child(chatKey).on("value", function (data) {
         var url = data.val();
         var brgImage = document.getElementById("messages");
         brgImage.setAttribute("style", `background-Image: url(${url.bgrURL}); background-size: auto;`);
@@ -778,9 +789,48 @@ function SendFile(event) {
 
 ///////////////////////////////////////////////////////////////////////
 /////////////
+// DISPLAY CREATE A GROUP
+function ShowContainerCreateGroup() {
+    document.querySelector(".containerCreateGroup").removeAttribute("style");
+    
+    // SHOW LIST FRIEND
+    document.getElementById('listMemberGroup').innerHTML = "";
+    var db = firebase.database().ref('friend_list');
+    db.on('value', function (lists) {
+        lists.forEach(function (data) {
+            var lst = data.val();
+            var friendKey = '';
+            if (lst.friendId === currentUserKey) {
+                friendKey = lst.userId;
+            }
+            else if (lst.userId === currentUserKey) {
+                friendKey = lst.friendId;
+            }
+
+            if (friendKey !== "") {
+                firebase.database().ref('users').child(friendKey).on('value', function (data) {
+                    var user = data.val();
+
+                    document.getElementById('listMemberGroup').innerHTML += `<div class="list-group-item" style="margin-left: 20px;">
+                    <img src="${user.photoURL}" style="height: 50px; width: 50px;" class="rounded-circle" />
+                    <label style="margin-top: 10px; font-size: 20px;" class="ml-4">${user.name}
+                    </label>
+                    <input
+                        style="float: right; margin-right: 30px; transform: scale(1.4); margin-top: 20px;"
+                        type="checkbox" />
+                </div>`;
+                });
+            }
+        });
+    });
+}
+
+function CloseContainerCreateGroup() {
+    document.querySelector(".containerCreateGroup").setAttribute("style", "display:none;");
+}
 
 function LoadChatList() {
-
+    document.getElementById('lstChat').innerHTML = "";
     var db = firebase.database().ref('friend_list');
     db.on('value', function (lists) {
         lists.forEach(function (data) {
@@ -943,6 +993,7 @@ function PopulateUserList() {
     var db = firebase.database().ref('users');
     var dbNoti = firebase.database().ref('notifications');
     var lst = '';
+    document.getElementById('lstUsers').innerHTML = lst;
     // firebase.database().ref('users').child(friendKey).on('value', function (data) {
     //     var user = data.val();
     db.on('value', function (users) {
@@ -951,7 +1002,7 @@ function PopulateUserList() {
         //     lst = `<li class="list-group-item" style="background-color:#f8f8f8;">
         //                     <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
         //                 </li>`;
-                       
+
         //     document.getElementById('lstUsers').innerHTML = lst;
         // }
         users.forEach(function (data) {
@@ -996,13 +1047,13 @@ function PopulateUserList() {
                                 </div>
                             </div>
                         </li>`;
-                        ArrSearchAllUsers.push({
-                            NameUser: user.name,
-                            AvatarUser: user.photoURL,
-                            KeyUser: data.key,
-                            StatusUser: "Pending"
-                        });
-                        document.getElementById('lstUsers').innerHTML += lst;
+                                ArrSearchAllUsers.push({
+                                    NameUser: user.name,
+                                    AvatarUser: user.photoURL,
+                                    KeyUser: data.key,
+                                    StatusUser: "Pending"
+                                });
+                                document.getElementById('lstUsers').innerHTML += lst;
                             }
                             else {
                                 lst = `<li class="list-group-item list-group-item-action" >
@@ -1017,13 +1068,13 @@ function PopulateUserList() {
                                 </div>
                             </div>
                         </li>`;
-                        ArrSearchAllUsers.push({
-                            NameUser: user.name,
-                            AvatarUser: user.photoURL,
-                            KeyUser: data.key,
-                            StatusUser: "Send Request"
-                        });
-                        document.getElementById('lstUsers').innerHTML += lst;
+                                ArrSearchAllUsers.push({
+                                    NameUser: user.name,
+                                    AvatarUser: user.photoURL,
+                                    KeyUser: data.key,
+                                    StatusUser: "Send Request"
+                                });
+                                document.getElementById('lstUsers').innerHTML += lst;
                             }
                         });
                     }
@@ -1031,10 +1082,10 @@ function PopulateUserList() {
             }
         });
     });
- console.log(ArrSearchAllUsers);
+    console.log(ArrSearchAllUsers);
 }
 
-function ChangeInputSearchAllUser(){
+function ChangeInputSearchAllUser() {
     // lstSearchAllUsers
     // lstUsers
     // input_search_AllUser
@@ -1051,8 +1102,8 @@ function ChangeInputSearchAllUser(){
         console.log(element.NameUser.toLowerCase() + " " + valueInputSearch.toLowerCase());
         if (element.NameUser.toLowerCase().search(valueInputSearch.toLowerCase()) !== -1
             || element.NameUser.toUpperCase().search(valueInputSearch.toUpperCase()) !== -1) {
-                if (element.StatusUser === "Sent"){
-                    document.getElementById("lstSearchAllUsers").innerHTML += `<li class="list-group-item list-group-item-action">
+            if (element.StatusUser === "Sent") {
+                document.getElementById("lstSearchAllUsers").innerHTML += `<li class="list-group-item list-group-item-action">
                     <div class="row">
                         <div class="col-md-2">
                             <img onclick="Display_Info_Friend('${element.KeyUser}')" src="${element.AvatarUser}" class="rounded-circle friend-pic" />
@@ -1064,8 +1115,8 @@ function ChangeInputSearchAllUser(){
                         </div>
                     </div>
                 </li>`;
-                } else if (element.StatusUser === "Pending") {
-                    document.getElementById("lstSearchAllUsers").innerHTML += `<li class="list-group-item list-group-item-action">
+            } else if (element.StatusUser === "Pending") {
+                document.getElementById("lstSearchAllUsers").innerHTML += `<li class="list-group-item list-group-item-action">
                     <div class="row">
                         <div class="col-md-2">
                             <img onclick="Display_Info_Friend('${element.KeyUser}')" src="${element.AvatarUser}" class="rounded-circle friend-pic" />
@@ -1077,8 +1128,8 @@ function ChangeInputSearchAllUser(){
                         </div>
                     </div>
                 </li>`;
-                } else if (element.StatusUser === "Send Request") {
-                    document.getElementById("lstSearchAllUsers").innerHTML += `<li class="list-group-item list-group-item-action" >
+            } else if (element.StatusUser === "Send Request") {
+                document.getElementById("lstSearchAllUsers").innerHTML += `<li class="list-group-item list-group-item-action" >
                     <div class="row">
                         <div class="col-md-2">
                             <img onclick="Display_Info_Friend('${element.KeyUser}')" src="${element.AvatarUser}" class="rounded-circle friend-pic" />
@@ -1090,8 +1141,8 @@ function ChangeInputSearchAllUser(){
                         </div>
                     </div>
                 </li>`;
-                }
-            
+            }
+
         }
     });
 }
@@ -1108,7 +1159,7 @@ function NotificationCount() {
 function SendRequest(key) {
     var nameUser = "";
     var linkPhotoUser = "";
-    firebase.database().ref("users").child(currentUserKey).on("value", function (data) {
+    firebase.database().ref("users").child(currentUserKey).once("value", function (data) {
         var user = data.val();
         nameUser = user.name;
         linkPhotoUser = user.photoURL;
@@ -1138,11 +1189,11 @@ function PopulateNotifications() {
     var db = firebase.database().ref('notifications');
     var lst = '';
     db.orderByChild('sendTo').equalTo(currentUserKey).on('value', function (notis) {
-        if (notis.hasChildren()) {
-            lst = `<li class="list-group-item" style="background-color:#f8f8f8;">
-                            <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
-                        </li>`;
-        }
+        // if (notis.hasChildren()) {
+        //     lst = `<li class="list-group-item" style="background-color:#f8f8f8;">
+        //                     <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
+        //                 </li>`;
+        // }
         notis.forEach(function (data) {
             var noti = data.val();
             if (noti.status === 'Pending') {
@@ -1391,7 +1442,7 @@ function callback(error) {
 ////////////////////////////////////////////////////////////////
 // clickColorThemen
 function clickThemenColor(s, chatKey) {
-   console.log(chatKey);
+    console.log(chatKey);
     firebase.database().ref("BackgroundChatkey").child(chatKey).update({
         bgrURL: s
     });
