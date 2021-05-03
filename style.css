@@ -163,11 +163,16 @@ body {
   overflow-x: hidden;
 }
 
-#lstChat {
+/* #lstChat {
   overflow-y: scroll;
   overflow-x: hidden;
 }
 #listSearchFriend{
+  overflow-y: scroll;
+  overflow-x: hidden;
+} */
+#lstGroupChat{
+  height: 400px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -312,6 +317,12 @@ background-color: brown;
   display: flex;
   justify-content: flex-start;
 }
+
+.LineMessageGroup{
+  margin-top: -15px;
+  margin-bottom: 10px;
+}
+
 .list-icon-extend{
   list-style: none;
   display: flex;
@@ -575,10 +586,11 @@ background-color: brown;
 
 .containerCreateGroup{
   left: calc(100% - 94%);
-  width: 375px;
+  width: calc(100% - 6px);
+  max-width: 450px;
   max-width: 500px;
   height: calc(100% - 45px);
-  top: 45px;
+  top: 44px;
   background-color: #ffffff;
   border-radius: 10px;
   position: fixed;
@@ -615,6 +627,9 @@ background-color: brown;
   height: 40px;
   margin-left: 18px;
   border-radius: 15px;
+  padding: 0 0 0 15px;
+  border: 2px solid #3498db;
+  outline: none;
 }
 .containerCreateGroup #listMemberGroup{
   height: calc(100% - 235px);
@@ -622,6 +637,117 @@ background-color: brown;
   overflow-y: scroll;
   overflow-x: hidden;
   
+}
+.tab-content{
+   height: calc(100% - 230px);
+}
+#smiley{
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+/* <div class="ContainerInfoGroup">
+                <i class="fa fa-window-close close" aria-hidden="true"></i>
+                <img onclick="ChooseAvatarGroup()" src="${groupPhoto}"/>
+                <input class="ChooseAvatarGroup" type="file" style="display: none;"/>
+                <input class="ChangeNameGroup" type="text" value="dream"/>
+                
+                <ul class="ListMemberOfGroup" style="list-style: none;">
+                    <li class="MemberOfGroup">
+                        <img src="./img/pp.png" style="height: 50px; width: 50px;"/>
+                        Ta Ngoc Trung
+                        <i onclick="DeleteMemberOfGroup()" class="fa fa-times" aria-hidden="true"></i>
+                    </li>
+                </ul>
+
+            </div> */
+.ContainerInfoGroup{
+  height: 100%;
+  width: 100%;
+  max-width: 450px;
+  max-height: 700px;
+  background-color: #4267B2;
+  position: fixed;
+  z-index: 2000;
+  border-radius: 15px;
+  margin-left: -38px;
+  box-shadow: -5px 5px 8px -2px #888888;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* overflow: hidden; */
+}
+.ContainerInfoGroup img{
+  height: 120px;
+  width: 120px;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+.ContainerInfoGroup .ChangeNameGroup{
+  float: right;
+  margin-right: 20px;
+  margin-top: 70px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #000;
+  background-color: #4267B2;
+  text-align: center;
+}
+.ContainerInfoGroup p{
+  margin-top: 20px;
+  font-size: 20px; 
+  color: #fff; 
+  margin-left: 20px;
+}
+.ContainerInfoGroup .ListMemberOfGroup{
+  padding: 0;
+  height: calc(100% - 300px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.ContainerInfoGroup .MemberOfGroup img{
+  margin: auto;
+  margin-right: 15px;
+}
+
+.ContainerInfoGroup .MemberOfGroup{
+  font-size: 15px;
+  font-weight: 600;
+}
+.ContainerInfoGroup .MemberOfGroup i{
+  float: right;
+  margin-right: 20px;
+  margin-top: 12px;
+  font-size: 20px;
+  background-color: red;
+  color: #fff;
+  padding: 3px 5px;
+  cursor: pointer;
+}
+
+.ContainerInfoGroup .FriendOfGroup{
+  margin-left: -10px;
+  padding: 10px;
+  margin-top: 10px;
+  width: 95%;;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.ContainerInfoGroup .FriendOfGroup img{
+  margin: auto;
+  margin-right: 15px;
+}
+
+.ContainerInfoGroup .FriendOfGroup{
+  font-size: 15px;
+  font-weight: 600;
+}
+.ContainerInfoGroup .FriendOfGroup i{
+  float: right;
+  margin-right: 20px;
+  margin-top: 12px;
+  color: #fff;
+  padding: 3px 5px;
+  cursor: pointer;
 }
 
 /*  -------------------------------------------  Login Page  ---------------------------------------------------------------- */
