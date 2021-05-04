@@ -163,6 +163,11 @@ body {
   overflow-x: hidden;
 }
 
+#messagesGroup{
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 /* #lstChat {
   overflow-y: scroll;
   overflow-x: hidden;
@@ -722,6 +727,7 @@ background-color: brown;
   color: #fff;
   padding: 3px 5px;
   cursor: pointer;
+  
 }
 
 .ContainerInfoGroup .FriendOfGroup{

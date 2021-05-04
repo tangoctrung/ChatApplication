@@ -274,7 +274,6 @@ clickEmoji();
 91111
 //////////////////////////////////////////////////////////////////////
 function StartChat(friendKey, friendName, friendPhoto) {
-
     var friendList = { friendId: friendKey, userId: currentUserKey, chatKey: '12345' };
     friend_id = friendKey;
 
@@ -287,7 +286,11 @@ function StartChat(friendKey, friendName, friendPhoto) {
                 || ((user.friendId === friendList.userId && user.userId === friendList.friendId))) {
                 flag = true;
                 chatKey = data.key;
+                console.log(chatKey);
+                document.getElementById(`${chatKey}`).removeAttribute('style');
+                console.log(document.getElementById(`${chatKey}`));
             }
+
         });
 
         if (flag === false) {
@@ -302,7 +305,6 @@ function StartChat(friendKey, friendName, friendPhoto) {
             firebase.database().ref('friend_list/' + chatKey).update({
                 chatKey: chatKey
             })
-
         }
         else {
             document.getElementById('chatPanel').removeAttribute('style');
@@ -370,7 +372,6 @@ function LoadChatMessages(chatKey, friendPhoto, friendName) {
         </div>
         <div class="col-3 col-sm-5 col-md-5 col-lg-7">
             <div class="name" id="divChatName">${friendName}</div>
-  
         </div>
         <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon header-icon">
             
@@ -421,7 +422,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName) {
     </div>
 </div>
 
-<div class="card-body" id="messages">
+<div class="card-body" id="messages" style="width: 400px; height: 500px;">
    
 </div>
 
@@ -509,8 +510,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName) {
                                             ${msg}                                           
                                             <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
                                         </p>
-                                        <ul class="list-icon-extend1">                                                                                     
-                                            </li>
+                                        <ul class="list-icon-extend1">                                                                                                                               
                                             <li class="member-icon-extend1">
                                             <i class="fa fa-reply"
                                             id="ReplyMessageButton"                                  
@@ -665,7 +665,6 @@ function SendMessage() {
         }
     }).getKey();
     // console.log(messageKey1);
-
     firebase.database().ref('chatMessages/' + chatKey + '/' + messageKey1).update({
         messageId: messageKey1
     })
@@ -956,9 +955,49 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
         <div class="col-3 col-sm-5 col-md-5 col-lg-7">
             <div class="name" id="divChatName">${groupName}</div>
         </div>   
+        <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon header-icon">      
+            <div class="icon-member2">
+                <i class="fas fa-paperclip" onclick="displayIcon_file()"></i>
+                <div class="icon-file" style="display: none;">
+                    <a href="#" class="icon-file-member" onclick="ChooseImage()">
+                        Image
+                        <input type="file" id="imageFile" onchange="SendImageGroup(this, '${groupKey}');" accept="image/*" style="display:none;" />
+                    </a>
+                    <a href="#" class="" onclick="ChooseFile()">
+                        File
+                        <input type="file" id="file" onchange="SendFileGroup(this, '${groupKey}');" style="display:none;" />
+                    </a>
+                </div>
+            </div>
+            <div class="icon-member3">
+                <i class="fas fa-ellipsis-v" onclick="displayIcon_themen()"></i>
+                <div class="icon-themen" style="display: none;">
+                    <li class='member-menu'>
+                        <a href="#" class="dropdown-item">
+                            Theme    
+                        </a>
+                        <ul class="list-themen">
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen1.jpg', '${groupKey}')" src="./img/Themen1.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen2.jpg', '${groupKey}')" src="./img/Themen2.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen3.jpg', '${groupKey}')" src="./img/Themen3.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen4.jpg', '${groupKey}')" src="./img/Themen4.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen5.jpg', '${groupKey}')" src="./img/Themen5.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen6.jpg', '${groupKey}')" src="./img/Themen6.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen7.jpg', '${groupKey}')" src="./img/Themen7.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen8.jpg', '${groupKey}')" src="./img/Themen8.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen9.jpg', '${groupKey}')" src="./img/Themen9.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen10.jpg', '${groupKey}')" src="./img/Themen10.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen11.jpg', '${groupKey}')" src="./img/Themen11.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen12.jpg', '${groupKey}')" src="./img/Themen12.jpg"/>                                        
+                        </ul>
+                    </li>       
+                </div>
+            </div>
+        
+        </div>
     </div>
 </div>
-<div class="card-body" id="messages">
+<div class="card-body" id="messagesGroup">
    
 </div>
 <div class="card-footer"> 
@@ -977,12 +1016,26 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
     </div>
 </div>`;
 
+    firebase.database().ref("BackgroundGroupChatkey").child(groupKey).on("value", function (data) {
+        var url = data.val();
+        var brgImage = document.getElementById("messagesGroup");
+        brgImage.setAttribute("style", `background-Image: url(${url.bgrURL}); background-size: auto;`);
+    })
     var db = firebase.database().ref('GroupChatMessages').child(groupKey);
     db.on('value', function (groups) {
         var messageDisplay = '';
         groups.forEach(function (data) {
             var group = data.val();
-            msg = group.msg;
+            var msg = '';          
+            if (group.msgType === 'image') {
+                msg = `<img src='${group.msg}' class="img-fluid" />`;          
+            }          
+            else if (group.msgType === 'file') {               
+                msg = `<a href="${group.dataUrl}" class="sendMessageFile" style="text-decoration: underline; cursor: pointer;">${group.msg}</a>`;             
+            }
+            else {
+                msg = group.msg;               
+            }
             var dateTime = group.dateTime.split(",");
             if (group.userId !== currentUserKey) {
                 firebase.database().ref("users").child(group.userId).on("value", function (data) {
@@ -1005,7 +1058,15 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                 firebase.database().ref("users").child(group.userId).on("value", function (data) {
                     var admin = data.val();
                     messageDisplay += `<div class="row justify-content-end">
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage">                              
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage">    
+                                <li style="list-style: none;" class="member-icon-extend">
+                                    <i class="fa fa-window-close"
+                                    id="DeleteMessageButton"                                  
+                                    title="Delete"
+                                    style="opacity: 0.2;"
+                                    onclick="DeleteMessageGroupButton('${groupKey}', '${group.messageId}')"
+                                    ></i>                                   
+                                </li>                          
                                 <p class="sent float-right messageDelete">                                                                    
                                     ${msg}
                                     <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
@@ -1023,12 +1084,131 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
 
         });
 
-        document.getElementById('messages').innerHTML = messageDisplay;
-        document.getElementById('messages').scrollTo(0, document.getElementById('messages').scrollHeight);
+        document.getElementById('messagesGroup').innerHTML = messageDisplay;
+        document.getElementById('messagesGroup').scrollTo(0, document.getElementById('messagesGroup').scrollHeight);
     });
 
 }
 
+// SEND message group
+
+function SendMessageGroup(groupKey) {
+    var chatMessage = {
+        userId: currentUserKey,
+        msg: document.querySelector('.txtMessageGroup').value,
+        msgType: 'normal',
+        dateTime: new Date().toLocaleString(),
+        messageId: ''
+    };
+
+    var messageKey1 = firebase.database().ref('GroupChatMessages').child(groupKey).push(chatMessage, function (error) {
+        if (error) alert(error);
+        else {
+            document.querySelector('.txtMessageGroup').value = '';
+            document.querySelector('.txtMessageGroup').focus();
+        }
+    }).getKey();
+
+    firebase.database().ref('GroupChatMessages/' + groupKey + '/' + messageKey1).update({
+        messageId: messageKey1
+    })
+}
+
+
+// SEND IMAGE group
+function SendImageGroup(event, groupKey) {
+    var file = event.files[0];
+
+    if (!file.type.match("image.*")) {
+        alert("Please select image only.");
+    }
+    else {
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            var chatMessage = {
+                userId: currentUserKey,
+                // msgDisplay: reader.result,
+                msg: reader.result,
+                msgType: 'image',
+                dateTime: new Date().toLocaleString(),
+                messageId: ''
+            };          
+
+            // console.log(ObjectMessageLast);
+            var messageKey1 = firebase.database().ref('GroupChatMessages').child(groupKey).push(chatMessage, function (error) {
+                if (error) alert(error);
+                else {
+
+                    document.getElementById('txtMessage').value = '';
+                    document.getElementById('txtMessage').focus();
+                }
+            }).getKey();
+
+            firebase.database().ref('GroupChatMessages/' + groupKey + '/' + messageKey1).update({
+                messageId: messageKey1
+            })
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+}
+
+//SEND FILE group
+
+function SendFileGroup(event, groupKey) {
+    var file = event.files[0];
+
+    if (!file.type === "application/pdf") {
+        alert("Please select file only.");
+    }
+    else {
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function (e) {
+            console.log(e.target.result);
+            var chatMessage = {
+                userId: currentUserKey,
+                msg: file.name,
+                msgType: 'file',
+                dataUrl: e.target.result,
+                dateTime: new Date().toLocaleString()
+            };
+          
+            var messageKey1 = firebase.database().ref('GroupChatMessages').child(groupKey).push(chatMessage, function (error) {
+                if (error) alert(error);
+                else {
+
+                    document.getElementById('txtMessage').value = '';
+                    document.getElementById('txtMessage').focus();
+                }
+            }).getKey();
+            firebase.database().ref('GroupChatMessages/' + groupKey + '/' + messageKey1).update({
+                messageId: messageKey1
+            })
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+}
+
+// change themen group
+function clickThemenColorGroup(s, groupKey) {
+    firebase.database().ref("BackgroundGroupChatkey").child(groupKey).update({
+        bgrURL: s
+    });
+    var brgImage = document.getElementById("messagesGroup");
+    brgImage.setAttribute("style", `background-Image: url(${s}); background-size: auto;`);
+}
+
+// delete message in group
+function DeleteMessageGroupButton(groupKey, messageKey){
+    firebase.database().ref('GroupChatMessages').child(groupKey).child(messageKey).remove();
+}
 function SearchFriendAddGroup(groupKey){
     var arrMembersGroupKey = [];
     var arrMembersGroupInfo = [];
@@ -1096,30 +1276,7 @@ function AddMemberForGroup(groupKey, MemberKey){
     });
     document.querySelector(".ContainerInfoGroup").setAttribute("style", "display: none");
 }
-function SendMessageGroup(groupKey) {
-    var chatMessage = {
-        userId: currentUserKey,
-        msg: document.querySelector('.txtMessageGroup').value,
-        msgType: 'normal',
-        dateTime: new Date().toLocaleString(),
-        messageId: ''
-    };
 
-
-    console.log(groupKey);
-
-    var messageKey1 = firebase.database().ref('GroupChatMessages').child(groupKey).push(chatMessage, function (error) {
-        if (error) alert(error);
-        else {
-            document.querySelector('.txtMessageGroup').value = '';
-            document.querySelector('.txtMessageGroup').focus();
-        }
-    }).getKey();
-
-    firebase.database().ref('GroupChatMessages/' + groupKey + '/' + messageKey1).update({
-        messageId: messageKey1
-    })
-}
 
 // Display infor group
 var imageAvatarGroup;
@@ -1313,7 +1470,8 @@ function LoadChatList() {
                         friendPhoto: user.photoURL,
                         friendEmail: user.email
                     });
-                    document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" >
+                    // document.getElementById(`${chatKey}`).setAttribute("style", "background-color: aquamarine;");
+                    document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
                             <div class="row">
                                 <div class="col-md-2" >
                                     <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
@@ -1887,7 +2045,6 @@ function callback(error) {
 ////////////////////////////////////////////////////////////////
 // clickColorThemen
 function clickThemenColor(s, chatKey) {
-    console.log(chatKey);
     firebase.database().ref("BackgroundChatkey").child(chatKey).update({
         bgrURL: s
     });
