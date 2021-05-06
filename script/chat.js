@@ -422,7 +422,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName) {
     </div>
 </div>
 
-<div class="card-body" id="messages" style="width: 400px; height: 500px;">
+<div class="card-body" id="messages">
    
 </div>
 
@@ -857,6 +857,7 @@ function Creat_a_Group() {
 function LoadChatListGroup() {
     document.getElementById('lstGroupChat').innerHTML = "";
     firebase.database().ref("Groups").on("value", function (groups) {
+        document.getElementById('lstGroupChat').innerHTML = "";
         groups.forEach(function (data) {
             var arrMembersGroupKey = [];
             var group = data.val();
@@ -1267,6 +1268,7 @@ function AddMemberForGroup(groupKey, MemberKey){
     document.querySelector(".InputSerachFriendGroup").value = "";
     var sl = 0;
     firebase.database().ref("Groups").child(groupKey).on("value", function(data){
+        document.querySelector(".ListFriendOfGroup").innerHTML = "";
         var group = data.val();
         sl = group.QuantityMember;
     })
@@ -1290,6 +1292,7 @@ function CloseContainerInfoGroup(groupKey) {
         var imageNameGroup = imageAvatarGroup.name;
         var storageRef = firebase.storage().ref("images/" + imageNameGroup);
         var upLoadTask = storageRef.put(imageAvatarGroup);
+        imageAvatarGroup = undefined;
         upLoadTask.on('state_changed', function (snapshot) {
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log("upload is" + progress + "done");
@@ -1325,6 +1328,7 @@ function ShowContainerInfoGroup(groupKey) {
     document.querySelector(".ContainerInfoGroup").removeAttribute("style");
     document.querySelector(".ListMemberOfGroup").innerHTML = "";
     firebase.database().ref("Groups").child(groupKey).once("value", function (data) {
+        document.querySelector(".ListMemberOfGroup").innerHTML = "";
         var group = data.val();
         var arrMembersGroupKey = [];
         arrMembersGroupKey.push(group.AdminId);
@@ -1428,9 +1432,10 @@ function DeleteMemberOfGroup(MemberId, groupKey) {
 }
 
 function LoadChatList() {
-    document.getElementById('lstChat').innerHTML = "";
+    
     var db = firebase.database().ref('friend_list');
     db.on('value', function (lists) {
+        document.getElementById('lstChat').innerHTML = "";
         lists.forEach(function (data) {
             var lst = data.val();
 
