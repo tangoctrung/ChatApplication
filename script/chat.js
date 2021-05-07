@@ -572,7 +572,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                                 </p>
                             </div>
                             <div class="col-10 col-sm-7 col-md-7 float-left containerReplyPadding" style="padding: 0px;">
-                                <p id="${chat.messageId}" class="reply replyPadding" style="padding: 10px 15px; ">                                                 
+                                <p id="${chat.messageId}" class="reply replyPadding" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
                                     ${chat.msgReply}
                                 </p> 
                             </div>
@@ -632,7 +632,8 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                         <img style="border: 1.5px solid #000; float: right;" src="${urlImageUser}" class="chat-pic rounded-circle" />
                     </div>
                 </div>`;
-                } else {
+                } 
+                else {
                         messageDisplay += `<div class="row justify-content-end">
                     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">
                         <p style="margin-right: 20%; margin-bottom: 0px; font-size: 12px; font-style: italic;"
@@ -641,7 +642,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                         </p>
                     </div>
                     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">
-                        <p id="${chat.messageId}" class="reply replyPadding1" style="padding: 10px 15px;">                                                 
+                        <p id="${chat.messageId}" class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
                             ${chat.msgReply}
                         </p> 
                     </div>
@@ -938,14 +939,14 @@ function DeleteMessageButton(chatKey, messageKey) {
 
 function ReplyMessageButton(message, memberId) {
     if (memberId === currentUserKey) {
-    document.querySelector('#ReplyMessage1').innerHTML = "Dang tra loi chinh minh: ";
+    document.querySelector('#ReplyMessage1').innerHTML = "Reply yourself: ";
     } else {
         var nameReply = "";
         firebase.database().ref("users").child(memberId).once("value", function(data) {
             var user =  data.val();
             nameReply = user.name; 
         })
-        document.querySelector('#ReplyMessage1').innerHTML = "Dang tra loi: " + `${nameReply}` + ": ";
+        document.querySelector('#ReplyMessage1').innerHTML = "Reply: " + `${nameReply}` + ": ";
     }
     var input = document.getElementById('txtMessage');
     document.querySelector('#ReplyMessage').innerHTML = message
