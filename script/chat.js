@@ -277,6 +277,9 @@ function LoadChatList() {
             } else {
                 TextPerson = "";
             }
+            if (textFisrt.length >= 24) {
+                textFisrt = textFisrt.slice(0, 21) + "...";
+            }
             if (friendKey !== "") {
                 firebase.database().ref('users').child(friendKey).on('value', function (data) {
                     var user = data.val();
@@ -418,19 +421,28 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                             Theme    
                         </a>
                         <ul class="list-themen">
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen1.jpg', '${chatKey}')" src="./img/Themen1.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen2.jpg', '${chatKey}')" src="./img/Themen2.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen3.jpg', '${chatKey}')" src="./img/Themen3.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen4.jpg', '${chatKey}')" src="./img/Themen4.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen5.jpg', '${chatKey}')" src="./img/Themen5.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen6.jpg', '${chatKey}')" src="./img/Themen6.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen7.jpg', '${chatKey}')" src="./img/Themen7.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen8.jpg', '${chatKey}')" src="./img/Themen8.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen9.jpg', '${chatKey}')" src="./img/Themen9.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen10.jpg', '${chatKey}')" src="./img/Themen10.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen11.jpg', '${chatKey}')" src="./img/Themen11.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColor('./img/Themen12.jpg', '${chatKey}')" src="./img/Themen12.jpg"/>                         
-                
+                        <img class="member-themen" onclick="clickThemenColor('./img/ThemenNone.jpg', '${chatKey}')" src="./img/ThemenNone.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen1.jpg', '${chatKey}')" src="./img/Themen1.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen2.jpg', '${chatKey}')" src="./img/Themen2.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen3.jpg', '${chatKey}')" src="./img/Themen3.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen4.jpg', '${chatKey}')" src="./img/Themen4.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen5.jpg', '${chatKey}')" src="./img/Themen5.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen6.jpg', '${chatKey}')" src="./img/Themen6.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen7.jpg', '${chatKey}')" src="./img/Themen7.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen8.jpg', '${chatKey}')" src="./img/Themen8.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen9.jpg', '${chatKey}')" src="./img/Themen9.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen10.jpg', '${chatKey}')" src="./img/Themen10.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen11.jpg', '${chatKey}')" src="./img/Themen11.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen12.jpg', '${chatKey}')" src="./img/Themen12.jpg"/>    
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen13.jpg', '${chatKey}')" src="./img/Themen13.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen14.jpg', '${chatKey}')" src="./img/Themen14.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen15.jpg', '${chatKey}')" src="./img/Themen15.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen16.jpg', '${chatKey}')" src="./img/Themen16.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen17.jpg', '${chatKey}')" src="./img/Themen17.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen18.jpg', '${chatKey}')" src="./img/Themen18.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen19.jpg', '${chatKey}')" src="./img/Themen19.jpg"/>
+                        <img class="member-themen" onclick="clickThemenColor('./img/Themen20.jpg', '${chatKey}')" src="./img/Themen20.jpg"/> 
+                        
                         </ul>
 
                     </li>
@@ -489,6 +501,9 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
     })
     firebase.database().ref("messageLast").child(chatKey).on("value", function (data) {
         var messageLast = data.val();
+        if (messageLast.message.length >= 24) {
+            messageLast.message = messageLast.message.slice(0, 21) + "...";
+        }
         if (messageLast.PersonSendId !== currentUserKey) {
             document.querySelector(`.${chatKey}`).innerHTML = `${messageLast.message} ${messageLast.messageTime1}`;
             document.querySelector(`.${chatKey}`).title = `${messageLast.messageTime0}`;
@@ -531,11 +546,28 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
             
             if (chat.userId !== currentUserKey) {
                 if (chat.msgReply === "") {
-                    messageDisplay += `<div class="row" 
+                    if (chat.MessageRemove === true) {
+                        messageDisplay += `<div class="row" 
                         style="display: flex;
                         flex-direction: row;
                         flex-wrap: nowrap;">
-                            <div class="col-2 col-sm-1 col-md-1 mt-5" style="padding: 2px;">
+                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
+                                <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
+                            </div>                             
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
+                                <p class="remove">                                                                                   
+                                    ${msg}                                                                             
+                                </p>
+                                
+                            </div>                                     
+                    </div>`;
+                    } 
+                    else{
+                        messageDisplay += `<div class="row" 
+                        style="display: flex;
+                        flex-direction: row;
+                        flex-wrap: nowrap;">
+                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 1rem;">
                                 <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
                             </div>                             
                             <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
@@ -555,9 +587,27 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                                 </ul>
                             </div>                                     
                     </div>`;
+                    }
+                    
                 }
                 else {
-                    messageDisplay += `<div class="row" 
+                    if (chat.MessageRemove === true) {
+                        messageDisplay += `<div class="row" 
+                        style="display: flex;
+                        flex-direction: row;
+                        flex-wrap: nowrap;">
+                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
+                                <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
+                            </div>                                           
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
+                                <p class="remove">                                                                                   
+                                    ${msg}                                           
+                                </p>                              
+                            </div>                                    
+                    </div>`;
+                    } 
+                    else {
+                        messageDisplay += `<div class="row" 
                         style="display: flex;
                         flex-direction: row;
                         flex-wrap: nowrap;">
@@ -566,8 +616,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                         </div>
                         <div>
                             <div class="col-10 col-sm-7 col-md-7 float-left" style="padding: 0px;">
-                                <p style="margin-left: 3%; margin-bottom: 0px; font-size: 12px; font-style: italic;"
-                                >
+                                <p class="titleReplyMember">
                                 ${chat.titleReply}
                                 </p>
                             </div>
@@ -594,6 +643,8 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                             </div>
                         </div>              
                     </div>`;
+                    }
+                    
                 }
                
                 deleteAllMessages = `<a href="#" class="dropdown-item"
@@ -603,6 +654,19 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
             }
             else {
                 if (chat.msgReply === "") {
+                    if (chat.MessageRemove === true) {
+                        messageDisplay += `<div class="row justify-content-end">                  
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">                              
+                                <p class="remove float-right">                                                 
+                                    ${msg}
+                                </p>               
+                            </div>
+                    <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
+                        <img style="border: 1.5px solid #000; float: right;" src="${urlImageUser}" class="chat-pic rounded-circle" />
+                    </div>
+                </div>`;
+                    }
+                    else {
                         messageDisplay += `<div class="row justify-content-end">                  
                             <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">
                                 <ul class="list-icon-extend"> 
@@ -632,12 +696,26 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                         <img style="border: 1.5px solid #000; float: right;" src="${urlImageUser}" class="chat-pic rounded-circle" />
                     </div>
                 </div>`;
+                    }
+                        
                 } 
                 else {
+                    if (chat.MessageRemove === true) {
+                        messageDisplay += `<div class="row justify-content-end">                          
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">                          
+                                <p class="remove float-right">                                                 
+                                    ${msg}
+                                </p>               
+                            </div>
+                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
+                                <img style="border: 1.5px solid #000; float: right;" src="${urlImageUser}" class="chat-pic rounded-circle" />
+                            </div>
+                        </div>`;
+                    }
+                    else {
                         messageDisplay += `<div class="row justify-content-end">
                     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">
-                        <p style="margin-right: 20%; margin-bottom: 0px; font-size: 12px; font-style: italic;"
-                        >
+                        <p class="titleReplyMember1">
                             ${chat.titleReply}
                         </p>
                     </div>
@@ -674,6 +752,8 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                         <img style="border: 1.5px solid #000; float: right;" src="${urlImageUser}" class="chat-pic rounded-circle" />
                     </div>
                 </div>`;
+                    }
+                        
                 }
  
                 deleteAllMessages = `<a href="#" class="dropdown-item"
@@ -681,7 +761,6 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                 >Delete Messages</a>`;
             }
         });
-
         
         document.getElementById('messages').innerHTML = messageDisplay;
         document.getElementById('messages').scrollTo(0, document.getElementById('messages').scrollHeight);
@@ -934,10 +1013,21 @@ function record(control) {
 
 // DeleteMessageButton: delete a message
 function DeleteMessageButton(chatKey, messageKey) {
-    firebase.database().ref('chatMessages/').child(chatKey).child(messageKey).remove();
+    firebase.database().ref('chatMessages/').child(chatKey).child(messageKey).update({
+       msg: "Message removed",
+       MessageRemove: true, 
+    });
+    firebase.database().ref("messageLast").child(chatKey).update({
+        chatKey: chatKey,
+        message: "Message removed",
+        messageTime0: new Date().toLocaleString().split(',')[0],
+        messageTime1: new Date().toLocaleString().split(',')[1],
+        PersonSendId: currentUserKey
+    });
 }
 
 function ReplyMessageButton(message, memberId) {
+    console.log("Reply");
     if (memberId === currentUserKey) {
     document.querySelector('#ReplyMessage1').innerHTML = "Reply yourself: ";
     } else {
@@ -1018,7 +1108,6 @@ function Creat_a_Group() {
 }
 
 
-
 // DISPLAY CREATE A GROUP
 function ShowContainerCreateGroup() {
     firebase.database().ref("users").child(currentUserKey).update({
@@ -1074,18 +1163,44 @@ function LoadChatListGroup() {
             for (var i = 0; i < group.QuantityMember - 1; i++) {
                 arrMembersGroupKey.push(group["MemberId" + i]);
             }
+            var activeGroup = false;
+            arrMembersGroupKey.forEach(function(element){
+                if (element !== currentUserKey) {
+                    firebase.database().ref("users").child(element).once("value", function(data){
+                        var user = data.val();
+                        if (user.statusAcitve === true) activeGroup = true;
+                    });
+                }              
+            });
             var groupPhoto = group.avatarGroup;
             if (arrMembersGroupKey.indexOf(currentUserKey) !== -1) {
-                document.getElementById('lstGroupChat').innerHTML += `<li onclick="StartChatGroup('${data.key}', '${group.nameGroup}', '${groupPhoto}')" class="list-group-item list-group-item-action" >
+                if (activeGroup === true) {
+                    document.getElementById('lstGroupChat').innerHTML += `<li onclick="StartChatGroup('${data.key}', '${group.nameGroup}', '${groupPhoto}')" class="list-group-item list-group-item-action" >
                         <div class="row">
                             <div class="col-md-2" >
-                                <img src="${groupPhoto}" class="friend-pic rounded-circle" />
+                                <img src="${groupPhoto}" class="friend-pic rounded-circle" />                         
                             </div>
+                            <i class="fa fa-circle" aria-hidden="true" id=""
+                                style="z-index: 3; color: seagreen; font-size: 12px; margin-top: 37px; margin-left:-10px;"
+                            ></i>
                             <div  class="col-md-10" style="cursor:pointer;">
                                 <div class="name">${group.nameGroup}</div>
                             </div>
                         </div>
                     </li>`;
+                } else {
+                    document.getElementById('lstGroupChat').innerHTML += `<li onclick="StartChatGroup('${data.key}', '${group.nameGroup}', '${groupPhoto}')" class="list-group-item list-group-item-action" >
+                        <div class="row">
+                            <div class="col-md-2" >
+                                <img src="${groupPhoto}" class="friend-pic rounded-circle" />                         
+                            </div>                          
+                            <div  class="col-md-10" style="cursor:pointer;">
+                                <div class="name">${group.nameGroup}</div>
+                            </div>
+                        </div>
+                    </li>`;
+                }
+                
             }
         })
 
@@ -1154,6 +1269,7 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                             Theme    
                         </a>
                         <ul class="list-themen">
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/ThemenNone.jpg', '${groupKey}')" src="./img/ThemenNone.jpg"/>
                             <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen1.jpg', '${groupKey}')" src="./img/Themen1.jpg"/>
                             <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen2.jpg', '${groupKey}')" src="./img/Themen2.jpg"/>
                             <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen3.jpg', '${groupKey}')" src="./img/Themen3.jpg"/>
@@ -1165,7 +1281,15 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                             <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen9.jpg', '${groupKey}')" src="./img/Themen9.jpg"/>
                             <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen10.jpg', '${groupKey}')" src="./img/Themen10.jpg"/>
                             <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen11.jpg', '${groupKey}')" src="./img/Themen11.jpg"/>
-                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen12.jpg', '${groupKey}')" src="./img/Themen12.jpg"/>                                        
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen12.jpg', '${groupKey}')" src="./img/Themen12.jpg"/>    
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen13.jpg', '${groupKey}')" src="./img/Themen13.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen14.jpg', '${groupKey}')" src="./img/Themen14.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen15.jpg', '${groupKey}')" src="./img/Themen15.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen16.jpg', '${groupKey}')" src="./img/Themen16.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen17.jpg', '${groupKey}')" src="./img/Themen17.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen18.jpg', '${groupKey}')" src="./img/Themen18.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen19.jpg', '${groupKey}')" src="./img/Themen19.jpg"/>
+                            <img class="member-themen" onclick="clickThemenColorGroup('./img/Themen20.jpg', '${groupKey}')" src="./img/Themen20.jpg"/>                                            
                         </ul>
                     </li>       
                 </div>
@@ -1178,6 +1302,10 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
    
 </div>
 <div class="card-footer"> 
+
+    <span style="margin-bottom: 5px;" class="col-3 col-md-1" id="ReplyMessageGroup1"></span>
+    <span style="margin-bottom: 5px;" class="col-10 col-md-1" id="ReplyMessageGroup"></span>
+
     <div class="row">
         <div class="col-2 col-md-1" style="cursor:pointer;">
             <i class="far fa-grin fa-2x" onclick="showEmojiPanel()"></i>
@@ -1203,67 +1331,237 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
         var messageDisplay = '';
         groups.forEach(function (data) {
             var group = data.val();
-            var msg = '';          
+            var msg = '';  
+            var messageType = "";        
             if (group.msgType === 'image') {
-                msg = `<img src='${group.msg}' class="img-fluid" />`;          
+                msg = `<img src='${group.msg}' class="img-fluid" />`;    
+                messageType = "image";      
             }          
             else if (group.msgType === 'file') {               
                 msg = `<a href="${group.dataUrl}" class="sendMessageFile" style="text-decoration: underline; cursor: pointer;">${group.msg}</a>`;             
+                messageType = "file";
             }
             else {
-                msg = group.msg;               
+                msg = group.msg; 
+                messageType = msg;              
             }
             var dateTime = group.dateTime.split(",");
             if (group.userId !== currentUserKey) {
                 firebase.database().ref("users").child(group.userId).on("value", function (data) {
                     var member = data.val();
-                    messageDisplay += `<div class="row">
-                                    <div class="col-2 col-sm-1 col-md-1">
-                                        <img style="border: 1.5px solid #000;" src="${member.photoURL}" class="chat-pic rounded-circle" />
-                                    </div>
-                                    <div class="col-6 col-sm-7 col-md-7 LineMessageGroup">
-                                        <div style="font-size: 12px; opacity: 0.6;">${member.name}</div>
-                                        <p class="receive">                                                                                   
-                                            ${msg}  
-                                            <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
-                                        </p>                                      
-                                    </div>
-                                </div>`;
-                });
-
-            } else {
-                firebase.database().ref("users").child(group.userId).on("value", function (data) {
-                    var admin = data.val();
-                    messageDisplay += `<div class="row justify-content-end">
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage">    
-                                <li style="list-style: none;" class="member-icon-extend">
-                                    <i class="fa fa-window-close"
-                                    id="DeleteMessageButton"                                  
-                                    title="Delete"
-                                    style="opacity: 0.2;"
-                                    onclick="DeleteMessageGroupButton('${groupKey}', '${group.messageId}')"
-                                    ></i>                                   
-                                </li>                          
-                                <p class="sent float-right messageDelete">                                                                    
-                                    ${msg}
-                                    <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
-                                </p>                                 
-                            </div>
-                            <div class="col-2 col-sm-1 col-md-1">
-                                <img style="border: 1.5px solid #000;" src="${admin.photoURL}" class="chat-pic rounded-circle" />
-                            </div>
+                    if (group.msgReplyGroup === "") {
+                        if (group.MessageGroupRemove === true) {                           
+                            messageDisplay += `<div class="row">
+                                                    <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 20px;">
+                                                        <img style="border: 1.5px solid #000;" src="${member.photoURL}" class="chat-pic rounded-circle" />
+                                                    </div>                             
+                                                    <div class="col-10 col-sm-7 col-md-7" style="display: flex; flex-direction: column; padding: 0px;">
+                                                        <div class="nameMemberGroup" style="font-size: 12px; opacity: 0.6;">${member.name}</div>
+                                                        <div>
+                                                            <p class="remove">                                                                                   
+                                                                ${msg}                                                                             
+                                                            </p>
+                                                        </div>    
+                                                    </div>                                     
+                                                </div>`;
+                        }
+                        else {
+                            messageDisplay += `<div class="row">
+                                        <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
+                                            <img style="border: 1.5px solid #000;" src="${member.photoURL}" class="chat-pic rounded-circle" />
+                                        </div>
+                                        <div class="col-10 col-sm-7 col-md-7 LineMessageGroup" style="padding: 0px;">
+                                            <div class="nameMemberGroup" style="font-size: 12px; opacity: 0.6;">${member.name}</div>
+                                            <div style="display: flex; flex-direction: row;">
+                                                <p class="receive">                                                                                   
+                                                    ${msg}  
+                                                    <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
+                                                </p>  
+                                                <li style="list-style: none; margin: 17px 0px 0 4px;" class="member-icon-extend">
+                                                    <i class="fa fa-reply"
+                                                    id="ReplyMessageButton"                                  
+                                                    title="Reply"
+                                                    style="opacity: 0.2;"
+                                                    onclick="ReplyMessageGroupButton('${messageType}', '${group.userId}')"
+                                                    ></i>                                   
+                                                </li>   
+                                            </div>
+                                                                              
+                                        </div>
+                                    </div>`;
+                        }
+                    }
+                    else {
+                        if (group.MessageGroupRemove === true) {
+                            messageDisplay += `<div class="row">
+                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 20px;">
+                                <img style="border: 1.5px solid #000;" src="${member.photoURL}" class="chat-pic rounded-circle" />
+                            </div>                             
+                            <div class="col-10 col-sm-7 col-md-7" style="display: flex; flex-direction: column; padding: 0px;">
+                                <div class="nameMemberGroup" style="font-size: 12px; opacity: 0.6;">${member.name}</div>
+                                <div>
+                                    <p class="remove">                                                                                   
+                                        ${msg}                                                                             
+                                    </p>
+                                </div>    
+                            </div>                                     
                         </div>`;
+                        }               
+                        else {
+                            messageDisplay += `<div class="row">
+                                        <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
+                                            <img style="border: 1.5px solid #000;" src="${member.photoURL}" class="chat-pic rounded-circle" />
+                                        </div>
+                                        <div class="col-6 col-sm-7 col-md-7 LineMessageGroup" style="padding: 0px;">
+                                            <div class="col-10 col-sm-7 col-md-7 float-left" style="padding: 0px;">
+                                                <p class="titleReplyGroup titleReplyGroupMember">                                                       
+                                                    ${group.titleReplyGroup}
+                                                </p>
+                                            </div>
+                                            <div class="col-10 col-sm-7 col-md-7 float-left containerReplyPadding" style="padding: 0px;">
+                                                <p class="reply replyPadding" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px; margin-left: 5px;">                                                 
+                                                    ${group.msgReplyGroup}
+                                                </p> 
+                                            </div>
+                                            <div style="display: flex; flex-direction: row; z-index: 1;">
+                                                <p class="receive">                                                                                   
+                                                    ${msg}  
+                                                    <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
+                                                </p>  
+                                                <li style="list-style: none; margin: 17px 0px 0 4px;" class="member-icon-extend">
+                                                    <i class="fa fa-reply"
+                                                    id="ReplyMessageButton"                                  
+                                                    title="Reply"
+                                                    style="opacity: 0.2;"
+                                                    onclick="ReplyMessageGroupButton('${messageType}', '${group.userId}')"
+                                                    ></i>                                   
+                                                </li>   
+                                            </div>
+                                                                              
+                                        </div>
+                                    </div>`;
+                        }
+                    }
+                    
+                    
                 });
 
             }
+            else {
+                firebase.database().ref("users").child(group.userId).on("value", function (data) {
+                    var admin = data.val();
+                    if (group.msgReplyGroup === "") {
+                        if (group.MessageGroupRemove === true) {
+                            messageDisplay += `<div class="row justify-content-end">
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage">                                                           
+                                    <p class="remove float-right">                                                                    
+                                        ${msg}
+                                    </p>                                 
+                                </div>
+                                <div class="col-2 col-sm-1 col-md-1">
+                                    <img style="border: 1.5px solid #000;" src="${admin.photoURL}" class="chat-pic rounded-circle" />
+                                </div>
+                            </div>`;
+                        }
+                        else {
+                            messageDisplay += `<div class="row justify-content-end">
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage">   
+                                    <div style="margin-top: 15px;">
+                                        <li style="list-style: none;" class="member-icon-extend">
+                                            <i class="fa fa-window-close"
+                                            id="DeleteMessageButton"                                  
+                                            title="Delete"
+                                            style="opacity: 0.2;"
+                                            onclick="DeleteMessageGroupButton('${groupKey}', '${group.messageId}')"
+                                            ></i>                                   
+                                        </li>  
+                                        <li style="list-style: none;" class="member-icon-extend">
+                                            <i class="fa fa-reply"
+                                            id="ReplyMessageButton"                                  
+                                            title="Reply"
+                                            style="opacity: 0.2;"
+                                            onclick="ReplyMessageGroupButton('${messageType}', '${group.userId}')"
+                                            ></i>                                   
+                                        </li>   
+                                    </div> 
+                                                           
+                                    <p class="sent float-right messageDelete">                                                                    
+                                        ${msg}
+                                        <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
+                                    </p>                                 
+                                </div>
+                                <div class="col-2 col-sm-1 col-md-1">
+                                    <img style="border: 1.5px solid #000;" src="${admin.photoURL}" class="chat-pic rounded-circle" />
+                                </div>
+                            </div>`;
+                        }
+                    }
+                    else {
+                        if (group.MessageGroupRemove === true) {
+                            messageDisplay += `<div class="row justify-content-end">
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage">                                                           
+                                    <p class="remove float-right">                                                                    
+                                        ${msg}
+                                    </p>                                 
+                                </div>
+                                <div class="col-2 col-sm-1 col-md-1">
+                                    <img style="border: 1.5px solid #000;" src="${admin.photoURL}" class="chat-pic rounded-circle" />
+                                </div>
+                            </div>`;
+                        }
+                        else {                                                        
+                            messageDisplay += `<div class="row justify-content-end">
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">
+                                <p class="titleReplyGroup titleReplyGroupUser">
+                                    ${group.titleReplyGroup}
+                                </p>
+                            </div>
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">
+                                <p class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
+                                    ${group.msgReplyGroup}
+                                </p> 
+                            </div>
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">
+                                <ul class="list-icon-extend"> 
+                                    <li class="member-icon-extend">
+                                        <i class="fa fa-window-close"
+                                        id="DeleteMessageButton"                                  
+                                        title="Delete"
+                                        style="opacity: 0.2;"   
+                                        onclick="DeleteMessageGroupButton('${groupKey}', '${group.messageId}')"                          
+                                        ></i>                                   
+                                    </li>
+                                    <li class="member-icon-extend">
+                                        <i class="fa fa-reply"
+                                        id="ReplyMessageButton"                                  
+                                        title="Reply"
+                                        style="opacity: 0.2;"   
+                                        onclick="ReplyMessageGroupButton('${messageType}', '${group.userId}')"
+                                        ></i>                                
+                                    </li>
+                                </ul>
+                                <p class="sent float-right messageDelete">                                                 
+                                    ${msg}
+                                    <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
+                                </p>               
+                            </div>
+                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
+                                <img style="border: 1.5px solid #000; float: right;" src="${admin.photoURL}" class="chat-pic rounded-circle" />
+                            </div>
+                        </div>`;
+                        }
+                    }
+                    
+                    
+                });
 
-
-
+            }
         });
 
         document.getElementById('messagesGroup').innerHTML = messageDisplay;
         document.getElementById('messagesGroup').scrollTo(0, document.getElementById('messagesGroup').scrollHeight);
     });
+
 
 }
 
@@ -1274,9 +1572,12 @@ function SendMessageGroup(groupKey) {
         msg: document.querySelector('.txtMessageGroup').value,
         msgType: 'normal',
         dateTime: new Date().toLocaleString(),
-        messageId: ''
+        messageId: '',
+        titleReplyGroup: document.getElementById("ReplyMessageGroup1").textContent,
+        msgReplyGroup: document.getElementById("ReplyMessageGroup").textContent
     };
-
+    document.getElementById("ReplyMessageGroup1").textContent = "";
+    document.getElementById("ReplyMessageGroup").textContent = "";
     var messageKey1 = firebase.database().ref('GroupChatMessages').child(groupKey).push(chatMessage, function (error) {
         if (error) alert(error);
         else {
@@ -1371,17 +1672,49 @@ function SendFileGroup(event, groupKey) {
 }
 
 // change themen group
-function clickThemenColorGroup(s, groupKey) {
+function clickThemenColorGroup(s, groupKey) { 
     firebase.database().ref("BackgroundGroupChatkey").child(groupKey).update({
-        bgrURL: s
+        bgrURL: s,
     });
     var brgImage = document.getElementById("messagesGroup");
     brgImage.setAttribute("style", `background-Image: url(${s}); background-size: auto;`);
+    
 }
 
 // delete message in group
-function DeleteMessageGroupButton(groupKey, messageKey){
-    firebase.database().ref('GroupChatMessages').child(groupKey).child(messageKey).remove();
+function DeleteMessageGroupButton(groupKey, messageKey){  
+    firebase.database().ref('GroupChatMessages').child(groupKey).child(messageKey).update({
+        msg: "Message Removed",
+        MessageGroupRemove: true,
+    });
+}
+
+// reply message group
+function ReplyMessageGroupButton(messageType, memberId) {
+
+    if (memberId === currentUserKey) {
+    document.querySelector('#ReplyMessageGroup1').innerHTML = "Reply yourself: ";
+    } else {
+        var nameReply = "";
+        firebase.database().ref("users").child(memberId).once("value", function(data) {
+            var user =  data.val();
+            nameReply = user.name; 
+        })
+        document.querySelector('#ReplyMessageGroup1').innerHTML = "Reply: " + `${nameReply}` + ": ";
+    }
+    var input = document.getElementById('txtMessage');
+    document.querySelector('#ReplyMessageGroup').innerHTML = messageType
+        + `<i style="float: right; color: red; cursor: pointer;" onclick="CloseReplyMessageGroup()" class="fa fa-window-close" aria-hidden="true"></i>`;
+    document.getElementById('txtMessage').focus();
+   
+    
+}
+
+function CloseReplyMessageGroup() {
+    // document.getElementById("ReplyMessage").innerHTML = "";
+    // document.getElementById("ReplyMessage1").innerHTML = "";
+    document.getElementById("ReplyMessageGroup").innerHTML = "";
+    document.getElementById("ReplyMessageGroup1").innerHTML = "";
 }
 
 // Display infor group
