@@ -793,14 +793,23 @@ function SendMessage(friendKey) {
         PersonSendId: chatMessage.userId
     });
     var imageAvatarSend = "";
+    var nameSender = "";
+    var message = "";
+    if (chatMessage.msg.length >= 30) {
+        message = chatMessage.msg.substring(0, 30);
+    } else {
+        message = chatMessage.msg;
+    }
     firebase.database().ref("users").child(currentUserKey).on("value", function(data){
         var user = data.val();
         imageAvatarSend = user.photoURL;
+        nameSender = user.name;
     });
     var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
         if (error) alert(error);
         else {
             console.log("Thong bao");
+            console.log(nameSender);
             firebase.database().ref('fcmTokens').child(friend_id).once('value').then(function (data) {
                 var tokenId = data.val();
                 $.ajax({
@@ -813,9 +822,9 @@ function SendMessage(friendKey) {
                     data: JSON.stringify({
                         'to': tokenId.token_id, 
                         'data': { 
-                            'message': chatMessage.msg.substring(0, 30) + '...', 
-                            'icon': imageAvatarSend, 
-                            'sound': "SendMessage.mp3",                    
+                            'title': nameSender,
+                            'message': message,
+                            'icon': imageAvatarSend,                                              
                                 },
                          
                     }),
@@ -827,6 +836,7 @@ function SendMessage(friendKey) {
                         console.log(error);
                     }
                 });
+                
                 document.querySelector(".ReceiveMessage").play();
             });
 
