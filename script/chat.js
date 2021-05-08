@@ -771,8 +771,6 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
 
 //gui tin nhan
 function SendMessage(friendKey) {
-    
-    console.log(friendKey);
     var chatMessage = {
         userId: currentUserKey,
         msg: document.getElementById('txtMessage').value,
@@ -794,26 +792,37 @@ function SendMessage(friendKey) {
         messageTime1: chatMessage.dateTime.split(',')[1],
         PersonSendId: chatMessage.userId
     });
-
+    var imageAvatarSend = "";
+    firebase.database().ref("users").child(currentUserKey).on("value", function(data){
+        var user = data.val();
+        imageAvatarSend = user.photoURL;
+    });
     var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
         if (error) alert(error);
         else {
+            console.log("Thong bao");
             firebase.database().ref('fcmTokens').child(friend_id).once('value').then(function (data) {
+                var tokenId = data.val();
                 $.ajax({
                     url: 'https://fcm.googleapis.com/fcm/send',
                     method: 'POST',
-                    headers: {
+                    headers: { 
                         'Content-Type': 'application/json',
-                        'Authorization': 'key=AIzaSyBXkd3HN8IO3Xa4AFTvqFpo5LXZQ9-Rj7s'
+                        'Authorization': 'key=AAAAuiDVSvc:APA91bHGgLuwWlx_nkMFz_DeRQah2Kl1Pvta9gWHlF2xtMc4V5dCeC29JmuOZQ2jAc1BO6buIYHNc4SALJLjVqopRyEgQ2WXioUmLZj7NEvTYV6tLn1mPQLy76yBUrVdXDJa94n_bPua'
                     },
                     data: JSON.stringify({
-                        'to': data.val().token_id, 'data': { 'message': chatMessage.msg.substring(0, 30) + '...', 'icon': firebase.auth().currentUser.photoURL }
+                        'to': tokenId.token_id, 
+                        'data': { 
+                            'message': chatMessage.msg.substring(0, 30) + '...', 
+                            'icon': imageAvatarSend,                         
+                                },
+                         
                     }),
                     success: function (response) {
                         console.log(response);
                     },
-                    error: function (xhr, status, error) {
-                        console.log(xhr.error);
+                    error: function (error) {
+                        console.log(error);
                     }
                 });
             });
@@ -2440,8 +2449,6 @@ function onStateChanged(user) {
                 }
             });
             
-            //  firebase.database().ref("Groups").child(groupKey + '/' + "AdminId").remove();
-            // firebase.database().ref("users").child(currentUserKey + '/' + "statusAcitve1").remove();
             if (flag === false) {
                 firebase.database().ref('users').push(userProfile, callback);              
             }
@@ -2458,7 +2465,12 @@ function onStateChanged(user) {
                 document.getElementById('lnkSignOut').style = '';
             }
 
-            // const messaging = firebase.messaging();
+            const messaging = firebase.messaging();
+            messaging.requestPermission().then(function () {
+                            return messaging.getToken();
+                        }).then(function (token) {
+                            firebase.database().ref('fcmTokens').child(currentUserKey).set({token_id: token });
+                        })
             // navigator.serviceWorker.register('./firebase-messaging-sw.js')
             //     .then((registration) => {
             //         messaging.useServiceWorker(registration);
