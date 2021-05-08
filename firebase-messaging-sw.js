@@ -24,7 +24,6 @@ messaging.setBackgroundMessageHandler(function (payload) {
     const notificationOptions = {
         icon: payload.data.icon,
         body: payload.data.message,         
-        sound: payload.data.sound
     };
     
     return self.registration.showNotification(notificationTitle,
