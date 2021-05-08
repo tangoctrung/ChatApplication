@@ -23,12 +23,15 @@ messaging.setBackgroundMessageHandler(function (payload) {
     const notificationTitle = 'You have new message \n';
     const notificationOptions = {
         icon: payload.data.icon,
-        body: payload.data.message,    
+        body: payload.data.message,         
+        sound: payload.data.sound
     };
     
     return self.registration.showNotification(notificationTitle,
         notificationOptions);
 });
+
+
 
 
 

@@ -814,7 +814,8 @@ function SendMessage(friendKey) {
                         'to': tokenId.token_id, 
                         'data': { 
                             'message': chatMessage.msg.substring(0, 30) + '...', 
-                            'icon': imageAvatarSend,                         
+                            'icon': imageAvatarSend, 
+                            'sound': "SendMessage.mp3",                    
                                 },
                          
                     }),
