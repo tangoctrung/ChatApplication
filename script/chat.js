@@ -819,12 +819,14 @@ function SendMessage(friendKey) {
                          
                     }),
                     success: function (response) {
+                        
                         console.log(response);
                     },
                     error: function (error) {
                         console.log(error);
                     }
                 });
+                document.querySelector(".ReceiveMessage").play();
             });
 
             document.getElementById('txtMessage').value = '';
