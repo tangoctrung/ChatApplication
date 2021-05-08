@@ -350,7 +350,12 @@ background-color: brown;
   display: flex;
   justify-content: flex-start;
 }
-
+.iconNotification{
+  color: blue; 
+  font-size: 15px; 
+  position: absolute;
+  right: calc(-400%);
+}
 .LineMessageGroup{
   margin-top: -15px;
   margin-bottom: 10px;

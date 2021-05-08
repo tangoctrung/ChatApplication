@@ -194,7 +194,7 @@ function showEmojiPanel() {
 }
 
 function hideEmojiPanel() {
-    document.getElementById('emoji').setAttribute('style', 'display:none;');
+    document.getElementById('emoji').setAttribute('style', 'display:none;'); 
 }
 
 function clickEmoji() {
@@ -289,40 +289,89 @@ function LoadChatList() {
                         friendName: user.name,
                         friendPhoto: user.photoURL,
                         friendEmail: user.email
-                    });
-                    // document.getElementById(`${chatKey}`).setAttribute("style", "background-color: aquamarine;");
-                    if (user.statusAcitve === true) {
-                        document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
-                            <div class="row">
-                                <div class="col-md-2" style="display: flex;" >
-                                    <div>
-                                    <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                    });  
+                    if (lst.notificationMessage === true && lst.sender !== currentUserKey){
+                        if (user.statusAcitve === true) {
+                            document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
+                                <div class="row">
+                                    <div class="col-md-2" style="display: flex;" >
+                                        <div>
+                                        <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                        </div>
+                                        <i class="fa fa-circle iconNotification" aria-hidden="true" id=""
+                                            style=""
+                                            ></i>
+                                        <i class="fa fa-circle" aria-hidden="true" id="${friendKey}"
+                                        style="color: seagreen; font-size: 12px; margin-top: 37px; margin-left:-10px;"
+                                        ></i>
                                     </div>
-                                    <i class="fa fa-circle" aria-hidden="true" id="${friendKey}"
-                                    style="color: seagreen; font-size: 12px; margin-top: 37px; margin-left:-10px;"
-                                    ></i>
+                                    <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                        <div class="name">${user.name}</div>
+                                        <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}
+                                            
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
-                                    <div class="name">${user.name}</div>
-                                    <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}</div>
+                            </li>`;
+                        } 
+                        else {
+                            document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
+                                <div class="row">
+                                    <div class="col-md-2" style="display: flex;" >
+                                        <div>
+                                        <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                        </div>   
+                                        <i class="fa fa-circle iconNotification" aria-hidden="true" id=""
+                                            style=""
+                                        ></i>                                
+                                    </div>
+                                    <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                        <div class="name">${user.name}</div>
+                                        <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}
+                                            
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>`;
+                            </li>`;
+                        }
                     } else {
-                        document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
-                            <div class="row">
-                                <div class="col-md-2" style="display: flex;" >
-                                    <div>
-                                    <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
-                                    </div>                                   
+                        if (user.statusAcitve === true) {
+                            document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
+                                <div class="row">
+                                    <div class="col-md-2" style="display: flex;" >
+                                        <div>
+                                        <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                        </div>
+                                        <i class="fa fa-circle" aria-hidden="true" id="${friendKey}"
+                                        style="color: seagreen; font-size: 12px; margin-top: 37px; margin-left:-10px;"
+                                        ></i>
+                                    </div>
+                                    <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                        <div class="name">${user.name}</div>
+                                        <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}                                          
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
-                                    <div class="name">${user.name}</div>
-                                    <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}</div>
+                            </li>`;
+                        } 
+                        else {
+                            document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
+                                <div class="row">
+                                    <div class="col-md-2" style="display: flex;" >
+                                        <div>
+                                        <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                        </div>                                   
+                                    </div>
+                                    <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                        <div class="name">${user.name}</div>
+                                        <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}                                         
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>`;
-                    }
+                            </li>`;
+                        }
+                    }          
+                    
                     
                 });
             }
@@ -337,6 +386,7 @@ function StartChat(friendKey, friendName, friendPhoto) {
     firebase.database().ref("users").child(currentUserKey).update({
         statusAcitve: true
     });
+    
     var db = firebase.database().ref('friend_list');
     var flag = false;
     db.on('value', function (friends) {
@@ -345,11 +395,12 @@ function StartChat(friendKey, friendName, friendPhoto) {
             if ((user.friendId === friendList.friendId && user.userId === friendList.userId)
                 || ((user.friendId === friendList.userId && user.userId === friendList.friendId))) {
                 flag = true;
-                chatKey = data.key;
-                console.log(chatKey);
-                document.getElementById(`${chatKey}`).removeAttribute('style');
-                console.log(document.getElementById(`${chatKey}`));
+                chatKey = data.key;    
+                // firebase.database().ref("friend_list").child(chatKey).update({
+                //     notificationMessage: false,
+                // })
             }
+            
 
         });
 
@@ -365,6 +416,10 @@ function StartChat(friendKey, friendName, friendPhoto) {
             firebase.database().ref('friend_list/' + chatKey).update({
                 chatKey: chatKey
             })
+            // firebase.database().ref("friend_list").child(chatKey).update({
+            //     notificationMessage: false,
+            // })
+            
         }
         else {
             document.getElementById('chatPanel').removeAttribute('style');
@@ -499,6 +554,9 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
         user = data.val();
         urlImageUser = user.photoURL;
     })
+    // <i class="fa fa-circle" aria-hidden="true" id=""
+    // style="color: blue; font-size: 15px; float:right;"
+    // ></i>
     firebase.database().ref("messageLast").child(chatKey).on("value", function (data) {
         var messageLast = data.val();
         if (messageLast.message.length >= 24) {
@@ -507,11 +565,16 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
         if (messageLast.PersonSendId !== currentUserKey) {
             document.querySelector(`.${chatKey}`).innerHTML = `${messageLast.message} ${messageLast.messageTime1}`;
             document.querySelector(`.${chatKey}`).title = `${messageLast.messageTime0}`;
+            document.querySelector(".card-body").addEventListener('click', function(event){
+                firebase.database().ref("friend_list").child(chatKey).update({
+                    notificationMessage: false
+                })
+            })
         } else {
             document.querySelector(`.${chatKey}`).innerHTML = `You: ${messageLast.message} ${messageLast.messageTime1}`;
             document.querySelector(`.${chatKey}`).title = `${messageLast.messageTime0}`;
         }
-
+        
     });
     var db = firebase.database().ref('chatMessages').child(chatKey);
 
@@ -792,6 +855,11 @@ function SendMessage(friendKey) {
         messageTime1: chatMessage.dateTime.split(',')[1],
         PersonSendId: chatMessage.userId
     });
+    firebase.database().ref("friend_list").child(chatKey).update({
+            notificationMessage: true,
+            sender: currentUserKey,
+    })
+    
     var imageAvatarSend = "";
     var nameSender = "";
     var message = "";
@@ -808,37 +876,35 @@ function SendMessage(friendKey) {
     var messageKey1 = firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function (error) {
         if (error) alert(error);
         else {
-            console.log("Thong bao");
-            console.log(nameSender);
-            firebase.database().ref('fcmTokens').child(friend_id).once('value').then(function (data) {
-                var tokenId = data.val();
-                $.ajax({
-                    url: 'https://fcm.googleapis.com/fcm/send',
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': 'key=AAAAuiDVSvc:APA91bHGgLuwWlx_nkMFz_DeRQah2Kl1Pvta9gWHlF2xtMc4V5dCeC29JmuOZQ2jAc1BO6buIYHNc4SALJLjVqopRyEgQ2WXioUmLZj7NEvTYV6tLn1mPQLy76yBUrVdXDJa94n_bPua'
-                    },
-                    data: JSON.stringify({
-                        'to': tokenId.token_id, 
-                        'data': { 
-                            'title': nameSender,
-                            'message': message,
-                            'icon': imageAvatarSend,                                              
-                                },
+            // firebase.database().ref('fcmTokens').child(friend_id).once('value').then(function (data) {
+            //     var tokenId = data.val();
+            //     $.ajax({
+            //         url: 'https://fcm.googleapis.com/fcm/send',
+            //         method: 'POST',
+            //         headers: { 
+            //             'Content-Type': 'application/json',
+            //             'Authorization': 'key=AAAAuiDVSvc:APA91bHGgLuwWlx_nkMFz_DeRQah2Kl1Pvta9gWHlF2xtMc4V5dCeC29JmuOZQ2jAc1BO6buIYHNc4SALJLjVqopRyEgQ2WXioUmLZj7NEvTYV6tLn1mPQLy76yBUrVdXDJa94n_bPua'
+            //         },
+            //         data: JSON.stringify({
+            //             'to': tokenId.token_id, 
+            //             'data': { 
+            //                 'title': nameSender,
+            //                 'message': message,
+            //                 'icon': imageAvatarSend,                                              
+            //                     },
                          
-                    }),
-                    success: function (response) {
+            //         }),
+            //         success: function (response) {
                         
-                        console.log(response);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
+            //             console.log(response);
+            //         },
+            //         error: function (error) {
+            //             console.log(error);
+            //         }
+            //     });
                 
-                document.querySelector(".ReceiveMessage").play();
-            });
+            //     // document.querySelector(".ReceiveMessage").play();
+            // });
 
             document.getElementById('txtMessage').value = '';
             document.getElementById('txtMessage').focus();
@@ -2478,12 +2544,12 @@ function onStateChanged(user) {
                 document.getElementById('lnkSignOut').style = '';
             }
 
-            const messaging = firebase.messaging();
-            messaging.requestPermission().then(function () {
-                            return messaging.getToken();
-                        }).then(function (token) {
-                            firebase.database().ref('fcmTokens').child(currentUserKey).set({token_id: token });
-                        })
+            // const messaging = firebase.messaging();
+            // messaging.requestPermission().then(function () {
+            //                 return messaging.getToken();
+            //             }).then(function (token) {
+            //                 firebase.database().ref('fcmTokens').child(currentUserKey).set({token_id: token });
+            //             })
             // navigator.serviceWorker.register('./firebase-messaging-sw.js')
             //     .then((registration) => {
             //         messaging.useServiceWorker(registration);
