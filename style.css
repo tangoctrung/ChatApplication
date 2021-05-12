@@ -65,7 +65,17 @@ body {
   line-height: 15px;
   max-height: 15px;
 }
-
+.IconCreateAGroup{
+  font-size: 25px; 
+  margin-bottom: 10px; 
+  cursor: pointer; 
+  margin-left: calc(100% - 60%);
+}
+.IconCreateAGroup:hover{
+  transform: scale(1.1);
+  color:#3498db;
+  
+}
 .icon {
   font-size: 20px;
   color: #9CA1A3;
@@ -82,7 +92,7 @@ body {
   width: 150px;
   z-index: 10;
   border: 1px solid rgb(156, 153, 153);
-  left: -40px;
+  left: -60px;
   top: 40px;
 }
 .icon-file a{
@@ -113,7 +123,7 @@ body {
   width: 150px;
   z-index: 10;
   border: 1px solid rgb(156, 153, 153);
-  left: 10px;
+  left: -50px;
   top: 40px;
 }
 .icon-themen li{

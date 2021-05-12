@@ -294,7 +294,7 @@ function LoadChatList() {
                         if (user.statusAcitve === true) {
                             document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
                                 <div class="row">
-                                    <div class="col-md-2" style="display: flex;" >
+                                    <div class="col-2 col-md-2" style="display: flex;" >
                                         <div>
                                         <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
                                         </div>
@@ -305,7 +305,7 @@ function LoadChatList() {
                                         style="color: seagreen; font-size: 12px; margin-top: 37px; margin-left:-10px;"
                                         ></i>
                                     </div>
-                                    <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                    <div class="col-8 col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
                                         <div class="name">${user.name}</div>
                                         <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}
                                             
@@ -317,7 +317,7 @@ function LoadChatList() {
                         else {
                             document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
                                 <div class="row">
-                                    <div class="col-md-2" style="display: flex;" >
+                                    <div class="col-2 col-md-2" style="display: flex;" >
                                         <div>
                                         <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
                                         </div>   
@@ -325,7 +325,7 @@ function LoadChatList() {
                                             style=""
                                         ></i>                                
                                     </div>
-                                    <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                    <div class="col-8 col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
                                         <div class="name">${user.name}</div>
                                         <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}
                                             
@@ -338,7 +338,7 @@ function LoadChatList() {
                         if (user.statusAcitve === true) {
                             document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
                                 <div class="row">
-                                    <div class="col-md-2" style="display: flex;" >
+                                    <div class="col-2 col-md-2" style="display: flex;" >
                                         <div>
                                         <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
                                         </div>
@@ -346,7 +346,7 @@ function LoadChatList() {
                                         style="color: seagreen; font-size: 12px; margin-top: 37px; margin-left:-10px;"
                                         ></i>
                                     </div>
-                                    <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                    <div class="col-8 col-md-8" style="cursor:pointer; line-height: 30px;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
                                         <div class="name">${user.name}</div>
                                         <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}                                          
                                         </div>
@@ -357,12 +357,12 @@ function LoadChatList() {
                         else {
                             document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
                                 <div class="row">
-                                    <div class="col-md-2" style="display: flex;" >
+                                    <div class="col-2 col-md-2" style="display: flex;" >
                                         <div>
                                         <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
                                         </div>                                   
                                     </div>
-                                    <div class="col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                    <div class="col-8 col-md-8" style="cursor:pointer; line-height: 30px;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
                                         <div class="name">${user.name}</div>
                                         <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}                                         
                                         </div>
@@ -442,17 +442,17 @@ function StartChat(friendKey, friendName, friendPhoto) {
 function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
     document.getElementById("chatPanel").innerHTML = ` <div class="card-header">
     <div class="row">
-        <div class="col-1 col-sm-1 col-md-1 col-lg-1 d-md-none">
+        <div class="col-1 col-sm-1 col-md-1 col-lg-1 d-md-none" style="margin-top: 12px;">
             <i class="fas fa-list mt-2" style="cursor:pointer" onclick="showChatList()"></i>
         </div>
-        <div class="col-2 col-sm-2 col-md-2 col-lg-1">
-            <img src="${friendPhoto}" id="imgChat" class="rounded-circle profile-pic" />
+        <div style="margin-top: 8px;" class="col-2 col-sm-2 col-md-2 col-lg-1">
+            <img  src="${friendPhoto}" id="imgChat" class="rounded-circle profile-pic" />
         </div>
-        <div class="col-3 col-sm-5 col-md-5 col-lg-7">
+        <div class="col-6 col-sm-5 col-md-5 col-lg-7" style="margin-top: 8px;">
             <div class="name" id="divChatName">${friendName}</div>
             <div class="under-name" id="divChatSeen">Active now</div>
         </div>
-        <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon header-icon">
+        <div class="col-3 col-sm-4 col-md-4 col-lg-3 icon header-icon" style="display: flex; align-items: center;">
             
             <div class="icon-member2">
                 <i style="cursor: pointer;" class="fas fa-paperclip" onclick="displayIcon_file()"></i>
@@ -513,7 +513,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
 <div class="card-body" id="messages">
     
 </div>
-<div class="ImageSeenChatMember"> <img src="./img/pp.png"/></div>
+
 <div class="card-footer">
     
     <span class="col-3 col-md-1" id="ReplyMessage1"></span>
@@ -557,8 +557,12 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
     // <i class="fa fa-circle" aria-hidden="true" id=""
     // style="color: blue; font-size: 15px; float:right;"
     // ></i>
+    var personSendId = '';
+    var chatKeyPersonSend = '';
     firebase.database().ref("messageLast").child(chatKey).on("value", function (data) {
         var messageLast = data.val();
+        personSendId = messageLast.PersonSendId;
+        chatKeyPersonSend = messageLast.chatKey;
         if (messageLast.message.length >= 24) {
             messageLast.message = messageLast.message.slice(0, 21) + "...";
         }
@@ -573,6 +577,14 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                     seenMessage: true,
                 })
             })
+            document.querySelector(".card-body").onscroll = function(event){
+                firebase.database().ref("friend_list").child(chatKey).update({
+                    notificationMessage: false
+                });
+                firebase.database().ref("friend_list").child(chatKey).update({
+                    seenMessage: true,
+                })
+            }
             document.getElementById("txtMessage").onclick = function(event) {
                 
                 firebase.database().ref("friend_list").child(chatKey).update({
@@ -599,388 +611,392 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
         senderId = chat.sender;
     })
 
-    var db = firebase.database().ref('chatMessages').child(chatKey);
-
-    db.on('value', function (chats) {
-        var messageDisplay = '';
-        var deleteAllMessages = '';
-        chats.forEach(function (data) {
-            var chat = data.val();
-            var messageKey = data.val().messageId;
-            var dateTime = chat.dateTime.split(",");
-            var msg = '';
-            var messageLast = '';
-            if (chat.msgType === 'image') {
-                msg = `<img src='${chat.msg}' class="img-fluid" />`;
-                messageLast = "Image";
-            }
-            else if (chat.msgType === 'audio') {
-                msg = `<audio controls>
-                        <source src="${chat.msg}" type="video/webm" />
-                    </audio>`;
-                messageLast = "Audio";
-            }
-            else if (chat.msgType === 'file') {
-                // msg = `<video class="sendMessageFile">{${chat.msg}}</video>`
-                msg = `<a href="${chat.dataUrl}" class="sendMessageFile" style="text-decoration: underline; cursor: pointer;">${chat.msg}</a>`;
-                messageLast = `${chat.msg}`;
-            }
-            else {
-                msg = chat.msg;
-                messageLast = chat.msg;
-            }
-            
-            if (chat.userId !== currentUserKey) {
-                if (chat.msgReply === "") {
-                    if (chat.MessageRemove === true) {
-                        messageDisplay += `<div class="row" 
-                        style="display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;">
-                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
-                                <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
-                            </div>                             
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
-                                <p class="remove">                                                                                   
-                                    ${msg}                                                                             
-                                </p>
-                                
-                            </div>                                     
-                    </div>`;
-                    } 
-                    else{
-                        messageDisplay += `<div class="row" 
-                        style="display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;">
-                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 2px;">
-                                <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
-                            </div>                             
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
-                                <p class="receive" title="${chat.dateTime}">                                                                                   
-                                    ${msg}                                           
-                                </p>
-                                <ul class="list-icon-extend1">                                                                                                                               
-                                    <li class="member-icon-extend1">
-                                    <i class="fa fa-reply"
-                                    id="ReplyMessageButton"                                  
-                                    title="Reply"
-                                    style="opacity: 0.2;"
-                                    onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                                    ></i>                                          
-                                    </li>
-                                </ul>
-                            </div>                                     
-                    </div>`;
-                    }
-                    
+    if (1){       
+        var db = firebase.database().ref('chatMessages').child(chatKey);
+    
+        db.on('value', function (chats) {
+            var messageDisplay = '';
+            var deleteAllMessages = '';
+            chats.forEach(function (data) {
+                var chat = data.val();
+                var messageKey = data.val().messageId;
+                var dateTime = chat.dateTime.split(",");
+                var msg = '';
+                var messageLast = '';
+                if (chat.msgType === 'image') {
+                    msg = `<img src='${chat.msg}' class="img-fluid" />`;
+                    messageLast = "Image";
+                }
+                else if (chat.msgType === 'audio') {
+                    msg = `<audio style="width: 250px;" controls>
+                            <source src="${chat.msg}" type="video/webm" />
+                        </audio>`;
+                    messageLast = "Audio";
+                }
+                else if (chat.msgType === 'file') {
+                    // msg = `<video class="sendMessageFile">{${chat.msg}}</video>`
+                    msg = `<a href="${chat.dataUrl}" class="sendMessageFile" style="text-decoration: underline; cursor: pointer;">${chat.msg}</a>`;
+                    messageLast = `${chat.msg}`;
                 }
                 else {
-                    if (chat.MessageRemove === true) {
-                        messageDisplay += `<div class="row" 
-                        style="display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;">
-                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
-                                <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
-                            </div>                                           
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
-                                <p class="remove">                                                                                   
-                                    ${msg}                                           
-                                </p>                              
-                            </div>                                    
-                    </div>`;
-                    } 
-                    else {
-                        messageDisplay += `<div class="row" 
-                        style="display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;">
-                        <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 52px;">
-                            <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
-                        </div>
-                        <div>
-                            <div class="col-10 col-sm-7 col-md-7 float-left" style="padding: 0px;">
-                                <p class="titleReplyMember">
-                                ${chat.titleReply}
-                                </p>
-                            </div>
-                            <div class="col-10 col-sm-7 col-md-7 float-left containerReplyPadding" style="padding: 0px;">
-                                <p id="${chat.messageId}" class="reply replyPadding" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
-                                    ${chat.msgReply}
-                                </p> 
-                            </div>
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
-                                <p class="receive" title="${chat.dateTime}">                                                                                   
-                                    ${msg}                                           
-                                </p>
-                                <ul class="list-icon-extend1">                                                                                                                               
-                                    <li class="member-icon-extend1">
-                                    <i class="fa fa-reply"
-                                    id="ReplyMessageButton"                                  
-                                    title="Reply"
-                                    style="opacity: 0.2;"
-                                    onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                                    ></i>                                          
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>              
-                    </div>`;
-                    }
-                    
+                    msg = chat.msg;
+                    messageLast = chat.msg;
                 }
-               
-                deleteAllMessages = `<a href="#" class="dropdown-item"
-                onclick="DeleteMessages('${chatKey}')"              
-                >Delete Messages</a>`;
-
-            }
-            else {
-                if (chat.msgReply === "") {
-                    if (chat.MessageRemove === true) {
-                        messageDisplay += `<div class="row justify-content-end">                  
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">                              
-                                <p class="remove float-right">                                                 
-                                    ${msg}
-                                </p>               
-                            </div>
-                    
-                </div>`;
-                    }
-                    else {
-                        // messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">                  
-                        //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
-                        //         <ul class="list-icon-extend"> 
-                        //             <li class="member-icon-extend">
-                        //                 <i class="fa fa-window-close"
-                        //                 id="DeleteMessageButton"                                  
-                        //                 title="Delete"
-                        //                 style="opacity: 0.2;"   
-                        //                 onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
-                        //                 ></i>                                   
-                        //             </li>
-                        //             <li class="member-icon-extend">
-                        //                 <i class="fa fa-reply"
-                        //                 id="ReplyMessageButton"                                  
-                        //                 title="Reply"
-                        //                 style="opacity: 0.2;"   
-                        //                 onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                        //                 ></i>                                
-                        //             </li>
-                        //         </ul>
-                        //         <p class="sent float-right" title="${chat.dateTime}">                                                 
-                        //             ${msg}
-                        //         </p>   
-                                        
-                        //     </div>
-                        // </div>`;
-                        if (seenMessage === true && senderId === currentUserKey){
-                            messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">                  
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
-                                <ul class="list-icon-extend"> 
-                                    <li class="member-icon-extend">
-                                        <i class="fa fa-window-close"
-                                        id="DeleteMessageButton"                                  
-                                        title="Delete"
-                                        style="opacity: 0.2;"   
-                                        onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
-                                        ></i>                                   
-                                    </li>
-                                    <li class="member-icon-extend">
+                
+                if (chat.userId !== currentUserKey) {
+                    if (chat.msgReply === "") {
+                        if (chat.MessageRemove === true) {
+                            messageDisplay += `<div class="row" 
+                            style="display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;">
+                                <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; left: 10px;">
+                                    <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
+                                </div>                             
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
+                                    <p class="remove">                                                                                   
+                                        ${msg}                                                                             
+                                    </p>
+                                    
+                                </div>                                     
+                        </div>`;
+                        } 
+                        else{
+                            messageDisplay += `<div class="row" 
+                            style="display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;">
+                                <div class="col-2 col-sm-1 col-md-1" style="left: 10px; padding: 2px; margin-top: 2px;">
+                                    <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
+                                </div>                             
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
+                                    <p class="receive" title="${chat.dateTime}">                                                                                   
+                                        ${msg}                                           
+                                    </p>
+                                    <ul class="list-icon-extend1">                                                                                                                               
+                                        <li class="member-icon-extend1">
                                         <i class="fa fa-reply"
                                         id="ReplyMessageButton"                                  
                                         title="Reply"
-                                        style="opacity: 0.2;"   
+                                        style="opacity: 0.2;"
                                         onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                                        ></i>                                
-                                    </li>
-                                </ul>
-                                <p class="sent float-right" title="${chat.dateTime}">                                                 
-                                    ${msg}
-                                </p>   
-                                        
-                            </div>
-                            <div style="position: absolute; top: calc(100% - 18px); font-size: 12px; right: 20px;" class="">Seen</div> 
-                         </div>`;
-                        }
-                        else {
-                            messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">                  
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
-                                <ul class="list-icon-extend"> 
-                                    <li class="member-icon-extend">
-                                        <i class="fa fa-window-close"
-                                        id="DeleteMessageButton"                                  
-                                        title="Delete"
-                                        style="opacity: 0.2;"   
-                                        onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
-                                        ></i>                                   
-                                    </li>
-                                    <li class="member-icon-extend">
-                                        <i class="fa fa-reply"
-                                        id="ReplyMessageButton"                                  
-                                        title="Reply"
-                                        style="opacity: 0.2;"   
-                                        onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                                        ></i>                                
-                                    </li>
-                                </ul>
-                                <p class="sent float-right" title="${chat.dateTime}">                                                 
-                                    ${msg}
-                                </p>   
-                                        
-                            </div>
+                                        ></i>                                          
+                                        </li>
+                                    </ul>
+                                </div>                                     
                         </div>`;
                         }
-                    }
                         
-                } 
-                // <div style="position: absolute; top: calc(100% - 18px); font-size: 12px; right: 20px;" class="">Seen</div>                
-                else {
-                    if (chat.MessageRemove === true) {
-                        messageDisplay += `<div class="row justify-content-end">                          
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">                          
-                                <p class="remove float-right">                                                 
-                                    ${msg}
-                                </p>               
+                    }
+                    else {
+                        if (chat.MessageRemove === true) {
+                            messageDisplay += `<div class="row" 
+                            style="display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;">
+                                <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; left: 10px;">
+                                    <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
+                                </div>                                           
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
+                                    <p class="remove">                                                                                   
+                                        ${msg}                                           
+                                    </p>                              
+                                </div>                                    
+                        </div>`;
+                        } 
+                        else {
+                            messageDisplay += `<div class="row" 
+                            style="display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;">
+                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 52px; left: 10px;">
+                                <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
                             </div>
+                            <div>
+                                <div class="col-10 col-sm-7 col-md-7 float-left" style="padding: 0px;">
+                                    <p class="titleReplyMember">
+                                    ${chat.titleReply}
+                                    </p>
+                                </div>
+                                <div class="col-10 col-sm-7 col-md-7 float-left containerReplyPadding" style="padding: 0px;">
+                                    <p id="${chat.messageId}" class="reply replyPadding" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
+                                        ${chat.msgReply}
+                                    </p> 
+                                </div>
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
+                                    <p class="receive" title="${chat.dateTime}">                                                                                   
+                                        ${msg}                                           
+                                    </p>
+                                    <ul class="list-icon-extend1">                                                                                                                               
+                                        <li class="member-icon-extend1">
+                                        <i class="fa fa-reply"
+                                        id="ReplyMessageButton"                                  
+                                        title="Reply"
+                                        style="opacity: 0.2;"
+                                        onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
+                                        ></i>                                          
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>              
+                        </div>`;
+                        }
+                        
+                    }
+                   
+                    deleteAllMessages = `<a href="#" class="dropdown-item"
+                    onclick="DeleteMessages('${chatKey}')"              
+                    >Delete Messages</a>`;
+    
+                }
+                else {
+                    if (chat.msgReply === "") {
+                        if (chat.MessageRemove === true) {
+                            messageDisplay += `<div class="row justify-content-end">                  
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">                              
+                                    <p class="remove float-right">                                                 
+                                        ${msg}
+                                    </p>               
+                                </div>
+                        
+                    </div>`;
+                        }
+                        else {
+                            // messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">                  
+                            //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
+                            //         <ul class="list-icon-extend"> 
+                            //             <li class="member-icon-extend">
+                            //                 <i class="fa fa-window-close"
+                            //                 id="DeleteMessageButton"                                  
+                            //                 title="Delete"
+                            //                 style="opacity: 0.2;"   
+                            //                 onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
+                            //                 ></i>                                   
+                            //             </li>
+                            //             <li class="member-icon-extend">
+                            //                 <i class="fa fa-reply"
+                            //                 id="ReplyMessageButton"                                  
+                            //                 title="Reply"
+                            //                 style="opacity: 0.2;"   
+                            //                 onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
+                            //                 ></i>                                
+                            //             </li>
+                            //         </ul>
+                            //         <p class="sent float-right" title="${chat.dateTime}">                                                 
+                            //             ${msg}
+                            //         </p>   
+                                            
+                            //     </div>
+                            // </div>`;
+                            if (seenMessage === true && senderId === currentUserKey){
+                                messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">                  
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
+                                    <ul class="list-icon-extend"> 
+                                        <li class="member-icon-extend">
+                                            <i class="fa fa-window-close"
+                                            id="DeleteMessageButton"                                  
+                                            title="Delete"
+                                            style="opacity: 0.2;"   
+                                            onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
+                                            ></i>                                   
+                                        </li>
+                                        <li class="member-icon-extend">
+                                            <i class="fa fa-reply"
+                                            id="ReplyMessageButton"                                  
+                                            title="Reply"
+                                            style="opacity: 0.2;"   
+                                            onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
+                                            ></i>                                
+                                        </li>
+                                    </ul>
+                                    <p class="sent float-right" title="${chat.dateTime}">                                                 
+                                        ${msg}
+                                    </p>   
+                                            
+                                </div>
+                                <div style="position: absolute; top: calc(100% - 18px); font-size: 12px; right: 20px;" class="">Seen</div> 
+                             </div>`;
+                            }
+                            else {
+                                messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">                  
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
+                                    <ul class="list-icon-extend"> 
+                                        <li class="member-icon-extend">
+                                            <i class="fa fa-window-close"
+                                            id="DeleteMessageButton"                                  
+                                            title="Delete"
+                                            style="opacity: 0.2;"   
+                                            onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
+                                            ></i>                                   
+                                        </li>
+                                        <li class="member-icon-extend">
+                                            <i class="fa fa-reply"
+                                            id="ReplyMessageButton"                                  
+                                            title="Reply"
+                                            style="opacity: 0.2;"   
+                                            onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
+                                            ></i>                                
+                                        </li>
+                                    </ul>
+                                    <p class="sent float-right" title="${chat.dateTime}">                                                 
+                                        ${msg}
+                                    </p>   
+                                            
+                                </div>
+                            </div>`;
+                            }
+                        }
                             
-                        </div>`;
-                    }
+                    } 
+                    // <div style="position: absolute; top: calc(100% - 18px); font-size: 12px; right: 20px;" class="">Seen</div>                
                     else {
-                //         messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">
-
-                //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                //         <p class="titleReplyMember1">
-                //             ${chat.titleReply}
-                //         </p>
-                //     </div>
-                //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                //         <p id="${chat.messageId}" class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
-                //             ${chat.msgReply}
-                //         </p> 
-                //     </div>
-                //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
-                //         <ul class="list-icon-extend"> 
-                //             <li class="member-icon-extend">
-                //                 <i class="fa fa-window-close"
-                //                 id="DeleteMessageButton"                                  
-                //                 title="Delete"
-                //                 style="opacity: 0.2;"   
-                //                 onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
-                //                 ></i>                                   
-                //             </li>
-                //             <li class="member-icon-extend">
-                //                 <i class="fa fa-reply"
-                //                 id="ReplyMessageButton"                                  
-                //                 title="Reply"
-                //                 style="opacity: 0.2;"   
-                //                 onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                //                 ></i>                                
-                //             </li>
-                //         </ul>
-                //         <p class="sent float-right" title="${chat.dateTime}">                                                 
-                //             ${msg}
-                //         </p>               
-                //     </div>
-                // </div>`;
-                        if (seenMessage === true && senderId === currentUserKey){
-                            messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">
-
-                    <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                        <p class="titleReplyMember1">
-                            ${chat.titleReply}
-                        </p>
-                    </div>
-                    <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                        <p id="${chat.messageId}" class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
-                            ${chat.msgReply}
-                        </p> 
-                    </div>
-                    <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
-                        <ul class="list-icon-extend"> 
-                            <li class="member-icon-extend">
-                                <i class="fa fa-window-close"
-                                id="DeleteMessageButton"                                  
-                                title="Delete"
-                                style="opacity: 0.2;"   
-                                onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
-                                ></i>                                   
-                            </li>
-                            <li class="member-icon-extend">
-                                <i class="fa fa-reply"
-                                id="ReplyMessageButton"                                  
-                                title="Reply"
-                                style="opacity: 0.2;"   
-                                onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                                ></i>                                
-                            </li>
-                        </ul>
-                        <p class="sent float-right" title="${chat.dateTime}">                                                 
-                            ${msg}
-                        </p>               
-                    </div>
-                    <div style="position: absolute; top: calc(100% - 18px); font-size: 12px; right: 20px;" class="">Seen</div>       
-                </div>`;
+                        if (chat.MessageRemove === true) {
+                            messageDisplay += `<div class="row justify-content-end">                          
+                                <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">                          
+                                    <p class="remove float-right">                                                 
+                                        ${msg}
+                                    </p>               
+                                </div>
+                                
+                            </div>`;
                         }
                         else {
-                            messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">
-
-                    <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                        <p class="titleReplyMember1">
-                            ${chat.titleReply}
-                        </p>
-                    </div>
-                    <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                        <p id="${chat.messageId}" class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
-                            ${chat.msgReply}
-                        </p> 
-                    </div>
-                    <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
-                        <ul class="list-icon-extend"> 
-                            <li class="member-icon-extend">
-                                <i class="fa fa-window-close"
-                                id="DeleteMessageButton"                                  
-                                title="Delete"
-                                style="opacity: 0.2;"   
-                                onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
-                                ></i>                                   
-                            </li>
-                            <li class="member-icon-extend">
-                                <i class="fa fa-reply"
-                                id="ReplyMessageButton"                                  
-                                title="Reply"
-                                style="opacity: 0.2;"   
-                                onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                                ></i>                                
-                            </li>
-                        </ul>
-                        <p class="sent float-right" title="${chat.dateTime}">                                                 
-                            ${msg}
-                        </p>               
-                    </div>
-                </div>`;
+                    //         messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">
+    
+                    //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
+                    //         <p class="titleReplyMember1">
+                    //             ${chat.titleReply}
+                    //         </p>
+                    //     </div>
+                    //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
+                    //         <p id="${chat.messageId}" class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
+                    //             ${chat.msgReply}
+                    //         </p> 
+                    //     </div>
+                    //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
+                    //         <ul class="list-icon-extend"> 
+                    //             <li class="member-icon-extend">
+                    //                 <i class="fa fa-window-close"
+                    //                 id="DeleteMessageButton"                                  
+                    //                 title="Delete"
+                    //                 style="opacity: 0.2;"   
+                    //                 onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
+                    //                 ></i>                                   
+                    //             </li>
+                    //             <li class="member-icon-extend">
+                    //                 <i class="fa fa-reply"
+                    //                 id="ReplyMessageButton"                                  
+                    //                 title="Reply"
+                    //                 style="opacity: 0.2;"   
+                    //                 onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
+                    //                 ></i>                                
+                    //             </li>
+                    //         </ul>
+                    //         <p class="sent float-right" title="${chat.dateTime}">                                                 
+                    //             ${msg}
+                    //         </p>               
+                    //     </div>
+                    // </div>`;
+                            if (seenMessage === true && senderId === currentUserKey){
+                                messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">
+    
+                        <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
+                            <p class="titleReplyMember1">
+                                ${chat.titleReply}
+                            </p>
+                        </div>
+                        <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
+                            <p id="${chat.messageId}" class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
+                                ${chat.msgReply}
+                            </p> 
+                        </div>
+                        <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
+                            <ul class="list-icon-extend"> 
+                                <li class="member-icon-extend">
+                                    <i class="fa fa-window-close"
+                                    id="DeleteMessageButton"                                  
+                                    title="Delete"
+                                    style="opacity: 0.2;"   
+                                    onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
+                                    ></i>                                   
+                                </li>
+                                <li class="member-icon-extend">
+                                    <i class="fa fa-reply"
+                                    id="ReplyMessageButton"                                  
+                                    title="Reply"
+                                    style="opacity: 0.2;"   
+                                    onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
+                                    ></i>                                
+                                </li>
+                            </ul>
+                            <p class="sent float-right" title="${chat.dateTime}">                                                 
+                                ${msg}
+                            </p>               
+                        </div>
+                        <div style="position: absolute; top: calc(100% - 18px); font-size: 12px; right: 20px;" class="">Seen</div>       
+                    </div>`;
+                            }
+                            else {
+                                messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">
+    
+                        <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
+                            <p class="titleReplyMember1">
+                                ${chat.titleReply}
+                            </p>
+                        </div>
+                        <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
+                            <p id="${chat.messageId}" class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
+                                ${chat.msgReply}
+                            </p> 
+                        </div>
+                        <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
+                            <ul class="list-icon-extend"> 
+                                <li class="member-icon-extend">
+                                    <i class="fa fa-window-close"
+                                    id="DeleteMessageButton"                                  
+                                    title="Delete"
+                                    style="opacity: 0.2;"   
+                                    onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
+                                    ></i>                                   
+                                </li>
+                                <li class="member-icon-extend">
+                                    <i class="fa fa-reply"
+                                    id="ReplyMessageButton"                                  
+                                    title="Reply"
+                                    style="opacity: 0.2;"   
+                                    onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
+                                    ></i>                                
+                                </li>
+                            </ul>
+                            <p class="sent float-right" title="${chat.dateTime}">                                                 
+                                ${msg}
+                            </p>               
+                        </div>
+                    </div>`;
+                            }
+                            
                         }
-                        
+                            
                     }
-                        
+     
+                    deleteAllMessages = `<a href="#" class="dropdown-item"
+                    onclick="DeleteMessages('${chatKey}')"              
+                    >Delete Messages</a>`;
                 }
- 
-                deleteAllMessages = `<a href="#" class="dropdown-item"
-                onclick="DeleteMessages('${chatKey}')"              
-                >Delete Messages</a>`;
-            }
+            });
+            
+            document.getElementById('messages').innerHTML = messageDisplay;
+            document.getElementById('messages').scrollTo(0, document.getElementById('messages').scrollHeight);
+            document.getElementById('deleteMessages').innerHTML = deleteAllMessages;
+    
         });
-        
-        document.getElementById('messages').innerHTML = messageDisplay;
-        document.getElementById('messages').scrollTo(0, document.getElementById('messages').scrollHeight);
-        document.getElementById('deleteMessages').innerHTML = deleteAllMessages;
-
-    });
+    }
 }
 
+var FriendKeyWantSend = "";
 //gui tin nhan
 function SendMessage(friendKey) {
+    FriendKeyWantSend = friendKey;
     var chatMessage = {
         userId: currentUserKey,
         msg: document.getElementById('txtMessage').value,
@@ -1443,14 +1459,14 @@ function LoadChatListGroup() {
                 if (activeGroup === true) {
                     document.getElementById('lstGroupChat').innerHTML += `<li onclick="StartChatGroup('${data.key}', '${group.nameGroup}', '${groupPhoto}')" class="list-group-item list-group-item-action" >
                         <div class="row">
-                            <div class="col-md-2" >
-                                <img src="${groupPhoto}" class="friend-pic rounded-circle" />                         
+                            <div class="col-2 col-md-2" style="position: relative;">
+                                <img src="${groupPhoto}" class="friend-pic rounded-circle" />   
+                                <i class="fa fa-circle" aria-hidden="true" id="" style="position: absolute; z-index: 3;color: seagreen; font-size: 12px; margin-top: -12px; margin-left: 22px;"
+                                ></i>                      
                             </div>
-                            <i class="fa fa-circle" aria-hidden="true" id=""
-                                style="z-index: 3; color: seagreen; font-size: 12px; margin-top: 37px; margin-left:-10px;"
-                            ></i>
-                            <div  class="col-md-8" style="cursor:pointer;">
-                                <div class="name">${group.nameGroup}</div>
+                            
+                            <div  class="col-8 col-md-8" style="cursor:pointer;">
+                                <div class="name" style="line-height: 50px; margin-left: 20px; font-size: 20px;">${group.nameGroup}</div>
                             </div>
                         </div>
                     </li>`;
@@ -1461,7 +1477,7 @@ function LoadChatListGroup() {
                                 <img src="${groupPhoto}" class="friend-pic rounded-circle" />                         
                             </div>                          
                             <div  class="col-md-8" style="cursor:pointer;">
-                                <div class="name">${group.nameGroup}</div>
+                                <div class="name" style="line-height: 50px; margin-left: 20px; font-size: 20px;">${group.nameGroup}</div>
                             </div>
                         </div>
                     </li>`;
@@ -1487,7 +1503,7 @@ function StartChatGroup(groupKey, groupName, groupPhoto) {
 function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
     document.getElementById("chatPanel").innerHTML = ` <div class="card-header" >
     <div class="row">
-        <div class="col-1 col-sm-1 col-md-1 col-lg-1 d-md-none">
+        <div class="col-1 col-sm-1 col-md-1 col-lg-1 d-md-none" style="margin-top: 5px;">
             <i class="fas fa-list mt-2" style="cursor:pointer" onclick="showChatList()"></i>
         </div>
         <div class="col-1 col-sm-2 col-md-2 col-lg-1">
@@ -1510,10 +1526,10 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                 </ul>
             </div>
         </div>
-        <div class="col-2 col-sm-5 col-md-5 col-lg-7">
+        <div class="col-4 col-sm-5 col-md-5 col-lg-7" style="margin-left: 20px; margin-top: 8px;">
             <div class="name" id="divChatName">${groupName}</div>
         </div>   
-        <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon header-icon">      
+        <div class="col-3 col-sm-4 col-md-4 col-lg-3 icon header-icon" style="display: flex;  align-items: center;">      
             <div class="icon-member2">
                 <i style="padding: 5px 10px; cursor: pointer;" class="fas fa-paperclip" onclick="displayIcon_file()"></i>
                 <div class="icon-file" style="display: none;">
@@ -1618,7 +1634,7 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                     if (group.msgReplyGroup === "") {
                         if (group.MessageGroupRemove === true) {                           
                             messageDisplay += `<div class="row">
-                                                    <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 20px;">
+                                                    <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 20px; left: 12px;">
                                                         <img style="border: 1.5px solid #000;" src="${member.photoURL}" class="chat-pic rounded-circle" />
                                                     </div>                             
                                                     <div class="col-10 col-sm-7 col-md-7" style="display: flex; flex-direction: column; padding: 0px;">
@@ -1633,7 +1649,7 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                         }
                         else {
                             messageDisplay += `<div class="row">
-                                        <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
+                                        <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; left: 12px;">
                                             <img style="border: 1.5px solid #000;" src="${member.photoURL}" class="chat-pic rounded-circle" />
                                         </div>
                                         <div class="col-10 col-sm-7 col-md-7 LineMessageGroup" style="padding: 0px;">
@@ -1660,7 +1676,7 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                     else {
                         if (group.MessageGroupRemove === true) {
                             messageDisplay += `<div class="row">
-                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 20px;">
+                            <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; margin-top: 20px; left: 12px;">
                                 <img style="border: 1.5px solid #000;" src="${member.photoURL}" class="chat-pic rounded-circle" />
                             </div>                             
                             <div class="col-10 col-sm-7 col-md-7" style="display: flex; flex-direction: column; padding: 0px;">
@@ -1675,7 +1691,7 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                         }               
                         else {
                             messageDisplay += `<div class="row">
-                                        <div class="col-2 col-sm-1 col-md-1" style="padding: 2px;">
+                                        <div class="col-2 col-sm-1 col-md-1" style="padding: 2px; left: 12px;">
                                             <img style="border: 1.5px solid #000;" src="${member.photoURL}" class="chat-pic rounded-circle" />
                                         </div>
                                         <div class="col-6 col-sm-7 col-md-7 LineMessageGroup" style="padding: 0px;">

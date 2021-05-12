@@ -83,11 +83,11 @@
 
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-1 col-sm-1 col-md-1 d-md-none">
+                            <div class="col-1 col-sm-1 col-md-1 d-md-none" style="margin-top: 14px;">
                                 <i class="fas fa-arrow-left d-md-none" style="font-size:20px;cursor:pointer;"
                                     onclick="hideChatList()"></i>
                             </div>
-                            <div class="col-7 col-sm-7 col-md-7">
+                            <div class="col-7 col-sm-7 col-md-7" style="margin-top: 3px;">
                                 <img id="imgProfile" style="cursor: pointer;" src="images/pp.png"
                                     onclick="Display_Info_User()" class="rounded-circle profile-pic" />
 
@@ -196,7 +196,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-2 col-sm-2 col-md-2">
+                            <div class="col-2 col-sm-2 col-md-2" style="margin-top: 10px;">
                                 <a href="#" style="float:right;" data-toggle="modal"
                                     data-target="#modalNotificationList" onclick="PopulateNotifications()">
                                     <i class="fas fa-bell icon">
@@ -219,7 +219,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-2 col-sm-2 col-md-2">
+                            <div class="col-2 col-sm-2 col-md-2" style="margin-top: 10px; right: 15px;">
                                 <div class="dropleft">
                                     <span class="dropdown-toggle" data-toggle="dropdown" style="float:right">
                                         <i class="fas fa-ellipsis-v icon" style="cursor:pointer;"></i>
@@ -280,9 +280,8 @@
                         </div>
                     </div>
                     <li class="list-group-item" style="background-color:#f8f8f8;">
-                        <i title="Create a group" onclick="ShowContainerCreateGroup()"
-                            style="font-size: 25px; margin-bottom: 10px; cursor: pointer; margin-left: calc(100% - 60%);"
-                            class="fa fa-users" aria-hidden="true">
+                        <i title="Create a group" onclick="ShowContainerCreateGroup()"                          
+                            class="fa fa-users IconCreateAGroup" aria-hidden="true">
                         </i>
                         <div style="display: none;" class="containerCreateGroup">
                             <span onclick="Creat_a_Group()"
