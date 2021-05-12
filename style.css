@@ -288,7 +288,7 @@ body {
   text-align: center;
   color: white;
   font-weight: bold;
-  margin-left: -12%;
+  margin-left: -20%;
 }
 
 .member-menu{
@@ -468,6 +468,22 @@ background-color: brown;
   display: flex !important; 
 }
 
+.iconScaleWhenHover{
+  padding: 5px 5px;
+}
+.iconScaleWhenHover:hover{
+ transform: scale(1.2);
+ color: #3498db;
+}
+
+.iconScaleWhenHoverRed{
+  margin-left: 5px;
+}
+.iconScaleWhenHoverRed:hover{
+  transform: scale(1.2);
+  color: red;
+  cursor: pointer;
+}
 
 
 
@@ -576,6 +592,7 @@ background-color: brown;
   color: #000;
   font-size: 15px;
   font-weight: 700;
+  margin-top: -20px;
 }
 
 .Modal_Info_User .status{
@@ -697,7 +714,7 @@ background-color: brown;
   width: calc(100% - 6px);
   max-width: 450px;
   max-width: 500px;
-  height: calc(100% - 45px);
+  height: calc(100% - 150px);
   top: 44px;
   background-color: #ffffff;
   border-radius: 10px;
@@ -740,7 +757,7 @@ background-color: brown;
   outline: none;
 }
 .containerCreateGroup #listMemberGroup{
-  height: calc(100% - 235px);
+  height: calc(100% - 270px);
   max-height: 625px;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -773,7 +790,7 @@ background-color: brown;
   height: 100%;
   width: 100%;
   max-width: 450px;
-  max-height: 700px;
+  max-height: 600px;
   background-color: #4267B2;
   position: fixed;
   z-index: 2000;
@@ -784,16 +801,11 @@ background-color: brown;
   overflow-x: hidden;
   /* overflow: hidden; */
 }
-.ContainerInfoGroup img{
-  height: 120px;
-  width: 120px;
-  margin-left: 30px;
-  margin-top: 20px;
-}
+
 .ContainerInfoGroup .ChangeNameGroup{
   float: right;
   margin-right: 20px;
-  margin-top: 70px;
+  margin-top: -40px;
   border: none;
   outline: none;
   border-bottom: 2px solid #000;
@@ -808,14 +820,15 @@ background-color: brown;
 }
 .ContainerInfoGroup .ListMemberOfGroup{
   padding: 0;
-  height: calc(100% - 300px);
+  width: 100%;
+  height: calc(100% - 400px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.ContainerInfoGroup .MemberOfGroup img{
+/* .ContainerInfoGroup .MemberOfGroup img{
   margin: auto;
   margin-right: 15px;
-}
+} */
 
 .ContainerInfoGroup .MemberOfGroup{
   font-size: 15px;

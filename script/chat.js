@@ -294,10 +294,12 @@ function LoadChatList() {
                         if (user.statusAcitve === true) {
                             document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
                                 <div class="row">
-                                    <div class="col-2 col-md-2" style="display: flex;" >
-                                        <div>
-                                        <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
-                                        </div>
+                                    <div class="col-2 col-md-2" style="display: flex; padding: 0; margin-left: 10px;" >
+                                        <div style="position:relative; height: 50px;width: 50px;">
+                                            <div style="position:absolute; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                                <img style="height: 100%; width:100%; object-fit: cover;" src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                            </div>
+                                        </div> 
                                         <i class="fa fa-circle iconNotification" aria-hidden="true" id=""
                                             style=""
                                             ></i>
@@ -305,7 +307,7 @@ function LoadChatList() {
                                         style="color: seagreen; font-size: 12px; margin-top: 37px; margin-left:-10px;"
                                         ></i>
                                     </div>
-                                    <div class="col-8 col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                    <div class="col-7 col-md-7" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
                                         <div class="name">${user.name}</div>
                                         <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}
                                             
@@ -317,15 +319,17 @@ function LoadChatList() {
                         else {
                             document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
                                 <div class="row">
-                                    <div class="col-2 col-md-2" style="display: flex;" >
-                                        <div>
-                                        <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                    <div class="col-2 col-md-2" style="display: flex; padding: 0; margin-left: 10px;" >
+                                        <div style="position:relative; height: 50px;width: 50px;">
+                                            <div style="position:absolute; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                                <img style="height: 100%; width:100%; object-fit: cover;" src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                            </div>
                                         </div>   
                                         <i class="fa fa-circle iconNotification" aria-hidden="true" id=""
                                             style=""
                                         ></i>                                
                                     </div>
-                                    <div class="col-8 col-md-10" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                                    <div class="col-7 col-md-7" style="cursor:pointer;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
                                         <div class="name">${user.name}</div>
                                         <div class="under-name ${lst.chatKey}" title="${timeText0}">${TextPerson} ${textFisrt} ${timeText1}
                                             
@@ -338,10 +342,13 @@ function LoadChatList() {
                         if (user.statusAcitve === true) {
                             document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
                                 <div class="row">
-                                    <div class="col-2 col-md-2" style="display: flex;" >
-                                        <div>
-                                        <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                    <div class="col-2 col-md-2" style="display: flex; padding: 0; margin-left: 10px;" >
+                                        <div style="position:relative; height: 50px;width: 50px;">
+                                            <div style="position:absolute; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                                <img style="height: 100%; width:100%; object-fit: cover;" src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                            </div>
                                         </div>
+                                
                                         <i class="fa fa-circle" aria-hidden="true" id="${friendKey}"
                                         style="color: seagreen; font-size: 12px; margin-top: 37px; margin-left:-10px;"
                                         ></i>
@@ -357,9 +364,11 @@ function LoadChatList() {
                         else {
                             document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" id="${lst.chatKey}" >
                                 <div class="row">
-                                    <div class="col-2 col-md-2" style="display: flex;" >
-                                        <div>
-                                        <img src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                    <div class="col-2 col-md-2" style="display: flex; padding: 0; margin-left: 10px" >
+                                        <div style="position:relative; height: 50px;width: 50px;">
+                                            <div style="position:absolute; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                                <img style="height: 100%; width:100%; object-fit: cover;" src="${user.photoURL}" onclick="Display_Info_Friend('${data.key}')" class="friend-pic rounded-circle" />
+                                            </div>
                                         </div>                                   
                                     </div>
                                     <div class="col-8 col-md-8" style="cursor:pointer; line-height: 30px;" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
@@ -443,19 +452,23 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
     document.getElementById("chatPanel").innerHTML = ` <div class="card-header">
     <div class="row">
         <div class="col-1 col-sm-1 col-md-1 col-lg-1 d-md-none" style="margin-top: 12px;">
-            <i class="fas fa-list mt-2" style="cursor:pointer" onclick="showChatList()"></i>
+            <i class="fas fa-list mt-2 " style="cursor:pointer" onclick="showChatList()"></i>
         </div>
-        <div style="margin-top: 8px;" class="col-2 col-sm-2 col-md-2 col-lg-1">
-            <img  src="${friendPhoto}" id="imgChat" class="rounded-circle profile-pic" />
+        <div style="margin-top: 8px;" class="col-1 col-sm-1 col-md-1 col-lg-1">           
+            <div style="position:relative; height: 40px; width: 40px !important;">
+                <div style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                    <img id="imgChat" class="rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="${friendPhoto}"/>
+                </div>
+            </div> 
         </div>
-        <div class="col-6 col-sm-5 col-md-5 col-lg-7" style="margin-top: 8px;">
+        <div class="col-6 col-sm-5 col-md-5 col-lg-7" style="margin-top: 8px; margin-left: 20px;">
             <div class="name" id="divChatName">${friendName}</div>
             <div class="under-name" id="divChatSeen">Active now</div>
         </div>
         <div class="col-3 col-sm-4 col-md-4 col-lg-3 icon header-icon" style="display: flex; align-items: center;">
             
             <div class="icon-member2">
-                <i style="cursor: pointer;" class="fas fa-paperclip" onclick="displayIcon_file()"></i>
+                <i style="cursor: pointer;" class="fas fa-paperclip iconScaleWhenHover" onclick="displayIcon_file()"></i>
                 <div class="icon-file" style="display: none;">
                     <a href="#" class="icon-file-member" onclick="ChooseImage()">
                         Image
@@ -469,7 +482,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
             </div>
 
             <div class="icon-member3">
-                <i style="padding: 5px 10px; cursor: pointer;" class="fas fa-ellipsis-v" onclick="displayIcon_themen()"></i>
+                <i style="padding: 5px 10px; cursor: pointer;" class="fas fa-ellipsis-v iconScaleWhenHover" onclick="displayIcon_themen()"></i>
                 <div class="icon-themen" style="display: none;">
                     <li class='member-menu'>
                         <a href="#" class="dropdown-item">
@@ -522,14 +535,14 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
     <div class="row">
 
         <div class="col-2 col-md-1" style="cursor:pointer;">
-            <i class="far fa-grin fa-2x" onclick="showEmojiPanel()"></i>
+            <i class="far fa-grin fa-2x iconScaleWhenHover" onclick="showEmojiPanel()"></i>
         </div>
         <div class="col-8 col-md-10">
             <input id="txtMessage" onfocus="hideEmojiPanel()" onkeyup="ChangeSendIcon(this)" type="text" placeholder="Type here" class="form-control form-rounded"/>
         </div>
         <div class="col-2 col-md-1">
-            <i style="cursor:pointer;" id="audio" onclick="record(this)" class="fas fa-microphone fa-2x"></i>
-            <i id="send" class="fa fa-paper-plane fa-2x" style="display:none;" 
+            <i style="cursor:pointer;" id="audio" onclick="record(this)" class="fas fa-microphone fa-2x iconScaleWhenHover"></i>
+            <i id="send" class="fa fa-paper-plane fa-2x iconScaleWhenHover" style="display:none;" 
             onclick="SendMessage('${friendKey}')"
             ></i>
         </div>
@@ -613,8 +626,9 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
 
     if (1){       
         var db = firebase.database().ref('chatMessages').child(chatKey);
-    
+        
         db.on('value', function (chats) {
+            console.log(chatKey);
             var messageDisplay = '';
             var deleteAllMessages = '';
             chats.forEach(function (data) {
@@ -670,8 +684,9 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                                     <img style="border: 1.5px solid #000;" src="${friendPhoto}" class="chat-pic rounded-circle" />
                                 </div>                             
                                 <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
-                                    <p class="receive" title="${chat.dateTime}">                                                                                   
-                                        ${msg}                                           
+                                    <p class="receive">                                                                                   
+                                        ${msg}   
+                                        <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>                                        
                                     </p>
                                     <ul class="list-icon-extend1">                                                                                                                               
                                         <li class="member-icon-extend1">
@@ -724,8 +739,9 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                                     </p> 
                                 </div>
                                 <div class="col-10 col-sm-7 col-md-7 LineMessage1" style="padding: 0px;">
-                                    <p class="receive" title="${chat.dateTime}">                                                                                   
-                                        ${msg}                                           
+                                    <p class="receive">                                                                                   
+                                        ${msg}   
+                                        <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>                                        
                                     </p>
                                     <ul class="list-icon-extend1">                                                                                                                               
                                         <li class="member-icon-extend1">
@@ -761,33 +777,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                         
                     </div>`;
                         }
-                        else {
-                            // messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">                  
-                            //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
-                            //         <ul class="list-icon-extend"> 
-                            //             <li class="member-icon-extend">
-                            //                 <i class="fa fa-window-close"
-                            //                 id="DeleteMessageButton"                                  
-                            //                 title="Delete"
-                            //                 style="opacity: 0.2;"   
-                            //                 onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
-                            //                 ></i>                                   
-                            //             </li>
-                            //             <li class="member-icon-extend">
-                            //                 <i class="fa fa-reply"
-                            //                 id="ReplyMessageButton"                                  
-                            //                 title="Reply"
-                            //                 style="opacity: 0.2;"   
-                            //                 onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                            //                 ></i>                                
-                            //             </li>
-                            //         </ul>
-                            //         <p class="sent float-right" title="${chat.dateTime}">                                                 
-                            //             ${msg}
-                            //         </p>   
-                                            
-                            //     </div>
-                            // </div>`;
+                        else {                           
                             if (seenMessage === true && senderId === currentUserKey){
                                 messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">                  
                                 <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
@@ -811,6 +801,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                                     </ul>
                                     <p class="sent float-right" title="${chat.dateTime}">                                                 
                                         ${msg}
+                                        <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
                                     </p>   
                                             
                                 </div>
@@ -840,6 +831,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                                     </ul>
                                     <p class="sent float-right" title="${chat.dateTime}">                                                 
                                         ${msg}
+                                        <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
                                     </p>   
                                             
                                 </div>
@@ -860,43 +852,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                                 
                             </div>`;
                         }
-                        else {
-                    //         messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">
-    
-                    //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                    //         <p class="titleReplyMember1">
-                    //             ${chat.titleReply}
-                    //         </p>
-                    //     </div>
-                    //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                    //         <p id="${chat.messageId}" class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
-                    //             ${chat.msgReply}
-                    //         </p> 
-                    //     </div>
-                    //     <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: 20px;">
-                    //         <ul class="list-icon-extend"> 
-                    //             <li class="member-icon-extend">
-                    //                 <i class="fa fa-window-close"
-                    //                 id="DeleteMessageButton"                                  
-                    //                 title="Delete"
-                    //                 style="opacity: 0.2;"   
-                    //                 onclick="DeleteMessageButton('${chatKey}', '${messageKey}')"
-                    //                 ></i>                                   
-                    //             </li>
-                    //             <li class="member-icon-extend">
-                    //                 <i class="fa fa-reply"
-                    //                 id="ReplyMessageButton"                                  
-                    //                 title="Reply"
-                    //                 style="opacity: 0.2;"   
-                    //                 onclick="ReplyMessageButton('${messageLast}', '${chat.userId}')"
-                    //                 ></i>                                
-                    //             </li>
-                    //         </ul>
-                    //         <p class="sent float-right" title="${chat.dateTime}">                                                 
-                    //             ${msg}
-                    //         </p>               
-                    //     </div>
-                    // </div>`;
+                        else {      
                             if (seenMessage === true && senderId === currentUserKey){
                                 messageDisplay += `<div class="row justify-content-end" style="position: relative;" id="${messageKey}">
     
@@ -931,6 +887,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                             </ul>
                             <p class="sent float-right" title="${chat.dateTime}">                                                 
                                 ${msg}
+                                <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
                             </p>               
                         </div>
                         <div style="position: absolute; top: calc(100% - 18px); font-size: 12px; right: 20px;" class="">Seen</div>       
@@ -970,6 +927,7 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
                             </ul>
                             <p class="sent float-right" title="${chat.dateTime}">                                                 
                                 ${msg}
+                                <span class="time float-right" title="${dateTime[0]}">${dateTime[1]}</span>
                             </p>               
                         </div>
                     </div>`;
@@ -1415,13 +1373,19 @@ function ShowContainerCreateGroup() {
                 firebase.database().ref('users').child(friendKey).on('value', function (data) {
                     var user = data.val();
 
-                    document.getElementById('listMemberGroup').innerHTML += `<div class="list-group-item" style="margin-left: 20px;">
-                    <img src="${user.photoURL}" style="height: 50px; width: 50px;" class="rounded-circle" />
-                    <label style="margin-top: 10px; font-size: 20px;" class="ml-4">${user.name}
-                    </label>
+                    document.getElementById('listMemberGroup').innerHTML += `<div class="list-group-item" style="margin-left: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex;">
+                        <div style="position:relative; height: 50px; width: 50px !important; display: inline-block;">
+                            <div style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                <img id="imgChat" class="rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="${user.photoURL}"/>
+                            </div>
+                        </div> 
+                        <label style="margin-top: 10px; font-size: 20px;" class="ml-4">${user.name}
+                        </label>
+                    </div>           
                     <input
                         class="${data.key}"
-                        style="float: right; margin-right: 30px; transform: scale(1.4); margin-top: 20px;"
+                        style="float: right; margin-right: 30px; transform: scale(1.4);"
                         type="checkbox" />
                 </div>`;
                 });
@@ -1459,9 +1423,13 @@ function LoadChatListGroup() {
                 if (activeGroup === true) {
                     document.getElementById('lstGroupChat').innerHTML += `<li onclick="StartChatGroup('${data.key}', '${group.nameGroup}', '${groupPhoto}')" class="list-group-item list-group-item-action" >
                         <div class="row">
-                            <div class="col-2 col-md-2" style="position: relative;">
-                                <img src="${groupPhoto}" class="friend-pic rounded-circle" />   
-                                <i class="fa fa-circle" aria-hidden="true" id="" style="position: absolute; z-index: 3;color: seagreen; font-size: 12px; margin-top: -12px; margin-left: 22px;"
+                            <div class="col-2 col-md-2" style="position: relative;">                                 
+                                <div style="position:relative; height: 40px; width: 40px !important;">
+                                    <div style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                        <img id="imgChat" class="rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="${groupPhoto}"/>
+                                    </div>
+                                </div>  
+                                <i class="fa fa-circle" aria-hidden="true" id="" style="position: absolute; z-index: 3;color: seagreen; font-size: 12px; margin-top: -10px; margin-left: 30px;"
                                 ></i>                      
                             </div>
                             
@@ -1470,13 +1438,18 @@ function LoadChatListGroup() {
                             </div>
                         </div>
                     </li>`;
-                } else {
+                } 
+                else {
                     document.getElementById('lstGroupChat').innerHTML += `<li onclick="StartChatGroup('${data.key}', '${group.nameGroup}', '${groupPhoto}')" class="list-group-item list-group-item-action" >
                         <div class="row">
-                            <div class="col-md-2" >
-                                <img src="${groupPhoto}" class="friend-pic rounded-circle" />                         
+                            <div class="col-2 col-md-2" >
+                                <div style="position:relative; height: 40px; width: 40px !important;">
+                                    <div style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                        <img id="imgChat" class="rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="${groupPhoto}"/>
+                                    </div>
+                                </div>                         
                             </div>                          
-                            <div  class="col-md-8" style="cursor:pointer;">
+                            <div  class="col-8 col-md-8" style="cursor:pointer;">
                                 <div class="name" style="line-height: 50px; margin-left: 20px; font-size: 20px;">${group.nameGroup}</div>
                             </div>
                         </div>
@@ -1507,10 +1480,20 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
             <i class="fas fa-list mt-2" style="cursor:pointer" onclick="showChatList()"></i>
         </div>
         <div class="col-1 col-sm-2 col-md-2 col-lg-1">
-            <img onclick="ShowContainerInfoGroup('${groupKey}')" src="${groupPhoto}" id="imgChat" class="rounded-circle profile-pic" />
+            <div style="position:relative; height: 40px; width: 40px !important;">
+                <div style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                    <img id="imgChat" class="rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="${groupPhoto}" onclick="ShowContainerInfoGroup('${groupKey}')"/>
+                </div>
+            </div> 
             <div class="ContainerInfoGroup" style="display: none;">
-                <i onclick="CloseContainerInfoGroup('${groupKey}')" class="fa fa-window-close close" aria-hidden="true"></i>
-                <img class="rounded-circle" onclick="ChooseAvatarGroup()" src="${groupPhoto}"/>
+                <i onclick="CloseContainerInfoGroup('${groupKey}')" class="fa fa-window-close iconScaleWhenHoverRed" aria-hidden="true"></i>
+                
+                <div style="position:relative; height: 100px; width: 100px !important;">
+                    <div style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center; margin: 20px 40px;">
+                        <img id="imgChat" class="rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="${groupPhoto}" onclick="ChooseAvatarGroup()"/>
+                    </div>
+                </div> 
+
                 <input class="ChooseAvatarGroup" type="file" style="display: none;"/>
                 <input class="ChangeNameGroup" type="text" value="${groupName}"/>
                 <p >List member of group</p>
@@ -1526,12 +1509,12 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                 </ul>
             </div>
         </div>
-        <div class="col-4 col-sm-5 col-md-5 col-lg-7" style="margin-left: 20px; margin-top: 8px;">
+        <div class="col-4 col-sm-4 col-md-4 col-lg-4" style="margin-left: 20px; margin-top: 8px;">
             <div class="name" id="divChatName">${groupName}</div>
         </div>   
         <div class="col-3 col-sm-4 col-md-4 col-lg-3 icon header-icon" style="display: flex;  align-items: center;">      
             <div class="icon-member2">
-                <i style="padding: 5px 10px; cursor: pointer;" class="fas fa-paperclip" onclick="displayIcon_file()"></i>
+                <i style="padding: 5px 10px; cursor: pointer;" class="fas fa-paperclip iconScaleWhenHover" onclick="displayIcon_file()"></i>
                 <div class="icon-file" style="display: none;">
                     <a href="#" class="icon-file-member" onclick="ChooseImage()">
                         Image
@@ -1544,7 +1527,7 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                 </div>
             </div>
             <div class="icon-member3">
-                <i style="padding: 5px 10px; cursor: pointer;" class="fas fa-ellipsis-v" onclick="displayIcon_themen()"></i>
+                <i style="padding: 5px 10px; cursor: pointer;" class="fas fa-ellipsis-v iconScaleWhenHover" onclick="displayIcon_themen()"></i>
                 <div class="icon-themen" style="display: none;">
                     <li class='member-menu'>
                         <a href="#" class="dropdown-item">
@@ -1590,13 +1573,13 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
 
     <div class="row">
         <div class="col-2 col-md-1" style="cursor:pointer;">
-            <i class="far fa-grin fa-2x" onclick="showEmojiPanel()"></i>
+            <i class="far fa-grin fa-2x iconScaleWhenHover" onclick="showEmojiPanel()"></i>
         </div>
         <div class="col-8 col-md-10">
             <input id="txtMessage" type="text" onfocus="hideEmojiPanel()" placeholder="Type here" class="form-control form-rounded txtMessageGroup"/>
         </div>
         <div class="col-2 col-md-1">
-            <i id="send" class="fa fa-paper-plane fa-2x"  
+            <i id="send" class="fa fa-paper-plane fa-2x iconScaleWhenHover"  
             onclick="SendMessageGroup('${groupKey}')"
             ></i>
         </div>
@@ -1784,13 +1767,13 @@ function LoadChatMessageGroup(groupKey, groupName, groupPhoto) {
                         }
                         else {                                                        
                             messageDisplay += `<div class="row justify-content-end">
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                                <p class="titleReplyGroup titleReplyGroupUser">
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">
+                                <p class="titleReplyGroup titleReplyGroupUser" style="margin-right: 20px;">
                                     ${group.titleReplyGroup}
                                 </p>
                             </div>
-                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px; margin-right: -40px;">
-                                <p class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px;">                                                 
+                            <div class="col-10 col-sm-7 col-md-7 LineMessage" style="padding: 0px;">
+                                <p class="reply replyPadding1" style="color:rgb(118,103,107); padding: 5px 15px 15px 15px; margin-right: 20px;">                                                 
                                     ${group.msgReplyGroup}
                                 </p> 
                             </div>
@@ -2048,8 +2031,14 @@ function ShowContainerInfoGroup(groupKey) {
                 var user = data.val();
                 if (arrMembersGroupKey[0] === currentUserKey || element === currentUserKey) {
                     document.querySelector(".ListMemberOfGroup").innerHTML += `<li class="MemberOfGroup list-group-item">
-                                    <img src="${user.photoURL}" style="height: 50px; width: 50px;"/>
-                                    ${user.name}
+                                    <div style="position:relative; height: 50px; width: 50px !important; display: inline-block;">
+                                        <div style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                            <img class="rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="${user.photoURL}"/>
+                                        </div>
+                                    </div> 
+                                    <span style="position: absolute; margin-left: 10px; margin-top: 15px;">
+                                        ${user.name}
+                                    </span>
                                     <i onclick="DeleteMemberOfGroup('${element}', '${groupKey}')" class="fa fa-times" aria-hidden="true"></i>
                                 </li>`;
                 } else {

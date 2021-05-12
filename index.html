@@ -88,9 +88,13 @@
                                     onclick="hideChatList()"></i>
                             </div>
                             <div class="col-7 col-sm-7 col-md-7" style="margin-top: 3px;">
-                                <img id="imgProfile" style="cursor: pointer;" src="images/pp.png"
-                                    onclick="Display_Info_User()" class="rounded-circle profile-pic" />
-
+                                <!-- <img id="imgProfile" style="cursor: pointer;" src="images/pp.png"
+                                onclick="Display_Info_User()" class="rounded-circle profile-pic" /> -->
+                                <div style="position:relative; height: 40px; width: 40px !important;">
+                                    <div style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                        <img id="imgProfile" class="rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="./img/pp.png" onclick="Display_Info_User()"/>
+                                    </div>
+                                </div> 
                                 <!-- Thong tin cua nguoi dung -->
                                 <div class="Modal_Info_User" style="display: none;">
                                     <span>Personal Information</span> <br />
@@ -136,9 +140,14 @@
                                         <label class="ChangeAvatar1">
                                             ChangeAvatar:
                                             <span class="containerAvatar">
-                                                <img id="Info_User_imgProfile"
+                                                <!-- <img id="Info_User_imgProfile"
                                                     style="cursor: pointer; height: 100px; width: 100px; background-position: center; border: 2px solid #000;"
-                                                    src="img/pp.png" onclick="ChangeAvatar()" class="rounded-circle" />
+                                                    src="img/pp.png" onclick="ChangeAvatar()" class="rounded-circle" /> -->
+                                                <div style="position:relative; height: 100px;width: 100px;">
+                                                    <div style="position:absolute; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                                        <img id="Info_User_imgProfile" class="rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="./img/pp.png" onclick="ChangeAvatar()"/>
+                                                    </div>
+                                                </div> 
                                             </span>
                                             <input type="file" style="display:none;" class="ChangeAvatar2"
                                                 accept="image/*" />
@@ -199,7 +208,7 @@
                             <div class="col-2 col-sm-2 col-md-2" style="margin-top: 10px;">
                                 <a href="#" style="float:right;" data-toggle="modal"
                                     data-target="#modalNotificationList" onclick="PopulateNotifications()">
-                                    <i class="fas fa-bell icon">
+                                    <i class="fas fa-bell icon iconScaleWhenHover">
                                     </i>
                                     <span id="notification">0</span>
                                 </a>
@@ -222,7 +231,7 @@
                             <div class="col-2 col-sm-2 col-md-2" style="margin-top: 10px; right: 15px;">
                                 <div class="dropleft">
                                     <span class="dropdown-toggle" data-toggle="dropdown" style="float:right">
-                                        <i class="fas fa-ellipsis-v icon" style="cursor:pointer;"></i>
+                                        <i class="fas fa-ellipsis-v icon iconScaleWhenHover" style="cursor:pointer;"></i>
                                     </span>
                                     <div class="dropdown-menu">
                                         <a href="#" class="dropdown-item" id="lnk" onclick="PopulateUserList()"
@@ -286,8 +295,8 @@
                         <div style="display: none;" class="containerCreateGroup">
                             <span onclick="Creat_a_Group()"
                                 style="margin-left: 5px; cursor: pointer; font-weight: 500;">Xong</span>
-                            <i onclick="CloseContainerCreateGroup()" style="float: right; cursor: pointer;"
-                                class="fa fa-window-close" aria-hidden="true"></i> <br />
+                            <i onclick="CloseContainerCreateGroup()" style="float: right; cursor: pointer; right:10px;"
+                                class="fa fa-window-close iconScaleWhenHoverRed" aria-hidden="true"></i> <br />
                             <span class="CreateAGroup">Create a group</span> <br />
                             <input class="NameGroup" placeholder="Name group" /> <br />
                             <span class="AddMember">Add member</span> <br />
@@ -325,9 +334,14 @@
                             style="cursor: pointer; float: right; font-size: 25px; color: #f8f8f8;"
                             aria-hidden="true"></i>
                         <br />
-                        <img src="./img/pp.png"
+                        <!-- <img src="./img/pp.png"
                             style="position: relative; margin-bottom: 20px; height: 150px; width: 150px; left: 120px; border: 1.5px solid #000;"
-                            class="AvatarFriend rounded-circle" />
+                            class="AvatarFriend rounded-circle" /> -->
+                        <div style="position:relative; height: 150px;width: 150px; left: calc(50% - 20%);">
+                            <div style="position:absolute; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                <img class="AvatarFriend rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="./img/pp.png"/>
+                            </div>
+                        </div>   
                         <p class="Name_Friend"
                             style="text-align: center; margin-bottom: 50px; font-size: 25px; color: #f8f8f8; font-weight: 500;">
                             Hoang Le</p>
