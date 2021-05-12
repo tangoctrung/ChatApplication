@@ -271,7 +271,9 @@ body {
   left: 20px;
   box-shadow: 5px 5px 5px rgb(104, 100, 100);
 }
-
+.card-footer{
+  padding: 0px 16px 10px 16px;
+}
 
 #myTabContent a {
   text-decoration: none;
