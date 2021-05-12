@@ -1344,7 +1344,7 @@ function Creat_a_Group() {
     // Close container create group
     document.querySelector(".containerCreateGroup .NameGroup").value = "";
     document.querySelector(".containerCreateGroup").setAttribute("style", "display:none;");
-    LoadChatListGroup();
+    
 }
 
 

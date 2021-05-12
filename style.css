@@ -307,7 +307,7 @@ body {
   right: calc(100%);
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 500px;
+  height: 450px;
 }
 
 
@@ -790,7 +790,7 @@ background-color: brown;
   height: 100%;
   width: 100%;
   max-width: 450px;
-  max-height: 600px;
+  max-height: 700px;
   background-color: #4267B2;
   position: fixed;
   z-index: 2000;
@@ -821,7 +821,7 @@ background-color: brown;
 .ContainerInfoGroup .ListMemberOfGroup{
   padding: 0;
   width: 100%;
-  height: calc(100% - 400px);
+  height: calc(100% - 450px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
