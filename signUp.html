@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Signup Form</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style-signUp.css">
+  <link rel="stylesheet" href="./font/themify-icons-font/themify-icons/themify-icons.css">
+</head>
+
+<body>
+  <div class="container" id='container-signup'>
+
+    <!--  -->
+    <form id="signup-form" autocomplete="" class="form">
+      <h2 class="text-center " style="padding-bottom: 10px; margin-top: 30px">
+        Signup Form
+        <p style="font-size: 15px; opacity: 0.8; font-style: italic;margin-top: 10px;">Sign up here...</p>
+      </h2>
+      <div class="form-group">
+        <input class="form-control" id="name" type="text" name="name" placeholder="Full Name" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" id="email" type="email" name="email" placeholder="Email Address" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" id="password" type="password" name="password" placeholder="Password" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" id="cpassword" type="password" name="cpassword" placeholder="Confirm password"
+          required>
+      </div>
+      <div class="form-group chooseImage">
+        <label for="file-upload" class="custom-file-upload">
+          <i class="ti-cloud-up"> </i>Avatar
+        </label>
+        <input id="file-upload"   type="file" />
+        <!-- <img class="AvatarDemo rounded-circle" src="./img/avatar.png" style="width:80px;margin-left: 20px;"/> -->
+        <div style="position:relative; height: 80px; width: 80px !important; display: inline-block; right: -170px;">
+          <div style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+              <img id="imgChat" class="AvatarDemo rounded-circle" style="height: 100%; width:100%; object-fit: cover;" src="./img/pp.png"/>
+          </div>
+        </div> 
+      </div>
+      <div class="form-group button">
+        <button class="form-control button" type="submit" name="signup"> Sign Up</button>
+      </div>
+      <div class="link login-link text-center">Already a member? <a href="/index.html">Login here</a></div>
+    </form>
+
+  </div>
+
+  <div id="success-register" style="display: none;">
+    <div id='card' class="animated fadeIn">
+      <div id='upper-side'>
+        <?xml version="1.0" encoding="utf-8"?>
+        <!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+        <svg version="1.1" id="checkmark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" xml:space="preserve">
+          <path d="M131.583,92.152l-0.026-0.041c-0.713-1.118-2.197-1.447-3.316-0.734l-31.782,20.257l-4.74-12.65
+          c-0.483-1.29-1.882-1.958-3.124-1.493l-0.045,0.017c-1.242,0.465-1.857,1.888-1.374,3.178l5.763,15.382
+          c0.131,0.351,0.334,0.65,0.579,0.898c0.028,0.029,0.06,0.052,0.089,0.08c0.08,0.073,0.159,0.147,0.246,0.209
+          c0.071,0.051,0.147,0.091,0.222,0.133c0.058,0.033,0.115,0.069,0.175,0.097c0.081,0.037,0.165,0.063,0.249,0.091
+          c0.065,0.022,0.128,0.047,0.195,0.063c0.079,0.019,0.159,0.026,0.239,0.037c0.074,0.01,0.147,0.024,0.221,0.027
+          c0.097,0.004,0.194-0.006,0.292-0.014c0.055-0.005,0.109-0.003,0.163-0.012c0.323-0.048,0.641-0.16,0.933-0.346l34.305-21.865
+          C131.967,94.755,132.296,93.271,131.583,92.152z" />
+          <circle fill="none" stroke="#ffffff" stroke-width="5" stroke-miterlimit="10" cx="109.486" cy="104.353"
+            r="32.53" />
+        </svg>
+        <h3 id='status'>
+          Success
+        </h3>
+      </div>
+      <div id='lower-side'>
+        <p id='message'>
+          Congratulations, your account has been successfully created.
+        </p>
+        <a href="index.html" id="contBtn">Continue</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/script/signUp.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase.js"></script>
+
+  <script src='./script/firebase.init.js'></script>
+  <script src='./script/login.js'></script>
+
+</body>
+
+</html>

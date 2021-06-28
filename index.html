@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>ChatApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' />
+    <link rel="stylesheet" href="./css/bootstrap-4.3.1.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <!-- <link rel="stylesheet" href="./login.css"> -->
+    <!-- <link rel="stylesheet" href="./signup.css"> -->
+    <link rel="stylesheet" href="./font/themify-icons-font/themify-icons/themify-icons.css">
+</head>
+
+<body>
+
+    <div id="page-login" class="page-login">
+        <div class="container">
+            <header>Login Form</header>
+            <form>
+                <div class="input-field">
+                    <input id="input-name-acc" type="text" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-field">
+                    <input class="pswrd" id="pswrd" type="password" required>
+                    <span class="show">SHOW</span>
+                    <label>Password</label>
+                </div>
+                <div class="button">
+                    <div class="inner">
+                    </div>
+                    <button id="loginByAccount" type="submit">LOGIN</button>
+                </div>
+            </form>
+            <div class="auth">
+                Or login with</div>
+            <div class="links">
+                <div class="facebook" onclick="signInFacebook()">
+                    <i class="fab fa-facebook-square"><span>Facebook</span></i>
+                </div>
+                <div class="google" onclick="signIn()">
+                    <i class="fab fa-google-plus-square"><span>Google</span></i>
+                </div>
+            </div>
+            <div class="signup1">
+                Not a member? <a href="/signUp.html">Signup now</a>
+            </div>
+        </div>
+        <script>
+            var input = document.querySelector('.pswrd');
+            var show = document.querySelector('.show');
+            show.addEventListener('click', active);
+            function active() {
+                if (input.type === "password") {
+                    input.type = "text";
+                    show.style.color = "#1DA1F2";
+                    show.textContent = "HIDE";
+                } else {
+                    input.type = "password";
+                    show.textContent = "SHOW";
+                    show.style.color = "#111";
+                }
+            }
+
+
+
+        </script>
+    </div>
+
+    <!-- <div id='main-chat' class="main-chat" style="display: none;">  -->
+    <span class="top"></span>
+    <audio class="SoundReceiveMessage">
+        <source src="./sound/SendMessage.mp3" type="audio/mpeg">
+    </audio>
+    <div class="container-fluid bg-white chatbox shadow-lg rounded">
+        <div class="row">
+
+            <div class="col-md-4 pr-0 d-none d-md-block" id="side-1">
+                <div class="card">
+
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-1 col-sm-1 col-md-1 d-md-none" style="margin-top: 14px;">
+                                <i class="fas fa-arrow-left d-md-none" style="font-size:20px;cursor:pointer;"
+                                    onclick="hideChatList()"></i>
+                            </div>
+                            <div class="col-7 col-sm-7 col-md-7" style="margin-top: 3px;">
+                                <!-- <img id="imgProfile" style="cursor: pointer;" src="images/pp.png"
+                                onclick="Display_Info_User()" class="rounded-circle profile-pic" /> -->
+                                <div style="position:relative; height: 40px; width: 40px !important;">
+                                    <div
+                                        style="position:absolute; cursor: pointer; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                        <img id="imgProfile" class="rounded-circle"
+                                            style="height: 100%; width:100%; object-fit: cover;" src="./img/pp.png"
+                                            onclick="Display_Info_User()" />
+                                    </div>
+                                </div>
+                                <!-- Thong tin cua nguoi dung -->
+                                <div class="Modal_Info_User" style="display: none;">
+                                    <span>Personal Information</span> <br />
+                                    <div class="Display_Info">
+                                        <label class="name ">Name:
+                                            <input type="text" /> <br />
+
+
+                                        </label>
+                                        <label class="date ">Date:
+                                            <input type="date" /> <br />
+                                            <input type="checkbox">Public
+                                        </label>
+                                    </div>
+                                    <br />
+
+                                    <div class="Display_Info">
+                                        <label class="phone">Phone:
+                                            <input type="text" />
+                                            <br />
+                                            <input type="checkbox">Public
+                                        </label>
+                                        <label class="gender">Gender:
+                                            <select>
+                                                <option></option>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                                <option>Other</option>
+                                            </select> <br />
+                                            <input type="checkbox">Public
+                                        </label>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="Display_Info">
+                                        <label class="email">
+                                            Email:
+                                            <span class="email_user">Email</span> <br />
+                                            <input type="checkbox">Public
+                                        </label>
+
+                                        <label class="ChangeAvatar1">
+                                            ChangeAvatar:
+                                            <span class="containerAvatar">
+                                                <!-- <img id="Info_User_imgProfile"
+                                                    style="cursor: pointer; height: 100px; width: 100px; background-position: center; border: 2px solid #000;"
+                                                    src="img/pp.png" onclick="ChangeAvatar()" class="rounded-circle" /> -->
+                                                <div style="position:relative; height: 100px;width: 100px;">
+                                                    <div
+                                                        style="position:absolute; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                                        <img id="Info_User_imgProfile" class="rounded-circle"
+                                                            style="height: 100%; width:100%; object-fit: cover;"
+                                                            src="./img/pp.png" onclick="ChangeAvatar()" />
+                                                    </div>
+                                                </div>
+                                            </span>
+                                            <input type="file" style="display:none;" class="ChangeAvatar2"
+                                                accept="image/*" />
+                                        </label>
+                                    </div>
+                                    <br />
+
+                                    <div class="Display_Info">
+                                        <label class="status">Status:
+                                            <select>
+                                                <option></option>
+                                                <option>Married</option>
+                                                <option>Dating</option>
+                                                <option>Alone</option>
+                                                <option>Research</option>
+                                                <option>Complicated relationship</option>
+                                                <option>Other</option>
+                                            </select> <br />
+                                            <input type="checkbox">Public
+                                        </label>
+                                        <label class="education ">Education:
+                                            <select name="">
+                                                <option></option>
+                                                <option>Primary school</option>
+                                                <option>Junior high school</option>
+                                                <option>High school</option>
+                                                <option>College</option>
+                                                <option>University</option>
+                                                <option>Master</option>
+                                                <option>Doctor</option>
+                                                <option>Other</option>
+                                            </select> <br />
+                                            <input type="checkbox">Public
+                                        </label>
+                                    </div>
+                                    <br />
+
+                                    <div class="Display_Info">
+                                        <label class="hometown">Home town:
+                                            <input type="text" /> <br />
+                                            <input type="checkbox">Public
+
+                                        </label>
+                                        <label class="currentresidence">Current residence:
+                                            <input type="text" /> <br />
+                                            <input type="checkbox">Public
+                                        </label>
+                                    </div>
+
+                                    <textarea class="Describe" placeholder="Describe more about yourself"></textarea>
+                                    <input class="checkbox1" type="checkbox">Public
+                                    <br />
+
+                                    <button onclick="Save_Info_User()">Save</button>
+
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2" style="margin-top: 10px;">
+                                <a href="#" style="float:right;" data-toggle="modal"
+                                    data-target="#modalNotificationList" onclick="PopulateNotifications()">
+                                    <i class="fas fa-bell icon iconScaleWhenHover">
+                                    </i>
+                                    <span id="notification">0</span>
+                                </a>
+
+                                <div class="modal fade" id="modalNotificationList">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    All Users Requests
+                                                    <span class="close" data-dismiss="modal"
+                                                        style="cursor:pointer;">&times;</span>
+                                                </div>
+                                                <ul class="list-group list-group-flush" id="lstNotification"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2" style="margin-top: 10px; right: 15px;">
+                                <div class="dropleft">
+                                    <span class="dropdown-toggle" data-toggle="dropdown" style="float:right">
+                                        <i class="fas fa-ellipsis-v icon iconScaleWhenHover"
+                                            style="cursor:pointer;"></i>
+                                    </span>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" id="lnk" onclick="PopulateUserList()"
+                                            data-toggle="modal" data-target="#modalUserList">All Users</a>
+                                        <a href="#" class="dropdown-item" id="lnkNewChat" onclick="PopulateFriendList()"
+                                            data-toggle="modal" data-target="#modalFriendList">New Chat</a>
+                                        <a href="#" id="lnkSignIn" onclick="signIn()" class="dropdown-item">Sign In</a>
+                                        <a href="#" id="lnkSignOut" onclick="signOut()" class="dropdown-item"
+                                            style="display:none;">Sign Out</a>
+
+                                    </div>
+
+                                    <div class="modal fade" id="modalFriendList">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        Friend List
+                                                        <span class="close" data-dismiss="modal"
+                                                            style="cursor:pointer;">&times;</span>
+                                                    </div>
+                                                    <ul class="list-group list-group-flush" id="lstFriend"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="modalUserList">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        All Users list
+                                                        <span class="close" data-dismiss="modal"
+                                                            style="cursor:pointer;">&times;</span>
+                                                    </div>
+                                                    <input onkeyup="ChangeInputSearchAllUser();"
+                                                        style="margin-bottom: 20px; margin-top: 20px;" type="text"
+                                                        placeholder="Search or new chat"
+                                                        class="form-control form-rounded input_search_AllUser" />
+
+                                                    <ul style="display:none;" class="list-group list-group-flush"
+                                                        id="lstSearchAllUsers">
+                                                    </ul>
+
+                                                    <ul class="list-group list-group-flush" id="lstUsers">
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <li class="list-group-item" style="background-color:#f8f8f8;">
+                        <i title="Create a group" onclick="ShowContainerCreateGroup()"
+                            class="fa fa-users IconCreateAGroup" aria-hidden="true">
+                        </i>
+                        <div style="display: none;" class="containerCreateGroup">
+                            <span onclick="Creat_a_Group()"
+                                style="margin-left: 5px; cursor: pointer; font-weight: 500;">Xong</span>
+                            <i onclick="CloseContainerCreateGroup()" style="float: right; cursor: pointer; right:10px;"
+                                class="fa fa-window-close iconScaleWhenHoverRed" aria-hidden="true"></i> <br />
+                            <span class="CreateAGroup">Create a group</span> <br />
+                            <input class="NameGroup" placeholder="Name group" /> <br />
+                            <span class="AddMember">Add member</span> <br />
+                            <input class="SearchMember" placeholder="Sreach a member" />
+                            <ul class="list-group list-group-flush" id="listMemberGroup">
+                            </ul>
+
+                        </div>
+                        <input type="text" onkeyup="ChangeInputSearch();" placeholder="Search or new chat"
+                            class="form-control form-rounded input_search" />
+                    </li>
+                    <!-- Tab chat member and group chat -->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#smiley" role="tab"
+                                aria-controls="home" aria-selected="true">Member Chat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Group Chat</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="smiley" role="tabpanel" aria-labelledby="home-tab">
+                            <ul class="list-group list-group-flush" id="listSearchFriend" style="display:none;"></ul>
+                            <ul class="list-group list-group-flush" id="lstChat"></ul>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <ul class="list-group list-group-flush" id="listGroupSearchFriend" style="display:none;">
+                            </ul>
+                            <ul class="list-group list-group-flush" id="lstGroupChat"></ul>
+                        </div>
+                    </div>
+
+                    <!-- Thong tin cua ban be nguoi dung -->
+                    <div class="Modal_Info_Friend" style="display: none;">
+                        <i onclick="Hide_Info_Friend()" class="fa fa-window-close"
+                            style="cursor: pointer; float: right; font-size: 25px; color: #f8f8f8;"
+                            aria-hidden="true"></i>
+                        <br />
+                        <!-- <img src="./img/pp.png"
+                            style="position: relative; margin-bottom: 20px; height: 150px; width: 150px; left: 120px; border: 1.5px solid #000;"
+                            class="AvatarFriend rounded-circle" /> -->
+                        <div style="position:relative; height: 150px;width: 150px; left: calc(50% - 20%);">
+                            <div
+                                style="position:absolute; height: 100%; width:100%; display: flex; align-items: center; justify-content: center;">
+                                <img class="AvatarFriend rounded-circle"
+                                    style="height: 100%; width:100%; object-fit: cover;" src="./img/pp.png" />
+                            </div>
+                        </div>
+                        <p class="Name_Friend"
+                            style="text-align: center; margin-bottom: 50px; font-size: 25px; color: #f8f8f8; font-weight: 500;">
+                            Hoang Le</p>
+
+                        <p class="Date_Friend" style="  margin-left: 15px; color: blanchedalmond;">
+                            Date: <span style="position: relative;left: 80px;">23/07/2001</span>
+                        </p>
+                        <p class="Gender_Friend" style=" margin-left: 15px; color: blanchedalmond;">
+                            Gender: <span style="position: relative;left: 80px;">Nam</span>
+                        </p>
+                        <p class="Phone_Friend" style=" margin-left: 15px; color: blanchedalmond;">
+                            Phone: <span style="position: relative;left: 80px;">0862982787</span>
+                        </p>
+                        <p class="Email_Friend" style=" margin-left: 15px; color: blanchedalmond;">
+                            Email: <span style="position: relative;left: 80px;">lehoang26022000@gmail.com</span>
+                        </p>
+                        <p class="Status_Friend" style=" margin-left: 15px; color: blanchedalmond;">
+                            Status: <span style="position: relative;left: 80px;">Alone</span>
+                        </p>
+                        <p class="Education_Friend" style=" margin-left: 15px; color: blanchedalmond;">
+                            Education: <span style="position: relative;left: 80px;">Univercity</span>
+                        </p>
+                        <p class="Hometown_Friend" style=" margin-left: 15px; color: blanchedalmond;">
+                            Hometown: <span style="position: relative;left: 50px;">Kim Bang, Ha Nam</span>
+                        </p>
+                        <p class="Currentresidence_Friend" style=" margin-left: 15px; color: blanchedalmond;">
+                            Currentresidence: <span style="position: relative;left: 50px;">Cau Giay, Ha Noi</span>
+                        </p>
+                        <p class="Describe_Friend" style=" margin-left: 15px; color: blanchedalmond;">
+                            Describe more about yourself: <br />
+                            <Label class="Descript_Friend"
+                                style="text-align: center; margin-left: 5px; margin-right: 15px; color: aquamarine; font-style: italic;">
+                                Khong co gi ca Khong co gi ca
+                                Khong co gi ca Khong co gi ca
+                            </label>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-8 pl-0" id="side-2" style="position: relative">
+                <div id="chatPanel" class="card" style="display:none;">
+
+                </div>
+
+                <div class="emoji" style="z-index: 5;">
+                    <emoji-picker id="emoji" style="display: none;" class="dark"></emoji-picker>
+                </div>
+
+                <div id="divStart" class="text-center">
+                    <i class="fas fa-comments mt-5" style="font-size:250px;"></i>
+                    <h2 class="mt-3">Select your friend from the list and start chating.</h2>
+                    <a href="#" onclick="showChatList()" class="d-md-none">New Chat</a>
+                    <button onclick="signOut()" class="btn btn-primary">Sign Out</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script src='./js/jquery-3.4.1.min.js'></script>
+    <script src='./js/popper-1.14.7.min.js'></script>
+    <script src='./js/bootstrap-4.3.1.min.js'></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase.js"></script>
+    <script src="./js/firebase-messaging.js"></script>
+    <script src='./script/firebase.init.js'></script>
+    <script src='./script/chat.js'></script>
+    <script src='./script/login.js'></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+</body>
+
+</html>

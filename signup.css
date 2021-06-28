@@ -1,0 +1,299 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Segoe UI', Helvetica Nenu, Helvetica, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-image: linear-gradient(180deg, #dddbd1, #d2dbdc);
+}
+
+
+ .signup{
+    background-image: linear-gradient(to bottom right, rgba(7, 223, 72, 0.9) , rgba(37, 37, 197, 0.9));
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signupForm{
+    background-color: #fff;
+    width: 350px;
+    height: 600px;
+    border-radius: 40px;
+	background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 17px #333;
+    z-index: 5;
+}
+
+.signupForm .header{
+    text-align: center;
+    
+}
+
+.signupForm .header h3{
+    font-weight: 700;
+    color:rgb(73, 8, 253);
+    font-size: 30px;
+}
+
+.signupForm .header p{
+    font-style: italic;
+    opacity: 0.8;
+    font-size: 15px;
+}
+
+.aniShowSignupForm{
+    animation: opacityShow 5s ease;
+    z-index: 6;
+}
+@keyframes opacityShow{
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+        
+    }
+}
+
+.aniHideSignupForm{
+    animation: opacityHHide 5s ease;
+    z-index: 5;
+}
+@keyframes opacityHide{
+    from {
+        opacity: 1;
+    } to {
+        opacity: 0;
+        
+    }
+}
+
+
+.usernameSignup{
+    position: relative;
+    left: 10%;
+    width: 80%;
+    height: 50px;
+    background-color: #333;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.InputUsernameSignup{
+    width : 100%;
+    height : 100%;
+    color: #000000;
+    padding-top: 20px;
+    border: none;
+    border-bottom: 2px solid black;
+    outline: none;
+}
+.LabelUsernameSignup{
+    font-size: 15px;
+    position: absolute;
+    bottom: -5px;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.content-usernameSignup{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+.usernameSignup .InputUsernameSignup:focus + .LabelUsernameSignup .content-usernameSignup, 
+.usernameSignup .InputUsernameSignup:valid + .LabelUsernameSignup .content-usernameSignup{
+    transform: translateY(-110%);
+    font-size: 15px;
+    color: #8d0b66;
+}
+
+.EmailSignup{
+    position: relative;
+    left: 10%;
+    width: 80%;
+    height: 50px;
+    background-color: #333;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.InputEmailSignup{
+    width : 100%;
+    height : 100%;
+    color: #000000;
+    padding-top: 20px;
+    border: none;
+    border-bottom: 2px solid black;
+    outline: none;
+}
+.LabelEmailSignup{
+    font-size: 15px;
+    position: absolute;
+    bottom: -5px;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.content-EmailSignup{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+.EmailSignup .InputEmailSignup:focus + .LabelEmailSignup .content-EmailSignup, 
+.EmailSignup .InputEmailSignup:valid + .LabelEmailSignup .content-EmailSignup{
+    transform: translateY(-110%);
+    font-size: 15px;
+    color: #8d0b66;
+}
+
+.PasswordSignup{
+    position: relative;
+    left: 10%;
+    width: 80%;
+    height: 50px;
+    background-color: #333;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.InputPasswordSignup{
+    width : 100%;
+    height : 100%;
+    color: #000000;
+    padding-top: 20px;
+    border: none;
+    border-bottom: 2px solid black;
+    outline: none;
+}
+.LabelPasswordSignup{
+    font-size: 15px;
+    position: absolute;
+    bottom: -5px;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.content-PasswordSignup{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+.PasswordSignup .InputPasswordSignup:focus + .LabelPasswordSignup .content-PasswordSignup, 
+.PasswordSignup .InputPasswordSignup:valid + .LabelPasswordSignup .content-PasswordSignup{
+    transform: translateY(-110%);
+    font-size: 15px;
+    color: #8d0b66;
+}
+
+.iconShowHideSignup{
+    position: relative;
+    
+}
+
+#eyeShowSignup{
+    cursor: pointer;
+    position: absolute;
+    top: calc(0% - 4px);
+    left: 5px;
+}
+
+#eyeHideSignup{
+    cursor: pointer;
+    position: absolute;
+    top: calc(0% - 4px);
+    left: 5px;
+}
+
+.ConfirmPasswordSignup{
+    position: relative;
+    left: 10%;
+    width: 80%;
+    height: 50px;
+    background-color: #333;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.InputConfirmPasswordSignup{
+    width : 100%;
+    height : 100%;
+    color: #000000;
+    padding-top: 20px;
+    border: none;
+    border-bottom: 2px solid black;
+    outline: none;
+}
+.LabelConfirmPasswordSignup{
+    font-size: 15px;
+    position: absolute;
+    bottom: -5px;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.content-ConfirmPasswordSignup{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+.ConfirmPasswordSignup .InputConfirmPasswordSignup:focus + .LabelConfirmPasswordSignup .content-ConfirmPasswordSignup, 
+.ConfirmPasswordSignup .InputConfirmPasswordSignup:valid + .LabelConfirmPasswordSignup .content-ConfirmPasswordSignup{
+    transform: translateY(-110%);
+    font-size: 15px;
+    color: #8d0b66;
+}
+.iconShowHideSignup{
+    position: relative;
+    
+}
+
+#eyeShowSignup{
+    cursor: pointer;
+    position: absolute;
+    top: calc(0% - 4px);
+    left: 5px;
+}
+
+#eyeHideSignup{
+    cursor: pointer;
+    position: absolute;
+    top: calc(0% - 4px);
+    left: 5px;
+}
+
+.buttonSignup{
+    text-align: center;
+    margin-top: 50px;
+    
+}
+
+.ButtonSignup1{
+    font-size: 20px;
+    font-weight:500;
+    
+   text-align: center; 
+   padding: 15px 80px;
+   border: none;
+   outline: none;
+   border-radius: 30px;
+   background-image: linear-gradient(to bottom right, rgba(7, 223, 72, 0.9) , rgba(37, 37, 197, 0.9));
+}
+
+.ButtonSignup1:hover{
+    color: #fff;
+}  
+
+
+
+

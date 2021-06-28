@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+html{
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-family: sans-serif;
+  justify-content: center;
+  background: url(/img/bg3.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+::selection {
+  color: #fff;
+  background: #6665ee;
+}
+
+body .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.container .form {
+  background-color: #fff;
+  width: 350px;
+  height: 600px;
+  
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 17px #333;
+}
+
+.container .form .form-group {
+  position: relative;
+  left: 10%;
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.container .form form .form-control {
+  height: 40px;
+  font-size: 15px;
+}
+
+.container .form form .forget-pass {
+  margin: -15px 0 15px 0;
+}
+
+.container .form form .forget-pass a {
+  font-size: 15px;
+}
+
+.container .form .button {
+  background: #6665ee;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.container .form .button:hover {
+  background: #5757d1;
+}
+
+.container .form form .link {
+  padding: 5px 0;
+}
+
+.container .form form .link a {
+  color: #6665ee;
+}
+
+.container .form .button{
+  margin-top: 20px;
+}
+
+.container .form .chooseImage{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  position: relative;
+}
+.container .form .chooseImage label{
+  margin-left: 40px;
+}
+.container .form .chooseImage .custom-file-upload{
+   border: 1px solid #ccc;
+   border-radius: 10px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    position: absolute;
+    top: 30px;
+
+}
+.container .form .chooseImage input[type="file"]{
+  display: none;
+}
+
+.container .login-form form p {
+  font-size: 14px;
+}
+
+.container .row .alert {
+  font-size: 14px;
+}
+
+
+/* ---------------------------------------------------- Success Resgister form                   */
+
+  
+#card {
+  position: relative;
+  width: 320px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+#upper-side {
+  padding: 2em;
+  background-color: #8BC34A;
+  display: block;
+  color: #fff;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+#checkmark {
+  font-weight: lighter;
+  fill: #fff;
+  margin: -3.5em auto auto 20px;
+}
+
+#status {
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1em;
+  margin-top: -.2em;
+  margin-bottom: 0;
+}
+
+#lower-side {
+  padding: 2em 2em 5em 2em;
+  background: #fff;
+  display: block;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+#message {
+  margin-top: -.5em;
+  color: #757575;
+  letter-spacing: 1px;
+}
+
+#contBtn {
+  position: relative;
+  top: 1.5em;
+  text-decoration: none;
+  background: #8bc34a;
+  color: #fff;
+  margin: auto;
+  padding: .8em 3em;
+  -webkit-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
+  -moz-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
+  box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
+  border-radius: 25px;
+  -webkit-transition: all .4s ease;
+        -moz-transition: all .4s ease;
+        -o-transition: all .4s ease;
+        transition: all .4s ease;
+}
+
+#contBtn:hover {
+  -webkit-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);
+  -moz-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);
+  box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);
+  -webkit-transition: all .4s ease;
+        -moz-transition: all .4s ease;
+        -o-transition: all .4s ease;
+        transition: all .4s ease;
+}
