@@ -174,6 +174,7 @@ function Save_Info_User() {
         });
     }
 
+    
     var lst = '';
     document.getElementById('lstUsers').innerHTML = lst;
 
@@ -535,13 +536,13 @@ function LoadChatMessages(chatKey, friendPhoto, friendName, friendKey) {
     
     <div class="row">
 
-        <div class="col-2 col-md-2" style="cursor:pointer;">
+        <div class="col-1 col-md-1" style="cursor:pointer;">
             <i class="far fa-grin fa-2x iconScaleWhenHover" onclick="showEmojiPanel()"></i>
         </div>
-        <div class="col-8 col-md-8">
+        <div class="col-10 col-md-10">
             <input id="txtMessage" onfocus="hideEmojiPanel()" onkeyup="ChangeSendIcon(this)" type="text" placeholder="Type here" class="form-control form-rounded"/>
         </div>
-        <div class="col-2 col-md-2" style="margin-right: 0px;">
+        <div class="col-1 col-md-1" style="margin-right: 0px;">
             <i style="cursor:pointer;" id="audio" onclick="record(this)" class="fas fa-microphone fa-2x iconScaleWhenHover"></i>
             <i id="send" class="fa fa-paper-plane fa-2x iconScaleWhenHover" style="display:none;" 
             onclick="SendMessage('${friendKey}')"
@@ -1864,7 +1865,9 @@ function SendImageGroup(event, groupKey) {
                 msg: reader.result,
                 msgType: 'image',
                 dateTime: new Date().toLocaleString(),
-                messageId: ''
+                messageId: '',
+                titleReplyGroup: '',
+                msgReplyGroup: ''
             };
 
             // console.log(ObjectMessageLast);
@@ -1905,7 +1908,9 @@ function SendFileGroup(event, groupKey) {
                 msg: file.name,
                 msgType: 'file',
                 dataUrl: e.target.result,
-                dateTime: new Date().toLocaleString()
+                dateTime: new Date().toLocaleString(),
+                titleReplyGroup: '',
+                msgReplyGroup: ''
             };
 
             var messageKey1 = firebase.database().ref('GroupChatMessages').child(groupKey).push(chatMessage, function (error) {
